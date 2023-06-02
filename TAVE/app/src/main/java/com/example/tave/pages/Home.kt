@@ -81,7 +81,7 @@ fun topTitle(name: String) {
                 modifier = Modifier.size(44.dp,44.dp).padding(start = 6.dp, top = 6.dp),
                 shape = MaterialTheme.shapes.extraSmall,
             ) {
-                
+
             }
         }
     }
@@ -90,13 +90,15 @@ fun topTitle(name: String) {
 @Composable
 fun topTitleCard(text: String) {
     Card(
-        shape = MaterialTheme.shapes.small,
+        modifier = Modifier.size(49.dp, 25.dp),
+        shape = MaterialTheme.shapes.large,
         elevation = CardDefaults.cardElevation(10.dp)
     ) {
         Text(
             text = text,
             textAlign = TextAlign.Center,
-            fontSize = 9.sp,
+            fontSize = 12.sp,
+            fontWeight = FontWeight.W600,
             modifier = Modifier.padding(5.dp).size(35.dp, 15.dp)
         )
     }
@@ -117,6 +119,12 @@ fun buttons(
 ){
     ElevatedButton(
         modifier = Modifier.size(width, height),
+        contentPadding = PaddingValues(
+            start = 10.dp,
+            top = 12.dp,
+            end = 20.dp,
+            bottom = 12.dp
+        ),
         shape = MaterialTheme.shapes.large,
         elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
         colors = color,
@@ -167,7 +175,7 @@ fun homeButtons() {
                 subTitle = "출석 인증하기",
                 fontSize = 30.sp
             )
-            Spacer(modifier = Modifier.size(10.dp))
+            Spacer(modifier = Modifier.size(12.dp))
             Column {
                 buttons(
                     width = 180.dp,

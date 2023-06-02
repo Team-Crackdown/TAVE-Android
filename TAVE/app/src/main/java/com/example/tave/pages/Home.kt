@@ -19,6 +19,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.graphics.toColorInt
@@ -28,8 +29,18 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 @Composable
 fun homePage(name: String, context: Context, navController: NavController) {
-    Column() {
+    Column(
+        modifier = Modifier.padding(20.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.Start,
+    ) {
         topTitle("김테비")
+        Row() {
+            topTitleCard(text = "11기")
+            topTitleCard(text = "YB")
+        }
+        Spacer(modifier = Modifier.height(33.dp))
+        homeButtons()
 //        Row() {
 //            Button(
 //                onClick = {}
@@ -44,9 +55,7 @@ fun homePage(name: String, context: Context, navController: NavController) {
 @Composable
 fun topTitle(name: String) {
     Row {
-        Column(
-            modifier = Modifier.padding(20.dp)
-        ) {
+        Column() {
             Text(
                 text = "${name}님", fontFamily = FontFamily.Monospace,
                 textAlign = TextAlign.Left,
@@ -59,35 +68,98 @@ fun topTitle(name: String) {
                 fontSize = 18.sp,
             )
             Spacer(modifier = Modifier.size(10.dp))
-            //11기 OB Box 넣기
-            Row() {
-                topTitleCard(text = "11기")
-                topTitleCard(text = "YB")
-//                Button(onClick = {}) {
-//                    Text(text = stringResource(R.string.app_name))
-//                }
-//                FloatingActionButton(onClick = {}) {
-//                    Icon(imageVector = Icons.Default.Add, contentDescription = null)
-//                }
-            }
-
         }
         //Image 프로필 넣기
     }
 }
 
 @Composable
-fun topTitleCard(text: String){
+fun topTitleCard(text: String) {
     Card(
         shape = MaterialTheme.shapes.small,
         elevation = CardDefaults.cardElevation(10.dp)
-    ){
+    ) {
         Text(
             text = text,
             textAlign = TextAlign.Center,
             fontSize = 9.sp,
-            modifier = Modifier.padding(6.dp).size(35.dp, 15.dp)
+            modifier = Modifier.padding(5.dp).size(35.dp, 15.dp)
         )
     }
     Spacer(modifier = Modifier.size(10.dp))
+}
+
+@Composable
+fun buttons(width: Dp, height: Dp, onClicked: () -> Unit){
+    ElevatedButton(
+        modifier = Modifier.size(width, height),
+        shape = MaterialTheme.shapes.large,
+        elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
+        colors = ButtonDefaults.buttonColors(), // Uses the right colors defined in the theme, no need to specify here
+        onClick = onClicked
+    ) {
+
+    }
+}
+@Composable
+fun homeButtons() {
+    Column {
+        Row() {
+            buttons(width = 146.dp, height = 280.dp, onClicked = {})
+            Spacer(modifier = Modifier.size(10.dp))
+            Column {
+                ElevatedButton(
+                    modifier = Modifier.size(180.dp, 130.dp),
+                    elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
+                    shape = MaterialTheme.shapes.large,
+                    colors = ButtonDefaults.elevatedButtonColors(), // Uses the right colors defined in the theme, no need to specify here
+                    onClick = { }
+                ) {
+
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+                ElevatedButton(
+                    modifier = Modifier.size(180.dp, 130.dp),
+                    elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
+                    shape = MaterialTheme.shapes.large,
+                    colors = ButtonDefaults.elevatedButtonColors(), // Uses the right colors defined in the theme, no need to specify here
+                    onClick = { }
+                ) {
+
+                }
+            }
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        Row {
+            ElevatedButton(
+                modifier = Modifier.size(109.dp, 102.dp),
+                elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
+                shape = MaterialTheme.shapes.large,
+                colors = ButtonDefaults.elevatedButtonColors(), // Uses the right colors defined in the theme, no need to specify here
+                onClick = { }
+            ) {
+
+            }
+            Spacer(modifier = Modifier.size(12.dp))
+            ElevatedButton(
+                modifier = Modifier.size(215.dp, 102.dp),
+                elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
+                shape = MaterialTheme.shapes.large,
+                colors = ButtonDefaults.elevatedButtonColors(), // Uses the right colors defined in the theme, no need to specify here
+                onClick = { }
+            ) {
+
+            }
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        ElevatedButton(
+            modifier = Modifier.size(336.dp, 130.dp),
+            elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
+            shape = MaterialTheme.shapes.large,
+            colors = ButtonDefaults.buttonColors(), // Uses the right colors defined in the theme, no need to specify here
+            onClick = { }
+        ) {
+
+        }
+    }
 }

@@ -36,6 +36,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 val shapes = Shapes(
+    extraSmall = RoundedCornerShape(50.dp),
     small = RoundedCornerShape(24.dp),
     medium = RoundedCornerShape(16.dp),
     large = RoundedCornerShape(8.dp)

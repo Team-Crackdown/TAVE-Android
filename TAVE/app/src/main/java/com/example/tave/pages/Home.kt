@@ -12,9 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -62,14 +64,16 @@ fun topTitle(name: String) {
         }
         //Image 프로필 넣기
         Card(
-            modifier = Modifier.size(50.dp,50.dp),
+            modifier = Modifier.size(50.dp, 50.dp),
             shape = MaterialTheme.shapes.extraSmall,
             colors = CardDefaults.cardColors(Color.White),
             elevation = CardDefaults.cardElevation(10.dp)
         ) {
             //Image 넣기!!! (여기가 Glide ? )
             Card(
-                modifier = Modifier.size(44.dp,44.dp).padding(start = 6.dp, top = 6.dp),
+                modifier = Modifier
+                    .size(44.dp, 44.dp)
+                    .padding(start = 6.dp, top = 6.dp),
                 shape = MaterialTheme.shapes.extraSmall,
             ) {
 
@@ -90,10 +94,94 @@ fun topTitleCard(text: String) {
             textAlign = TextAlign.Center,
             fontSize = 12.sp,
             fontWeight = FontWeight.W600,
-            modifier = Modifier.padding(5.dp).size(35.dp, 15.dp)
+            modifier = Modifier
+                .padding(5.dp)
+                .size(35.dp, 15.dp)
         )
     }
     Spacer(modifier = Modifier.size(10.dp))
+}
+
+@Composable
+fun homeButtons() {
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Row() {
+            buttons(
+                width = 146.dp,
+                height = 280.dp,
+                onClicked = {},
+                color = ButtonDefaults.buttonColors(),
+                painter = painterResource(R.drawable.check),
+                description = "check",
+                title = "출석",
+                subTitle = "출석 인증하기",
+                fontSize = 30.sp
+            )
+            Spacer(modifier = Modifier.size(12.dp))
+            Column {
+                cards(
+                    modifier = Modifier
+                        .width(180.dp)
+                        .height(130.dp),
+                    painter = painterResource(R.drawable.score),
+                    description = "personalScore",
+                    textTitle = "개인 활동 점수",
+                    textContent = "126점"
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                cards(
+                    modifier = Modifier
+                        .width(180.dp)
+                        .height(130.dp),
+                    painter = painterResource(R.drawable.score),
+                    description = "teamScore",
+                    textTitle = "팀 활동 점수",
+                    textContent = "80점"
+                )
+            }
+        }
+    }
+    Spacer(modifier = Modifier.height(20.dp))
+    Row {
+        buttons(
+            width = 109.dp,
+            height = 102.dp,
+            onClicked = {},
+            color = ButtonDefaults.elevatedButtonColors(),
+            painter = painterResource(R.drawable.profile),
+            description = "profile",
+            title = "프로필",
+            subTitle = "",
+            fontSize = 15.sp
+        )
+        Spacer(modifier = Modifier.size(12.dp))
+        buttons(
+            width = 215.dp,
+            height = 102.dp,
+            onClicked = {},
+            color = ButtonDefaults.elevatedButtonColors(),
+            painter = painterResource(R.drawable.team),
+            description = "team",
+            title = "팀",
+            subTitle = "",
+            fontSize = 15.sp
+        )
+    }
+    Spacer(modifier = Modifier.height(20.dp))
+    buttons(
+        width = 336.dp,
+        height = 130.dp,
+        onClicked = {},
+        color = ButtonDefaults.buttonColors(),
+        painter = painterResource(R.drawable.notice),
+        description = "notice",
+        title = "공지사항",
+        subTitle = "공지 확인하기",
+        fontSize = 30.sp
+    )
 }
 
 @Composable
@@ -107,7 +195,7 @@ fun buttons(
     title: String,
     subTitle: String,
     fontSize: TextUnit,
-){
+) {
     ElevatedButton(
         modifier = Modifier.size(width, height),
         contentPadding = PaddingValues(
@@ -140,7 +228,7 @@ fun buttons(
                 )
                 Text(
                     text = subTitle,
-                    fontSize = if(subTitle == "") 0.sp else 15.sp,
+                    fontSize = if (subTitle == "") 0.sp else 15.sp,
                     fontWeight = FontWeight.W600,
                 )
             }
@@ -149,87 +237,48 @@ fun buttons(
 }
 
 @Composable
-fun homeButtons() {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+fun cards(
+    modifier: Modifier,
+    painter: Painter,
+    description: String,
+    textTitle: String,
+    textContent: String,
+) {
+    Card(
+        modifier = modifier,
+        shape = MaterialTheme.shapes.large,
+        colors = CardDefaults.cardColors(Color.White),
+        elevation = CardDefaults.cardElevation(5.dp),
     ) {
-        Row() {
-            buttons(
-                width = 146.dp,
-                height = 280.dp,
-                onClicked = {},
-                color = ButtonDefaults.buttonColors(),
-                painter = painterResource(R.drawable.check),
-                description = "check",
-                title = "출석",
-                subTitle = "출석 인증하기",
-                fontSize = 30.sp
-            )
-            Spacer(modifier = Modifier.size(12.dp))
-            Column {
-                buttons(
-                    width = 180.dp,
-                    height = 130.dp,
-                    onClicked = {},
-                    color = ButtonDefaults.elevatedButtonColors(),
-                    painter = painterResource(R.drawable.calendar),
-                    description = "calendar",
-                    title = "일정",
-                    subTitle = "일정 확인하기",
-                    fontSize = 20.sp,
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                buttons(
-                    width = 180.dp,
-                    height = 130.dp,
-                    onClicked = {},
-                    color = ButtonDefaults.elevatedButtonColors(),
-                    painter = painterResource(R.drawable.score),
-                    description = "score",
-                    title = "점수",
-                    subTitle = "활동 점수 확인하기",
-                    fontSize = 25.sp
+        Column(
+            modifier = Modifier.padding(10.dp)
+        ) {
+            Row {
+                Icon(painter, description)
+                Spacer(modifier = Modifier.width(8.dp))
+                Text(
+                    text = textTitle,
+                    style = TextStyle(
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.W600
+                    ),
                 )
             }
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        Row {
-            buttons(
-                width = 109.dp,
-                height = 102.dp,
-                onClicked = {},
-                color = ButtonDefaults.elevatedButtonColors(),
-                painter = painterResource(R.drawable.profile),
-                description = "profile",
-                title = "프로필",
-                subTitle = "",
-                fontSize = 15.sp
-            )
-            Spacer(modifier = Modifier.size(12.dp))
-            buttons(
-                width = 215.dp,
-                height = 102.dp,
-                onClicked = {},
-                color = ButtonDefaults.elevatedButtonColors(),
-                painter = painterResource(R.drawable.team),
-                description = "team",
-                title = "팀",
-                subTitle = "",
-                fontSize = 15.sp
+            Spacer(modifier = Modifier.height(10.dp))
+            Text(
+                text = textContent,
+                style = TextStyle(
+                    fontSize = 30.sp,
+                    fontWeight = FontWeight.W600
+                ),
             )
         }
-        Spacer(modifier = Modifier.height(20.dp))
-        buttons(
-            width = 336.dp,
-            height = 130.dp,
-            onClicked = {},
-            color = ButtonDefaults.buttonColors(),
-            painter = painterResource(R.drawable.notice),
-            description = "notice",
-            title = "공지사항",
-            subTitle = "공지 확인하기",
-            fontSize = 30.sp
-        )
+
     }
+}
+
+@Composable
+@Preview
+fun preview() {
+    homeButtons()
 }

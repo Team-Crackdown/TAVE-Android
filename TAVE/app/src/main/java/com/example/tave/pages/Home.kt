@@ -33,12 +33,12 @@ fun homePage(name: String, context: Context, navController: NavController) {
         horizontalAlignment = Alignment.Start,
     ) {
         topTitle("김테비")
-        Row() {
+        Row {
             topTitleCard(text = "11기")
             topTitleCard(text = "YB")
         }
         Spacer(modifier = Modifier.height(33.dp))
-        homeButtons()
+        homeButtons(navController)
     }
 }
 
@@ -48,7 +48,7 @@ fun topTitle(name: String) {
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth(),
     ) {
-        Column() {
+        Column {
             Text(
                 text = "${name}님", fontFamily = FontFamily.Monospace,
                 textAlign = TextAlign.Left,
@@ -86,12 +86,12 @@ fun topTitleCard(text: String) {
 }
 
 @Composable
-fun homeButtons() {
+fun homeButtons(navController: NavController) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Row() {
+        Row {
             buttons(
                 width = 146.dp,
                 height = 280.dp,
@@ -132,7 +132,9 @@ fun homeButtons() {
         buttons(
             width = 109.dp,
             height = 102.dp,
-            onClicked = {},
+            onClicked = {
+                navController.navigate("profile")
+            },
             color = ButtonDefaults.elevatedButtonColors(),
             painter = painterResource(R.drawable.profile),
             description = "profile",
@@ -261,17 +263,5 @@ fun cards(
 @Composable
 @Preview
 fun preview() {
-    Column(
-        modifier = Modifier.padding(30.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.Start,
-    ) {
-        topTitle("김테비")
-        Row() {
-            topTitleCard(text = "11기")
-            topTitleCard(text = "YB")
-        }
-        Spacer(modifier = Modifier.height(33.dp))
-        homeButtons()
-    }
+
 }

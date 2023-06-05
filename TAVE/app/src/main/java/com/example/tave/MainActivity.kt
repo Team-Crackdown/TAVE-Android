@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.tave.pages.homePage
 import com.example.tave.pages.loginPage
+import com.example.tave.pages.profilePage
 import com.example.tave.ui.theme.TAVETheme
 
 class MainActivity : ComponentActivity() {
@@ -32,6 +33,9 @@ class MainActivity : ComponentActivity() {
                     }
                     composable("home"){
                         homePage("김테비",applicationContext, navController)
+                    }
+                    composable("profile"){
+                        profilePage(applicationContext, navController)
                     }
                 }
             }

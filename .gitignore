@@ -31,3 +31,9 @@ google-services.json
 
 # Android Profiling
 *.hprof
+/TAVE/caches/
+/TAVE/daemon/
+/TAVE/wrapper/
+/TAVE/native/
+*.class
+*.jar

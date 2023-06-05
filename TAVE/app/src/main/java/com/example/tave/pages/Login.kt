@@ -1,14 +1,10 @@
 package com.example.tave.pages
 
 import android.content.Context
-import android.graphics.drawable.shapes.Shape
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
@@ -25,12 +21,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.NavDestinationDsl
-import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.launch
 
 @Composable
-fun loginPage(context: Context, navController: NavController) {
+fun LoginPage(context: Context, navController: NavController) {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
             modifier = Modifier.fillMaxWidth().padding(20.dp),
@@ -46,15 +39,14 @@ fun loginPage(context: Context, navController: NavController) {
                 color = Color.Blue,
                 modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp)
             )
-            loginBox(context, navController)
+            LoginBox(context, navController)
         }
     }
 }
 
 
 @Composable
-fun loginBox(context: Context, navController: NavController) {
-
+fun LoginBox(context: Context, navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -72,6 +64,7 @@ fun loginBox(context: Context, navController: NavController) {
             },
             modifier = Modifier.padding(bottom = 10.dp, top = 10.dp).width(300.dp)
         )
+
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
@@ -83,6 +76,7 @@ fun loginBox(context: Context, navController: NavController) {
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
+
         OutlinedButton(
             onClick = {
                 if (email == "luna" && password == "1234") {
@@ -101,6 +95,7 @@ fun loginBox(context: Context, navController: NavController) {
                 textAlign = TextAlign.Center
             )
         }
+
     }
 }
 

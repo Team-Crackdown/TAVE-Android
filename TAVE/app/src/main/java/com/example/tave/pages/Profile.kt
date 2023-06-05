@@ -35,7 +35,7 @@ fun profileImage() {
     Box(
         modifier = Modifier.fillMaxWidth().height(300.dp)
     ){
-        
+
     }
 }
 

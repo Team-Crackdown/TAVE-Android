@@ -3,18 +3,11 @@ package com.example.tave
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.tave.pages.homePage
-import com.example.tave.pages.loginPage
+import com.example.tave.pages.HomePage
+import com.example.tave.pages.LoginPage
 import com.example.tave.pages.profilePage
 import com.example.tave.ui.theme.TAVETheme
 
@@ -29,10 +22,10 @@ class MainActivity : ComponentActivity() {
                     startDestination = "home"
                 ) {
                     composable("login") {
-                        loginPage(applicationContext, navController)
+                        LoginPage(applicationContext, navController)
                     }
                     composable("home"){
-                        homePage("김테비",applicationContext, navController)
+                        HomePage("김테비", "11기", "OB", applicationContext, navController)
                     }
                     composable("profile"){
                         profilePage(applicationContext, navController)
@@ -41,17 +34,5 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-}
 
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    TAVETheme {
-        Greeting("Android")
-    }
 }

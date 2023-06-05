@@ -37,7 +37,7 @@ fun HomeStatusCards(
                     text = textTitle,
                     style = TextStyle(
                         fontSize = 15.sp,
-                        fontWeight = FontWeight.W600
+                        fontWeight = FontWeight.SemiBold
                     ),
                 )
             }
@@ -46,7 +46,7 @@ fun HomeStatusCards(
                 text = textContent,
                 style = TextStyle(
                     fontSize = 30.sp,
-                    fontWeight = FontWeight.W600
+                    fontWeight = FontWeight.SemiBold
                 ),
             )
         }

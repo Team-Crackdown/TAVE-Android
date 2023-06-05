@@ -1,28 +1,17 @@
 package com.example.tave.pages
 
 import android.content.Context
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.tave.R
-import com.example.tave.items.MainMenuButton
-import com.example.tave.items.UserBadge
-import com.example.tave.items.WelcomeTitleTxt
+import com.example.tave.items.*
 
 @Composable
 fun HomePage(
@@ -40,10 +29,11 @@ fun HomePage(
         TopTitle(name)
         Row {
             UserBadge(radix)
+            Spacer(modifier = Modifier.width(10.dp))
             UserBadge(generation)
         }
         Spacer(modifier = Modifier.height(33.dp))
-        HomeMenu()
+        HomeButtons(navController)
     }
 }
 
@@ -61,33 +51,13 @@ fun TopTitle(name: String) {
 }
 
 @Composable
-fun topTitleCard(text: String) {
-    Card(
-        modifier = Modifier.size(49.dp, 25.dp),
-        shape = MaterialTheme.shapes.large,
-        elevation = CardDefaults.cardElevation(10.dp)
-    ) {
-        Text(
-            text = text,
-            textAlign = TextAlign.Center,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.W600,
-            modifier = Modifier
-                .padding(5.dp)
-                .size(35.dp, 15.dp)
-        )
-    }
-    Spacer(modifier = Modifier.size(10.dp))
-}
-
-@Composable
-fun homeButtons(navController: NavController) {
+fun HomeButtons(navController: NavController) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row {
-            buttons(
+            MainMenuButton(
                 width = 146.dp,
                 height = 280.dp,
                 onClicked = {},
@@ -100,22 +70,20 @@ fun homeButtons(navController: NavController) {
             )
             Spacer(modifier = Modifier.size(12.dp))
             Column {
-                cards(
-                    modifier = Modifier
-                        .width(180.dp)
-                        .height(130.dp),
+                HomeStatusCards(
+                    width = 180.dp,
+                    height = 130.dp,
                     painter = painterResource(R.drawable.score),
-                    description = "personalScore",
+                    description = "개인 활동 점수 카드",
                     textTitle = "개인 활동 점수",
                     textContent = "126점"
                 )
                 Spacer(modifier = Modifier.height(20.dp))
-                cards(
-                    modifier = Modifier
-                        .width(180.dp)
-                        .height(130.dp),
+                HomeStatusCards(
+                    width = 180.dp,
+                    height = 130.dp,
                     painter = painterResource(R.drawable.score),
-                    description = "teamScore",
+                    description = "팀 활동 점수 카드",
                     textTitle = "팀 활동 점수",
                     textContent = "80점"
                 )
@@ -124,7 +92,7 @@ fun homeButtons(navController: NavController) {
     }
     Spacer(modifier = Modifier.height(20.dp))
     Row {
-        buttons(
+        MainMenuButton(
             width = 109.dp,
             height = 102.dp,
             onClicked = {
@@ -138,10 +106,9 @@ fun homeButtons(navController: NavController) {
             fontSize = 15.sp
         )
         Spacer(modifier = Modifier.size(12.dp))
-        cards(
-            modifier = Modifier
-                .width(215.dp)
-                .height(102.dp),
+        HomeStatusCards(
+            width = 215.dp,
+            height = 102.dp,
             painter = painterResource(R.drawable.calendar),
             description = "team",
             textTitle = "후반기 만남의 장까지",
@@ -149,7 +116,7 @@ fun homeButtons(navController: NavController) {
         )
     }
     Spacer(modifier = Modifier.height(20.dp))
-    buttons(
+    MainMenuButton(
         width = 336.dp,
         height = 130.dp,
         onClicked = {},
@@ -160,206 +127,4 @@ fun homeButtons(navController: NavController) {
         subTitle = "공지 확인하기",
         fontSize = 30.sp
     )
-}
-
-@Composable
-fun buttons(
-    width: Dp,
-    height: Dp,
-    onClicked: () -> Unit,
-    color: ButtonColors,
-    painter: Painter,
-    description: String,
-    title: String,
-    subTitle: String,
-    fontSize: TextUnit,
-) {
-    ElevatedButton(
-        modifier = Modifier.size(width, height),
-        contentPadding = PaddingValues(
-            start = 10.dp,
-            top = 12.dp,
-            end = 20.dp,
-            bottom = 12.dp
-        ),
-        shape = MaterialTheme.shapes.large,
-        elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
-        colors = color,
-        onClick = onClicked
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.Start,
-        ) {
-            Image(
-                painter = painter,
-                contentDescription = description,
-            )
-            Column(
-                horizontalAlignment = Alignment.Start,
-            ) {
-                Text(
-                    text = title,
-                    fontSize = fontSize,
-                    fontWeight = FontWeight.W600,
-                )
-                Text(
-                    text = subTitle,
-                    fontSize = if (subTitle == "") 0.sp else 15.sp,
-                    fontWeight = FontWeight.W600,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun cards(
-    modifier: Modifier,
-    painter: Painter,
-    description: String,
-    textTitle: String,
-    textContent: String,
-) {
-    Card(
-        modifier = modifier,
-        shape = MaterialTheme.shapes.large,
-        colors = CardDefaults.cardColors(Color.White),
-        elevation = CardDefaults.cardElevation(5.dp),
-    ) {
-        Column(
-            modifier = Modifier.padding(10.dp)
-        ) {
-            Row {
-                Icon(painter, description)
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = textTitle,
-                    style = TextStyle(
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.W600
-                    ),
-                )
-            }
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(
-                text = textContent,
-                style = TextStyle(
-                    fontSize = 30.sp,
-                    fontWeight = FontWeight.W600
-                ),
-            )
-        }
-
-    }
-}
-
-fun HomeMenu() {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Row {
-            MainMenuButton(
-                width = 146.dp,
-                height = 280.dp,
-                onClicked = {},
-                color = ButtonDefaults.buttonColors(),
-                painter = painterResource(R.drawable.check),
-                description = "check",
-                title = "출석",
-                subTitle = "출석 인증하기",
-                fontSize = 30.sp
-            )
-            Spacer(modifier = Modifier.size(12.dp))
-            Column {
-                MainMenuButton(
-                    width = 180.dp,
-                    height = 130.dp,
-                    onClicked = {},
-                    color = ButtonDefaults.elevatedButtonColors(),
-                    painter = painterResource(R.drawable.calendar),
-                    description = "calendar",
-                    title = "일정",
-                    subTitle = "일정 확인하기",
-                    fontSize = 20.sp,
-                )
-                Spacer(modifier = Modifier.height(20.dp))
-                MainMenuButton(
-                    width = 180.dp,
-                    height = 130.dp,
-                    onClicked = {},
-                    color = ButtonDefaults.elevatedButtonColors(),
-                    painter = painterResource(R.drawable.score),
-                    description = "score",
-                    title = "점수",
-                    subTitle = "활동 점수 확인하기",
-                    fontSize = 25.sp
-                )
-            }
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        Row {
-            MainMenuButton(
-                width = 109.dp,
-                height = 102.dp,
-                onClicked = {},
-                color = ButtonDefaults.elevatedButtonColors(),
-                painter = painterResource(R.drawable.profile),
-                description = "profile",
-                title = "프로필",
-                subTitle = "",
-                fontSize = 15.sp
-            )
-            Spacer(modifier = Modifier.size(12.dp))
-            MainMenuButton(
-                width = 215.dp,
-                height = 102.dp,
-                onClicked = {},
-                color = ButtonDefaults.elevatedButtonColors(),
-                painter = painterResource(R.drawable.team),
-                description = "team",
-                title = "팀",
-                subTitle = "",
-                fontSize = 15.sp
-            )
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        MainMenuButton(
-            width = 336.dp,
-            height = 130.dp,
-            onClicked = {},
-            color = ButtonDefaults.buttonColors(),
-            painter = painterResource(R.drawable.notice),
-            description = "notice",
-            title = "공지사항",
-            subTitle = "공지 확인하기",
-            fontSize = 30.sp
-        )
-    }
-}
-
-/*** HomePage Preview Stub (For Preview) ***/
-@Composable
-fun HomePageMock() {
-    Column(
-        modifier = Modifier.padding(30.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.Start,
-    ) {
-        TopTitle("김테비")
-        Row {
-            UserBadge(text = "11기")
-            UserBadge(text = "YB")
-        }
-        Spacer(modifier = Modifier.height(33.dp))
-        HomeMenu()
-    }
-}
-
-@Preview
-@Composable
-fun PreviewHomePage() {
-    HomePageMock()
 }

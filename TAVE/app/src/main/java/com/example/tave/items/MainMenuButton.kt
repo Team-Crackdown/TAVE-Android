@@ -53,12 +53,12 @@ fun MainMenuButton(
                 Text(
                     text = title,
                     fontSize = fontSize,
-                    fontWeight = FontWeight.W600,
+                    fontWeight = FontWeight.SemiBold,
                 )
                 Text(
                     text = subTitle,
                     fontSize = if(subTitle == "") 0.sp else 15.sp,
-                    fontWeight = FontWeight.W600,
+                    fontWeight = FontWeight.SemiBold,
                 )
             }
         }

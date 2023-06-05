@@ -2,13 +2,13 @@ package com.example.tave.items
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tave.ui.theme.Shape
@@ -25,16 +25,9 @@ fun UserBadge(text: String) {
             textAlign = TextAlign.Center,
             fontSize = 12.sp,
             fontWeight = FontWeight.SemiBold,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().padding(5.dp)
+                .size(35.dp, 15.dp)
         )
         Spacer(modifier = Modifier.size(10.dp))
     }
-}
-
-
-/** Preview UserBadge **/
-@Preview
-@Composable
-fun PreviewUserBadge() {
-    UserBadge("11기")
 }

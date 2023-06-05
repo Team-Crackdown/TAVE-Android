@@ -62,23 +62,6 @@ fun topTitle(name: String) {
             )
             Spacer(modifier = Modifier.size(10.dp))
         }
-        //Image 프로필 넣기
-        Card(
-            modifier = Modifier.size(50.dp, 50.dp),
-            shape = MaterialTheme.shapes.extraSmall,
-            colors = CardDefaults.cardColors(Color.White),
-            elevation = CardDefaults.cardElevation(10.dp)
-        ) {
-            //Image 넣기!!! (여기가 Glide ? )
-            Card(
-                modifier = Modifier
-                    .size(44.dp, 44.dp)
-                    .padding(start = 6.dp, top = 6.dp),
-                shape = MaterialTheme.shapes.extraSmall,
-            ) {
-
-            }
-        }
     }
 }
 
@@ -158,16 +141,14 @@ fun homeButtons() {
             fontSize = 15.sp
         )
         Spacer(modifier = Modifier.size(12.dp))
-        buttons(
-            width = 215.dp,
-            height = 102.dp,
-            onClicked = {},
-            color = ButtonDefaults.elevatedButtonColors(),
-            painter = painterResource(R.drawable.team),
+        cards(
+            modifier = Modifier
+                .width(215.dp)
+                .height(102.dp),
+            painter = painterResource(R.drawable.calendar),
             description = "team",
-            title = "팀",
-            subTitle = "",
-            fontSize = 15.sp
+            textTitle = "후반기 만남의 장까지",
+            textContent = "D-day"
         )
     }
     Spacer(modifier = Modifier.height(20.dp))
@@ -264,7 +245,7 @@ fun cards(
                     ),
                 )
             }
-            Spacer(modifier = Modifier.height(10.dp))
+            Spacer(modifier = Modifier.height(20.dp))
             Text(
                 text = textContent,
                 style = TextStyle(
@@ -280,5 +261,17 @@ fun cards(
 @Composable
 @Preview
 fun preview() {
-    homeButtons()
+    Column(
+        modifier = Modifier.padding(30.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.Start,
+    ) {
+        topTitle("김테비")
+        Row() {
+            topTitleCard(text = "11기")
+            topTitleCard(text = "YB")
+        }
+        Spacer(modifier = Modifier.height(33.dp))
+        homeButtons()
+    }
 }

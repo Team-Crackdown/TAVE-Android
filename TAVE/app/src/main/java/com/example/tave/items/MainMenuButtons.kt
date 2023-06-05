@@ -6,6 +6,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
@@ -14,10 +15,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun MainMenuButton(
-    width: Dp,
-    height: Dp,
+fun MainMenuButtons(
+    modifier: Modifier,
     onClicked: () -> Unit,
+    shapes: Shape,
     color: ButtonColors,
     painter: Painter,
     description: String,
@@ -26,14 +27,14 @@ fun MainMenuButton(
     fontSize: TextUnit
 ){
     ElevatedButton(
-        modifier = Modifier.size(width, height),
+        modifier = modifier,
         contentPadding = PaddingValues(
             start = 10.dp,
-            top = 12.dp,
+            top = 10.dp,
             end = 20.dp,
             bottom = 10.dp
         ),
-        shape = MaterialTheme.shapes.large,
+        shape = shapes,
         elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
         colors = color,
         onClick = onClicked

@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
                         LoginPage(applicationContext, navController)
                     }
                     composable("home"){
-                        HomePage("김테비", "11기", "OB", applicationContext, navController)
+                        HomePage("김테비", "11기", "OB", navController)
                     }
                     composable("profile"){
                         profilePage(applicationContext, navController)

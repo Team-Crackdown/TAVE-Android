@@ -41,14 +41,13 @@ fun profileImage() {
 @Composable
 fun uploadImageBtn() {
     ElevatedButton(
-        modifier = Modifier.size(60.dp, 60.dp),
+        modifier = Modifier.size(50.dp, 50.dp),
         elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
         colors = ButtonDefaults.buttonColors(),
         onClick = {}
     ) {
         Image(
-            modifier = Modifier.size(16.dp, 20.dp),
-            painter = painterResource(R.drawable.upload),
+            painter = painterResource(R.drawable.baseline_file_upload_24),
             contentDescription = "upload",
         )
     }

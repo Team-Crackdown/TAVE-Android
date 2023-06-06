@@ -17,6 +17,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.tave.items.ProfileContentTxtSizeLarge
+import com.example.tave.items.ProfileContentTxtSizeSmall
+import com.example.tave.items.UpdateFloatingBtn
+import com.example.tave.ui.theme.LightColorPalette
 
 @Composable
 fun profilePage(context: Context, navController: NavController) {
@@ -24,15 +28,21 @@ fun profilePage(context: Context, navController: NavController) {
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.Start
     ) {
+        Column{
+            Text("HI")
+
+        }
         uploadImageBtn()
-        updateBtn()
+        UpdateFloatingBtn(txt = "수정하기")
     }
 }
 
 @Composable
 fun profileImage() {
     Box(
-        modifier = Modifier.fillMaxWidth().height(300.dp)
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(300.dp)
     ){
 
     }
@@ -55,33 +65,39 @@ fun uploadImageBtn() {
 
 @Composable
 fun profileContent() {
-
-}
-
-@Composable
-fun updateBtn() {
-    ElevatedButton(
-        modifier = Modifier.size(100.dp, 40.dp),
-        shape = MaterialTheme.shapes.medium,
-        elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
-        colors = ButtonDefaults.buttonColors(Color.Blue),
-        onClick = {}
+    Column(
+        modifier = Modifier.padding(25.dp)
     ) {
-        Text(
-            text = "수정하기",
-            style = TextStyle(
-                color = Color.White,
-                fontSize = 10.sp,
-                fontWeight = FontWeight.W600
-            ),
-            textAlign = TextAlign.Center
-        )
+        Row{
+            ProfileContentTxtSizeLarge(txt = "기수", answer = "10기")
+            Spacer(modifier = Modifier.width(77.dp))
+            ProfileContentTxtSizeLarge(txt = "대학교", answer = "베를린 공과 대학")
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        Row{
+            ProfileContentTxtSizeLarge(txt = "이름", answer = "김테비")
+            Spacer(modifier = Modifier.width(77.dp))
+            ProfileContentTxtSizeSmall(txt = "이메일", answer = "KimTavy@Tavy.com")
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        Row{
+            ProfileContentTxtSizeSmall(txt = "전화", answer = "010-0000-0000")
+            Spacer(modifier = Modifier.width(77.dp))
+            ProfileContentTxtSizeSmall(txt = "분야", answer = "앱(Android)")
+        }
+        Spacer(modifier = Modifier.height(20.dp))
+        ProfileContentTxtSizeSmall(txt = "자기소개", answer = "안녕하세요. 베를린 공대에 다니고 있는 11기 김테비 입니다")
     }
+
 }
 
 
 @Composable
 @Preview
 fun preview1() {
-    uploadImageBtn()
+    Scaffold(
+        floatingActionButton = { UpdateFloatingBtn(txt = "수정하기") }
+    ) {
+        profileContent()
+    }
 }

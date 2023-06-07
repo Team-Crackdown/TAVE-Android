@@ -1,4 +1,4 @@
-package com.example.tave.items
+package com.example.tave.items.home
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize

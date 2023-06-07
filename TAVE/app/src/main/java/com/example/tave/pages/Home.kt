@@ -12,7 +12,10 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.tave.R
-import com.example.tave.items.*
+import com.example.tave.items.home.MainMenuButtons
+import com.example.tave.items.home.MainMenuCards
+import com.example.tave.items.home.UserBadge
+import com.example.tave.items.home.WelcomeTitleTxt
 import com.example.tave.ui.theme.LightColorPalette
 import com.example.tave.ui.theme.TAVETheme
 import com.example.tave.ui.theme.customShape

@@ -1,4 +1,4 @@
-package com.example.tave.items
+package com.example.tave.items.home
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text

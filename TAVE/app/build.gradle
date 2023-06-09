@@ -51,6 +51,7 @@ dependencies {
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.compose.material3:material3:1.2.0-alpha02'
+    implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 
     // Android Test Tools (JUnit, espresso, Compose UI Test Tool)
     testImplementation 'junit:junit:4.13.2'

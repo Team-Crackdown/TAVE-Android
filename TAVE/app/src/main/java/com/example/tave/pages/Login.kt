@@ -46,7 +46,7 @@ fun LoginPage(context: Context, navController: NavController) {
 
 
 @Composable
-fun LoginBox(context: Context, navController: NavController) {
+private fun LoginBox(context: Context, navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 

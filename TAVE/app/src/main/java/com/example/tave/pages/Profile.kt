@@ -8,14 +8,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.tave.items.profile.ProfileContentTxtSizeLarge
-import com.example.tave.items.profile.ProfileContentTxtSizeSmall
-import com.example.tave.items.profile.UpdateFloatingBtn
+import com.example.tave.items.profile.*
 
 @Composable
-fun profilePage() {
+fun ProfilePage() {
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.Start
@@ -24,39 +23,24 @@ fun profilePage() {
             Text("HI")
 
         }
-        uploadImageBtn()
+        UploadImageBtn()
         UpdateFloatingBtn(txt = "수정하기")
     }
 }
 
 @Composable
-fun profileImage() {
+fun ProfileImage() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(300.dp)
+            .height(300.dp),
     ){
-
+        Text("이미지")
     }
 }
 
 @Composable
-fun uploadImageBtn() {
-    ElevatedButton(
-        modifier = Modifier.size(50.dp, 50.dp),
-        elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
-        colors = ButtonDefaults.buttonColors(),
-        onClick = {}
-    ) {
-        Image(
-            painter = painterResource(R.drawable.baseline_file_upload_24),
-            contentDescription = "upload",
-        )
-    }
-}
-
-@Composable
-fun profileContent(
+fun ProfileContent(
     radix: String,
     university: String,
     name: String,
@@ -69,24 +53,24 @@ fun profileContent(
         modifier = Modifier.padding(25.dp)
     ) {
         Row{
-            ProfileContentTxtSizeLarge(txt = "기수", answer = radix)
-            Spacer(modifier = Modifier.width(77.dp))
-            ProfileContentTxtSizeLarge(txt = "대학교", answer = university)
+            ProfileContentTxtSizeLarge(txt = stringResource(id = R.string.radix), answer = radix)
+            Spacer(modifier = Modifier.width(16.dp))
+            ProfileContentTxtSizeLarge(txt = stringResource(id = R.string.university), answer = university)
         }
         Spacer(modifier = Modifier.height(20.dp))
         Row{
-            ProfileContentTxtSizeLarge(txt = "이름", answer = name)
-            Spacer(modifier = Modifier.width(77.dp))
-            ProfileContentTxtSizeSmall(txt = "이메일", answer = email)
+            ProfileContentTxtSizeLarge(txt = stringResource(id = R.string.name), answer = name)
+            Spacer(modifier = Modifier.width(16.dp))
+            ProfileContentTxtSizeSmall(txt = stringResource(id = R.string.email), answer = email)
         }
         Spacer(modifier = Modifier.height(20.dp))
         Row{
-            ProfileContentTxtSizeSmall(txt = "전화", answer = phoneNumber)
-            Spacer(modifier = Modifier.width(77.dp))
-            ProfileContentTxtSizeSmall(txt = "분야", answer = dept)
+            ProfileContentTxtSizeSmall(txt = stringResource(id = R.string.phoneNumber), answer = phoneNumber)
+            Spacer(modifier = Modifier.width(16.dp))
+            ProfileContentTxtSizeSmall(txt = stringResource(id = R.string.dept), answer = dept)
         }
         Spacer(modifier = Modifier.height(20.dp))
-        ProfileContentTxtSizeSmall(txt = "자기소개", answer = intro)
+        ProfileContentTxtSizeOnlyForIntro(txt = stringResource(id = R.string.intro), answer = intro)
     }
 
 }
@@ -95,13 +79,26 @@ fun profileContent(
 @Composable
 @Preview
 fun preview1() {
-    profileContent(
-        "11기",
-        "테이브 대학교",
-        "김테비",
-        "kimTavy@tave.com",
-        "010-0000-0000",
-        "앱(Android)",
-        "안녕하세요 \n저는 김테비입니다."
-    )
+    Scaffold(
+        floatingActionButton = {UpdateFloatingBtn(txt = "수정하기")}
+    ) {
+        Column() {
+            ProfileImage()
+            ProfileContent(
+                "11기",
+                "테이브 대학교",
+                "김테비",
+                "kimTavy@tave.com",
+                "010-0000-0000",
+                "앱(Android)",
+                "안녕하세요 \n저는 김테비입니다.djkfjdkjfakdjfkjad;fkj;akdfjakldjfladjflajdfjadsfk\n" +
+                        "저는 김테비입니다.\n" +
+                        "저는 김테비입니다.\n" +
+                        "저는 김테비입니다.\n" +
+                        "저는 김테비입니다."
+            )
+        }    
+    }
+    
+
 }

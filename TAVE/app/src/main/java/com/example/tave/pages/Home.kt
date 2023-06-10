@@ -3,22 +3,24 @@ package com.example.tave.pages
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.tave.R
-import com.example.tave.items.home.MainMenuButtons
-import com.example.tave.items.home.MainMenuCards
-import com.example.tave.items.home.UserBadge
-import com.example.tave.items.home.WelcomeTitleTxt
+import com.example.tave.items.home.*
 import com.example.tave.ui.theme.LightColorPalette
 import com.example.tave.ui.theme.TAVETheme
 import com.example.tave.ui.theme.customShape
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.coroutineScope
 
 @Composable
 fun HomePage(
@@ -66,6 +68,12 @@ fun TopTitle(name: String) {
 
 @Composable
 fun HomeMenu(navController: NavController) {
+
+    val showDialog = remember { mutableStateOf(false) }
+    if (showDialog.value) {
+        CheckQrcode(onDismiss = {showDialog.value = false})
+    }
+
     Column {
         Row {
             MainMenuButtons(
@@ -73,7 +81,7 @@ fun HomeMenu(navController: NavController) {
                     .width(146.dp)
                     .height(280.dp),
                 shapes = MaterialTheme.shapes.large,
-                onClicked = {},
+                onClicked = { showDialog.value = true },
                 color = ButtonDefaults.buttonColors(),
                 painter = painterResource(R.drawable.check),
                 description = "check",

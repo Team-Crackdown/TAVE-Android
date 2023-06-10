@@ -6,9 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.tave.items.home.CheckQrcode
 import com.example.tave.pages.HomePage
 import com.example.tave.pages.LoginPage
-import com.example.tave.pages.profilePage
+import com.example.tave.pages.ProfilePage
 import com.example.tave.ui.theme.TAVETheme
 
 class MainActivity : ComponentActivity() {
@@ -28,7 +29,7 @@ class MainActivity : ComponentActivity() {
                         HomePage("김테비", "11기", "OB", navController)
                     }
                     composable("profile"){
-                        profilePage()
+                        ProfilePage()
                     }
                 }
             }

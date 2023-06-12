@@ -7,10 +7,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.example.tave.ui.theme.notosanskr
 
 @Composable
 fun MainMenuCards(
@@ -23,7 +26,7 @@ fun MainMenuCards(
     description: String,
     textTitle: String,
     textContent: String
-){
+) {
     Card(
         modifier = modifier,
         shape = shapes,
@@ -41,8 +44,11 @@ fun MainMenuCards(
                     style = TextStyle(
                         fontSize = 15.sp,
                         fontWeight = FontWeight.SemiBold,
-                        color = textColor
-                    )
+                        fontFamily = notosanskr,
+                        platformStyle = PlatformTextStyle(includeFontPadding = false),
+                        lineHeight = 2.5.em
+                    ),
+                    color = textColor
                 )
             }
             Spacer(modifier = Modifier.height(20.dp))

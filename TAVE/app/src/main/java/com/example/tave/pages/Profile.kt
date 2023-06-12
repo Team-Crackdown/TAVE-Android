@@ -1,30 +1,41 @@
 package com.example.tave.pages
 
-import androidx.compose.foundation.Image
+import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import com.example.tave.R
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.tave.items.profile.*
 
 @Composable
-fun ProfilePage() {
-    Column(
-        verticalArrangement = Arrangement.SpaceBetween,
-        horizontalAlignment = Alignment.Start
+fun ProfilePage(context: Context, navController: NavController) {
+    Scaffold(
+        floatingActionButton = {UpdateFloatingBtn(
+            txt = "수정하기",
+            onClicked = { navController.navigate("updateProfile") }
+        )}
     ) {
-        Column{
-            Text("HI")
-
+        Column() {
+            ProfileImage()
+            ProfileContent(
+                "11기",
+                "테이브 대학교",
+                "김테비",
+                "kimTavy@tave.com",
+                "010-0000-0000",
+                "앱(Android)",
+                "안녕하세요 \n저는 김테비입니다.djkfjdkjfakdjfkjad;fkj;akdfjakldjfladjflajdfjadsfk\n" +
+                        "저는 김테비입니다.\n" +
+                        "저는 김테비입니다.\n" +
+                        "저는 김테비입니다.\n" +
+                        "저는 김테비입니다."
+            )
         }
-        UploadImageBtn()
-        UpdateFloatingBtn(txt = "수정하기")
     }
 }
 
@@ -80,9 +91,9 @@ fun ProfileContent(
 @Preview
 fun preview1() {
     Scaffold(
-        floatingActionButton = {UpdateFloatingBtn(txt = "수정하기")}
+        //floatingActionButton = {UpdateFloatingBtn(txt = "수정하기", navController = navController)}
     ) {
-        Column() {
+        Column{
             ProfileImage()
             ProfileContent(
                 "11기",

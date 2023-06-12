@@ -4,14 +4,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.layoutId
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import androidx.constraintlayout.compose.Dimension
+import com.example.tave.ui.theme.notosanskr
 
 @Composable
 fun ProfileContentTxtSizeLarge(txt: String, answer: String) {
@@ -25,15 +29,23 @@ fun ProfileContentTxtSizeLarge(txt: String, answer: String) {
             text = txt,
             modifier = Modifier.layoutId("txt"),
             fontSize = 20.sp,
-            fontFamily = FontFamily.Monospace,
-            fontWeight = FontWeight.Bold
+            fontFamily = notosanskr,
+            fontWeight = FontWeight.Bold,
+            style = TextStyle(
+                platformStyle = PlatformTextStyle(includeFontPadding = false),
+                lineHeight = 2.5.em
+            )
         )
         Text(
             text = answer,
             modifier = Modifier.layoutId("answer"),
             fontSize = 20.sp,
-            fontFamily = FontFamily.Monospace,
-            fontWeight = FontWeight.Bold
+            fontFamily = notosanskr,
+            fontWeight = FontWeight.Bold,
+            style = TextStyle(
+                platformStyle = PlatformTextStyle(includeFontPadding = false),
+                lineHeight = 2.5.em
+            )
         )
     }
 }
@@ -50,15 +62,23 @@ fun ProfileContentTxtSizeSmall(txt: String, answer: String) {
             text = txt,
             modifier = Modifier.layoutId("txt"),
             fontSize = 20.sp,
-            fontFamily = FontFamily.Monospace,
-            fontWeight = FontWeight.Bold
+            fontFamily = notosanskr,
+            fontWeight = FontWeight.Bold,
+            style = TextStyle(
+                platformStyle = PlatformTextStyle(includeFontPadding = false),
+                lineHeight = 2.5.em
+            )
         )
         Text(
             text = answer,
             modifier = Modifier.layoutId("answer"),
             fontSize = 10.sp,
-            fontFamily = FontFamily.Monospace,
-            fontWeight = FontWeight.Bold
+            fontFamily = notosanskr,
+            fontWeight = FontWeight.Bold,
+            style = TextStyle(
+                platformStyle = PlatformTextStyle(includeFontPadding = false),
+                lineHeight = 2.5.em
+            )
         )
     }
 }
@@ -75,15 +95,23 @@ fun ProfileContentTxtSizeOnlyForIntro(txt: String, answer: String) {
             text = txt,
             modifier = Modifier.layoutId("txt"),
             fontSize = 20.sp,
-            fontFamily = FontFamily.Monospace,
-            fontWeight = FontWeight.Bold
+            fontFamily = notosanskr,
+            fontWeight = FontWeight.Bold,
+            style = TextStyle(
+                platformStyle = PlatformTextStyle(includeFontPadding = false),
+                lineHeight = 2.5.em
+            )
         )
         Text(
             text = answer,
             modifier = Modifier.layoutId("answer"),
             fontSize = 10.sp,
-            fontFamily = FontFamily.Monospace,
-            fontWeight = FontWeight.Bold
+            fontFamily = notosanskr,
+            fontWeight = FontWeight.Bold,
+            style = TextStyle(
+                platformStyle = PlatformTextStyle(includeFontPadding = false),
+                lineHeight = 2.5.em
+            )
         )
     }
 }

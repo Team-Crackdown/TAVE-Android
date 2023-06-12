@@ -8,10 +8,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
+import com.example.tave.ui.theme.notosanskr
 
 @Composable
 fun MainMenuButtons(
@@ -53,12 +57,26 @@ fun MainMenuButtons(
                 Text(
                     text = title,
                     fontSize = fontSize,
+                    fontFamily = notosanskr,
                     fontWeight = FontWeight.SemiBold,
+                    style = TextStyle(
+                        platformStyle = PlatformTextStyle(
+                            includeFontPadding = false
+                        ),
+                        lineHeight = 2.5.em
+                    )
                 )
                 Text(
                     text = subTitle,
                     fontSize = if(subTitle == "") 0.sp else 15.sp,
+                    fontFamily = notosanskr,
                     fontWeight = FontWeight.SemiBold,
+                    style = TextStyle(
+                        platformStyle = PlatformTextStyle(
+                            includeFontPadding = false
+                        ),
+                        lineHeight = 2.5.em
+                    )
                 )
             }
         }

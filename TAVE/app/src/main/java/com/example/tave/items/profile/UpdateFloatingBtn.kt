@@ -8,30 +8,36 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.example.tave.ui.theme.LightColorPalette
+import com.example.tave.ui.theme.notosanskr
 
 @Composable
-fun UpdateFloatingBtn(txt: String){
+fun UpdateFloatingBtn(txt: String, onClicked: () -> Unit) {
     FloatingActionButton(
         modifier = Modifier.size(100.dp, 40.dp),
-        shape = MaterialTheme.shapes.small,
+        shape = MaterialTheme.shapes.large,
         elevation = FloatingActionButtonDefaults.elevation(10.dp),
         containerColor = LightColorPalette.tertiary,
-        onClick = {}
+        onClick = onClicked
     ) {
         Text(
             text = txt,
+            textAlign = TextAlign.Center,
             style = TextStyle(
                 color = Color.White,
                 fontSize = 10.sp,
-                fontWeight = FontWeight.W600
+                fontFamily = notosanskr,
+                fontWeight = FontWeight.SemiBold,
+                platformStyle = PlatformTextStyle(includeFontPadding = false),
+                lineHeight = 2.5.em
             ),
-            textAlign = TextAlign.Center
         )
     }
 }

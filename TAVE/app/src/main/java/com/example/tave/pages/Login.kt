@@ -13,20 +13,26 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.tave.ui.theme.notosanskr
 
 @Composable
 fun LoginPage(context: Context, navController: NavController) {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(20.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(20.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
@@ -37,7 +43,9 @@ fun LoginPage(context: Context, navController: NavController) {
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold,
                 color = Color.Blue,
-                modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp)
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp)
             )
             LoginBox(context, navController)
         }
@@ -51,7 +59,10 @@ private fun LoginBox(context: Context, navController: NavController) {
     var password by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier.fillMaxWidth().padding(10.dp).background(Color.LightGray),
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp)
+            .background(Color.LightGray),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -62,7 +73,9 @@ private fun LoginBox(context: Context, navController: NavController) {
             leadingIcon = {
                 Icon(Icons.Default.Person, contentDescription = "person")
             },
-            modifier = Modifier.padding(bottom = 10.dp, top = 10.dp).width(300.dp)
+            modifier = Modifier
+                .padding(bottom = 10.dp, top = 10.dp)
+                .width(300.dp)
         )
 
         OutlinedTextField(
@@ -72,7 +85,9 @@ private fun LoginBox(context: Context, navController: NavController) {
             leadingIcon = {
                 Icon(Icons.Default.Info, contentDescription = "password")
             },
-            modifier = Modifier.padding(bottom = 10.dp, top = 10.dp).width(300.dp),
+            modifier = Modifier
+                .padding(bottom = 10.dp, top = 10.dp)
+                .width(300.dp),
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
@@ -92,7 +107,13 @@ private fun LoginBox(context: Context, navController: NavController) {
         ) {
             Text(
                 text = "Login",
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
+                style = TextStyle(
+                    fontFamily = notosanskr,
+                    fontWeight = FontWeight.SemiBold,
+                    platformStyle = PlatformTextStyle(includeFontPadding = false),
+                    lineHeight = 2.5.em
+                )
             )
         }
 

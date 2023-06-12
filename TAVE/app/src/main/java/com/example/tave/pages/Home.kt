@@ -11,7 +11,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.tave.R
@@ -19,8 +18,6 @@ import com.example.tave.items.home.*
 import com.example.tave.ui.theme.LightColorPalette
 import com.example.tave.ui.theme.TAVETheme
 import com.example.tave.ui.theme.customShape
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.coroutineScope
 
 @Composable
 fun HomePage(

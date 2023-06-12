@@ -20,7 +20,7 @@ fun ProfilePage(context: Context, navController: NavController) {
             onClicked = { navController.navigate("updateProfile") }
         )}
     ) {
-        Column() {
+        Column {
             ProfileImage()
             ProfileContent(
                 "11기",

@@ -1,6 +1,5 @@
 package com.example.tave.pages
 
-import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import com.example.tave.R
@@ -13,14 +12,16 @@ import androidx.navigation.NavController
 import com.example.tave.items.profile.*
 
 @Composable
-fun ProfilePage(context: Context, navController: NavController) {
+fun ProfilePage(navController: NavController) {
     Scaffold(
-        floatingActionButton = {UpdateFloatingBtn(
-            txt = "수정하기",
-            onClicked = { navController.navigate("updateProfile") }
-        )}
-    ) {
-        Column {
+        floatingActionButton = {
+            UpdateFloatingBtn(
+                txt = "수정하기",
+                onClicked = { navController.navigate("updateProfile") }
+            )
+        }
+    ) { contentPadding ->
+        Column(modifier = Modifier.padding(contentPadding)) {
             ProfileImage()
             ProfileContent(
                 "11기",
@@ -29,7 +30,7 @@ fun ProfilePage(context: Context, navController: NavController) {
                 "kimTavy@tave.com",
                 "010-0000-0000",
                 "앱(Android)",
-                "안녕하세요 \n저는 김테비입니다.djkfjdkjfakdjfkjad;fkj;akdfjakldjfladjflajdfjadsfk\n" +
+                "안녕하세요 \n저는 김테비입니다.\n" +
                         "저는 김테비입니다.\n" +
                         "저는 김테비입니다.\n" +
                         "저는 김테비입니다.\n" +
@@ -41,11 +42,7 @@ fun ProfilePage(context: Context, navController: NavController) {
 
 @Composable
 fun ProfileImage() {
-    Box(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(300.dp),
-    ){
+    Box(modifier = Modifier.fillMaxWidth().height(300.dp)) {
         Text("이미지")
     }
 }
@@ -88,12 +85,10 @@ fun ProfileContent(
 
 
 @Composable
-@Preview
-fun preview1() {
-    Scaffold(
-        //floatingActionButton = {UpdateFloatingBtn(txt = "수정하기", navController = navController)}
-    ) {
-        Column{
+@Preview("Profile Preview")
+fun ProfilePreview() {
+    Scaffold { contentPadding ->
+        Column(modifier = Modifier.padding(contentPadding)) {
             ProfileImage()
             ProfileContent(
                 "11기",
@@ -102,14 +97,12 @@ fun preview1() {
                 "kimTavy@tave.com",
                 "010-0000-0000",
                 "앱(Android)",
-                "안녕하세요 \n저는 김테비입니다.djkfjdkjfakdjfkjad;fkj;akdfjakldjfladjflajdfjadsfk\n" +
+                "안녕하세요 \n저는 김테비입니다.\n" +
                         "저는 김테비입니다.\n" +
                         "저는 김테비입니다.\n" +
                         "저는 김테비입니다.\n" +
                         "저는 김테비입니다."
             )
-        }    
+        }
     }
-    
-
 }

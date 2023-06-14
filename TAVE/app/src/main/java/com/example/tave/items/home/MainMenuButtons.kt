@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.example.tave.ui.theme.notosanskr
+import com.example.tave.ui.font.NotoSansKr
 
 @Composable
 fun MainMenuButtons(
@@ -57,7 +57,7 @@ fun MainMenuButtons(
                 Text(
                     text = title,
                     fontSize = fontSize,
-                    fontFamily = notosanskr,
+                    fontFamily = NotoSansKr,
                     fontWeight = FontWeight.SemiBold,
                     style = TextStyle(
                         platformStyle = PlatformTextStyle(
@@ -69,7 +69,7 @@ fun MainMenuButtons(
                 Text(
                     text = subTitle,
                     fontSize = if(subTitle == "") 0.sp else 15.sp,
-                    fontFamily = notosanskr,
+                    fontFamily = NotoSansKr,
                     fontWeight = FontWeight.SemiBold,
                     style = TextStyle(
                         platformStyle = PlatformTextStyle(

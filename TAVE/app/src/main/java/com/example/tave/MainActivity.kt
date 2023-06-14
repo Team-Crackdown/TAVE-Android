@@ -29,10 +29,10 @@ class MainActivity : ComponentActivity() {
                         HomePage("김테비", "11기", "OB", navController)
                     }
                     composable("profile"){
-                        ProfilePage(applicationContext, navController)
+                        ProfilePage(navController)
                     }
                     composable("updateProfile"){
-                        UpdateProfilePage(applicationContext, navController)
+                        UpdateProfilePage(navController)
                     }
                 }
             }

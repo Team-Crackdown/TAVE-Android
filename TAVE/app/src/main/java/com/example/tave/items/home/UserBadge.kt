@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.example.tave.ui.theme.LightColorPalette
 import com.example.tave.ui.theme.Shape
-import com.example.tave.ui.theme.notosanskr
+import com.example.tave.ui.font.NotoSansKr
 
 @Composable
 fun UserBadge(
@@ -36,7 +36,7 @@ fun UserBadge(
             text = text,
             textAlign = TextAlign.Center,
             fontSize = 12.sp,
-            fontFamily = notosanskr,
+            fontFamily = NotoSansKr,
             fontWeight = FontWeight.SemiBold,
             style = TextStyle(
                 platformStyle = PlatformTextStyle(

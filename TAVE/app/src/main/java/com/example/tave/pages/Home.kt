@@ -157,7 +157,7 @@ fun HomeMenu(navController: NavController) {
             .fillMaxWidth()
             .height(130.dp),
         shapes = customShape.extraLarge,
-        onClicked = {},
+        onClicked = {navController.navigate("notice")},
         color = ButtonDefaults.buttonColors(containerColor = LightColorPalette.secondary),
         painter = painterResource(R.drawable.notice),
         description = "notice",

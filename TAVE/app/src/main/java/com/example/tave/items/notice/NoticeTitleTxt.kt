@@ -9,7 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.example.tave.ui.theme.notosanskr
+import com.example.tave.ui.font.NotoSansKr
 
 @Composable
 fun NoticeTitleTxt(title: String) {
@@ -18,7 +18,7 @@ fun NoticeTitleTxt(title: String) {
             text = title,
             textAlign = TextAlign.Left,
             fontSize = 30.sp,
-            fontFamily = notosanskr,
+            fontFamily = NotoSansKr,
             fontWeight = FontWeight.SemiBold,
             style = TextStyle(
                 platformStyle = PlatformTextStyle(

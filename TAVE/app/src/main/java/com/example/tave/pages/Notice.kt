@@ -1,13 +1,12 @@
 package com.example.tave.pages
 
-import android.content.Context
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.tave.items.notice.NoticeCard
 import com.example.tave.items.notice.NoticeTitleTxt
 
@@ -25,7 +24,23 @@ val notices = mutableListOf<Notice>(
 
 
 @Composable
-fun NoticePage(context: Context, navController: NavController) {
+fun NoticePage() {
+    Scaffold{
+        Column(modifier = Modifier.padding(24.dp)) {
+            NoticeTitleTxt(title = "공지사항")
+            Spacer(modifier = Modifier.height(10.dp))
+            LazyColumn{
+                items(notices.size) {index ->
+                    NoticeCard(title = notices[index].title, content = notices[index].content)
+                }
+            }
+        }
+    }
+}
+
+@Composable
+@Preview
+fun NoticePreview(){
     Scaffold{
         Column(modifier = Modifier.padding(24.dp)) {
             NoticeTitleTxt(title = "공지사항")

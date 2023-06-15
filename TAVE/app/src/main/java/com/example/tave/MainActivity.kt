@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
                         UpdateProfilePage(navController)
                     }
                     composable("notice"){
-                        NoticePage(applicationContext, navController)
+                        NoticePage()
                     }
                 }
             }

@@ -17,7 +17,7 @@ import com.example.tave.R
 import com.example.tave.items.home.*
 import com.example.tave.ui.theme.LightColorPalette
 import com.example.tave.ui.theme.TAVETheme
-import com.example.tave.ui.theme.customShape
+import com.example.tave.ui.theme.CustomShape
 
 @Composable
 fun HomePage(
@@ -96,7 +96,7 @@ fun HomeMenu(navController: NavController) {
                     colors = CardDefaults.cardColors(LightColorPalette.primaryContainer),
                     iconColor = LightColorPalette.onPrimaryContainer,
                     textColor = LightColorPalette.onPrimaryContainer,
-                    shapes = customShape.extraLarge,
+                    shapes = CustomShape.extraLarge,
                     description = "개인 활동 점수 카드",
                     textTitle = "개인 활동 점수",
                     textContent = "126점"
@@ -110,7 +110,7 @@ fun HomeMenu(navController: NavController) {
                     colors = CardDefaults.cardColors(LightColorPalette.primary),
                     iconColor = LightColorPalette.onPrimaryContainer,
                     textColor = LightColorPalette.onPrimaryContainer,
-                    shapes = customShape.extraLarge,
+                    shapes = CustomShape.extraLarge,
                     description = "팀 활동 점수 카드",
                     textTitle = "팀 활동 점수",
                     textContent = "80점"
@@ -145,7 +145,7 @@ fun HomeMenu(navController: NavController) {
             colors = CardDefaults.cardColors(LightColorPalette.secondaryContainer),
             iconColor = LightColorPalette.onSecondaryContainer,
             textColor = LightColorPalette.onSecondaryContainer,
-            shapes = customShape.extraLarge,
+            shapes = CustomShape.extraLarge,
             description = "team",
             textTitle = "후반기 만남의 장까지",
             textContent = "D-day"
@@ -156,8 +156,8 @@ fun HomeMenu(navController: NavController) {
         modifier = Modifier
             .fillMaxWidth()
             .height(130.dp),
-        shapes = customShape.extraLarge,
-        onClicked = {navController.navigate("notice")},
+        shapes = CustomShape.extraLarge,
+        onClicked = {},
         color = ButtonDefaults.buttonColors(containerColor = LightColorPalette.secondary),
         painter = painterResource(R.drawable.notice),
         description = "notice",

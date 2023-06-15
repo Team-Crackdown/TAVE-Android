@@ -13,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
-import com.example.tave.ui.theme.notosanskr
+import com.example.tave.ui.font.NotoSansKr
 
 @Composable
 fun MainMenuCards(
@@ -44,7 +44,7 @@ fun MainMenuCards(
                     style = TextStyle(
                         fontSize = 15.sp,
                         fontWeight = FontWeight.SemiBold,
-                        fontFamily = notosanskr,
+                        fontFamily = NotoSansKr,
                         platformStyle = PlatformTextStyle(includeFontPadding = false),
                         lineHeight = 2.5.em
                     ),

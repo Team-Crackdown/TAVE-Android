@@ -14,10 +14,12 @@ import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.example.tave.common.Constants
+import com.example.tave.common.Constants.BLACK
+import com.example.tave.common.Constants.WHITE
 import com.google.zxing.*
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
-
 
 @Composable
 fun CheckQrcode(onDismiss: ()-> Unit){
@@ -32,38 +34,51 @@ fun DialogContent(){
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        generateQRCode("https://www.naver.com")?.let {
-                it -> Image(bitmap = it.asImageBitmap(), contentDescription = "qrcode")
+        generateQRCode(Constants.TEST_QR_URL)?.let {
+            Image(bitmap = it.asImageBitmap(), contentDescription = "qrcode")
         }
         Spacer(modifier = Modifier.height(10.dp))
-        IconButton(onClick = { /*TODO*/ }, colors = IconButtonDefaults.filledIconButtonColors(Color.Gray)) {
+        IconButton(
+            onClick = { /*TODO*/ },
+            colors = IconButtonDefaults.filledIconButtonColors(Color.Gray)
+        ) {
             Icon(imageVector = Icons.Default.Refresh, contentDescription = "refresh")
         }
     }
 }
 
-const val WHITE: Int = 0xFFFFFFFF.toInt()
-const val BLACK: Int = 0x00000000
 
-//데이터 들어가야할 곳
+
+/***
+ * generateQRCode
+ *  - QR Code의 생성을 담당하는 함수
+ */
 fun generateQRCode(contents: String?): Bitmap? {
     var bitmap: Bitmap? = null
     try {
-        val qrCodeWriter = QRCodeWriter()
-        bitmap = toBitmap(qrCodeWriter.encode(contents, BarcodeFormat.QR_CODE, 512, 512))
+        bitmap = qrCodeToBitmap(
+            QRCodeWriter().encode(
+                contents,
+                BarcodeFormat.QR_CODE,
+                Constants.QR_WIDTH,
+                Constants.QR_HEIGHT
+            )
+        )
     } catch (e: WriterException) {
         e.printStackTrace()
     }
     return bitmap
 }
 
-//QR코드 색상과, 크기 지정하는 곳
-private fun toBitmap(matrix: BitMatrix): Bitmap? {
-    val height: Int = matrix.getHeight()
-    val width: Int = matrix.getWidth()
-    val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
-    for (x in 0 until width) {
-        for (y in 0 until height) {
+/**
+ * qrCodeToBitMap
+ *  - QR Code의 크기와 색상을 지정하는 함수
+ *  - QR Code의 형식인 BitMatrix를 Bitmap으로 변경해주는 함수
+ */
+private fun qrCodeToBitmap(matrix: BitMatrix): Bitmap? {
+    val bmp = Bitmap.createBitmap(matrix.width, matrix.height, Bitmap.Config.RGB_565)
+    for (x in 0 until matrix.width) {
+        for (y in 0 until matrix.height) {
             bmp.setPixel(x, y, if (matrix.get(x, y)) BLACK else WHITE)
         }
     }
@@ -72,6 +87,6 @@ private fun toBitmap(matrix: BitMatrix): Bitmap? {
 
 @Composable
 @Preview
-fun preview(){
+fun QRCodePreview(){
     CheckQrcode(onDismiss = {})
 }

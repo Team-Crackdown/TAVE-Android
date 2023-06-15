@@ -12,6 +12,11 @@ val Shape = Shapes(
     extraLarge = RoundedCornerShape(7.dp)
 )
 
-val customShape = Shapes(
-    extraLarge = RoundedCornerShape(topStart = 7.dp, topEnd = 0.dp, bottomStart = 7.dp, bottomEnd = 0.dp)
+val CustomShape = Shapes(
+    extraLarge = RoundedCornerShape(
+        topStart = 7.dp,
+        topEnd = 0.dp,
+        bottomStart = 7.dp,
+        bottomEnd = 0.dp
+    )
 )

@@ -2,7 +2,6 @@ package com.example.tave.items.home
 
 import android.graphics.Bitmap
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
@@ -24,44 +23,30 @@ import com.google.zxing.qrcode.QRCodeWriter
 
 @Composable
 fun CheckQrcode(onDismiss: ()-> Unit){
-    Dialog(
-        onDismissRequest = onDismiss,
-        content = { DialogContents() }
-    )
+    Dialog(onDismissRequest = onDismiss) {
+        DialogContent()
+    }
 }
 
 @Composable
-fun DialogContents() {
-    Box(
-        modifier = Modifier.width(312.dp).height(310.dp).background(Color.White),
-        contentAlignment = Alignment.Center,
+fun DialogContent(){
+    Column(
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+        generateQRCode(Constants.TEST_QR_URL)?.let {
+            Image(bitmap = it.asImageBitmap(), contentDescription = "qrcode")
+        }
+        Spacer(modifier = Modifier.height(10.dp))
+        IconButton(
+            onClick = { /*TODO*/ },
+            colors = IconButtonDefaults.filledIconButtonColors(Color.Gray)
         ) {
-            generateQRCode(Constants.TEST_QR_URL)?.apply {
-                Image(
-                    modifier = Modifier.width(200.dp).height(200.dp),
-                    bitmap = this.asImageBitmap(),
-                    contentDescription = "QR Code"
-                )
-            }
-            Spacer(modifier = Modifier.size(10.dp))
-            IconButton(
-                onClick = { /*TODO*/ },
-                colors = IconButtonDefaults.filledIconButtonColors(Color.Gray),
-                content = {
-                    Icon(
-                        imageVector = Icons.Default.Refresh,
-                        contentDescription = "refresh",
-                        tint = Color.White
-                    )
-                }
-            )
+            Icon(imageVector = Icons.Default.Refresh, contentDescription = "refresh")
         }
     }
 }
+
 
 
 /***
@@ -98,4 +83,10 @@ private fun qrCodeToBitmap(matrix: BitMatrix): Bitmap? {
         }
     }
     return bmp
+}
+
+@Composable
+@Preview
+fun QRCodePreview(){
+    CheckQrcode(onDismiss = {})
 }

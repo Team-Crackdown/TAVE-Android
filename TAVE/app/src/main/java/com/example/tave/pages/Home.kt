@@ -55,17 +55,17 @@ fun TopTitle(name: String) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column {
-            WelcomeTitleTxt(name)
-            Spacer(modifier = Modifier.size(10.dp))
+        content = {
+            Column {
+                WelcomeTitleTxt(name)
+                Spacer(modifier = Modifier.size(10.dp))
+            }
         }
-    }
+    )
 }
 
 @Composable
 fun HomeMenu(navController: NavController) {
-
     val showDialog = remember { mutableStateOf(false) }
     if (showDialog.value) {
         CheckQrcode(onDismiss = {showDialog.value = false})
@@ -79,7 +79,10 @@ fun HomeMenu(navController: NavController) {
                     .height(280.dp),
                 shapes = MaterialTheme.shapes.large,
                 onClicked = { showDialog.value = true },
-                color = ButtonDefaults.buttonColors(),
+                color = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ),
                 painter = painterResource(R.drawable.check),
                 description = "check",
                 title = "출석",
@@ -93,9 +96,9 @@ fun HomeMenu(navController: NavController) {
                         .fillMaxWidth()
                         .height(130.dp),
                     painter = painterResource(R.drawable.baseline_scoreboard_24),
-                    colors = CardDefaults.cardColors(LightColorPalette.primaryContainer),
-                    iconColor = LightColorPalette.onPrimaryContainer,
-                    textColor = LightColorPalette.onPrimaryContainer,
+                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer),
+                    iconColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    textColor = MaterialTheme.colorScheme.onPrimaryContainer,
                     shapes = CustomShape.extraLarge,
                     description = "개인 활동 점수 카드",
                     textTitle = "개인 활동 점수",
@@ -107,9 +110,9 @@ fun HomeMenu(navController: NavController) {
                         .fillMaxWidth()
                         .height(130.dp),
                     painter = painterResource(R.drawable.baseline_scoreboard_24),
-                    colors = CardDefaults.cardColors(LightColorPalette.primary),
-                    iconColor = LightColorPalette.onPrimaryContainer,
-                    textColor = LightColorPalette.onPrimaryContainer,
+                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+                    iconColor = MaterialTheme.colorScheme.onPrimary,
+                    textColor = MaterialTheme.colorScheme.onPrimary,
                     shapes = CustomShape.extraLarge,
                     description = "팀 활동 점수 카드",
                     textTitle = "팀 활동 점수",
@@ -127,8 +130,8 @@ fun HomeMenu(navController: NavController) {
             shapes = MaterialTheme.shapes.large,
             onClicked = { navController.navigate("profile") },
             color = ButtonDefaults.buttonColors(
-                containerColor = LightColorPalette.secondaryContainer,
-                contentColor = LightColorPalette.onSecondaryContainer
+                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
             ),
             painter = painterResource(R.drawable.profile),
             description = "profile",
@@ -142,9 +145,9 @@ fun HomeMenu(navController: NavController) {
                 .fillMaxWidth()
                 .height(102.dp),
             painter = painterResource(R.drawable.calendar),
-            colors = CardDefaults.cardColors(LightColorPalette.secondaryContainer),
-            iconColor = LightColorPalette.onSecondaryContainer,
-            textColor = LightColorPalette.onSecondaryContainer,
+            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondaryContainer),
+            iconColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            textColor = MaterialTheme.colorScheme.onSecondaryContainer,
             shapes = CustomShape.extraLarge,
             description = "team",
             textTitle = "후반기 만남의 장까지",
@@ -157,8 +160,8 @@ fun HomeMenu(navController: NavController) {
             .fillMaxWidth()
             .height(130.dp),
         shapes = CustomShape.extraLarge,
-        onClicked = {navController.navigate("notice")},
-        color = ButtonDefaults.buttonColors(containerColor = LightColorPalette.secondary),
+        onClicked = { navController.navigate("notice") },
+        color = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
         painter = painterResource(R.drawable.notice),
         description = "notice",
         title = "공지사항",
@@ -167,8 +170,8 @@ fun HomeMenu(navController: NavController) {
     )
 }
 
-@Preview
 @Composable
+@Preview(showBackground = true)
 fun PreviewHomePage() {
     TAVETheme {
         HomePage("김건우", "11기", "YB", rememberNavController())

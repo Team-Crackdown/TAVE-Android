@@ -1,8 +1,5 @@
 package com.example.tave.items.home
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -20,6 +17,9 @@ import com.example.tave.ui.theme.LightColorPalette
 import com.example.tave.ui.theme.Shape
 import com.example.tave.ui.font.NotoSansKr
 
+/**
+ * TODO("User Badge 수정 필요!")
+ */
 @Composable
 fun UserBadge(
     text: String,
@@ -30,7 +30,7 @@ fun UserBadge(
         modifier = Modifier.size(50.dp, 25.dp),
         shape = Shape.large,
         colors = cardColor,
-        elevation = CardDefaults.cardElevation(10.dp)
+        elevation = CardDefaults.cardElevation()
     ) {
         Text(
             text = text,
@@ -39,24 +39,20 @@ fun UserBadge(
             fontFamily = NotoSansKr,
             fontWeight = FontWeight.SemiBold,
             style = TextStyle(
-                platformStyle = PlatformTextStyle(
-                    includeFontPadding = false
-                ),
+                platformStyle = PlatformTextStyle(includeFontPadding = false),
                 lineHeight = 2.5.em
             ),
             color = textColor,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(5.dp)
-                .size(35.dp, 15.dp)
         )
-        Spacer(modifier = Modifier.size(10.dp))
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun PreviewUserBadge() {
-    UserBadge(text = "11기", LightColorPalette.onPrimaryContainer, CardDefaults.cardColors(
-        LightColorPalette.onPrimaryContainer))
+    UserBadge(
+        text = "11기",
+        LightColorPalette.onPrimaryContainer,
+        CardDefaults.cardColors(LightColorPalette.primaryContainer)
+    )
 }

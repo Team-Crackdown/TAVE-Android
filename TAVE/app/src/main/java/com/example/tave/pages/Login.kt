@@ -13,18 +13,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.PlatformTextStyle
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.tave.ui.font.NotoSansKr
+import com.example.tave.items.login.LoginBtn
 
 @Composable
 fun LoginPage(context: Context, navController: NavController) {
@@ -91,32 +88,17 @@ private fun LoginBox(context: Context, navController: NavController) {
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
-
-        OutlinedButton(
-            onClick = {
+        LoginBtn(
+            txt = "로그인",
+            onClicked = {
                 if (email == "luna" && password == "1234") {
                     logged(email, password, context)
                     navController.navigate("home")
                 } else {
                     logged(email, password, context)
                 }
-            },
-            modifier = Modifier
-                .width(300.dp)
-                .padding(bottom = 10.dp, top = 10.dp)
-        ) {
-            Text(
-                text = "Login",
-                textAlign = TextAlign.Center,
-                style = TextStyle(
-                    fontFamily = NotoSansKr,
-                    fontWeight = FontWeight.SemiBold,
-                    platformStyle = PlatformTextStyle(includeFontPadding = false),
-                    lineHeight = 2.5.em
-                )
-            )
-        }
-
+            }
+        )
     }
 }
 

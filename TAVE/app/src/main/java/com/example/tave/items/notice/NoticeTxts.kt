@@ -19,12 +19,41 @@ fun NoticeTitleTxt(title: String) {
             textAlign = TextAlign.Left,
             fontSize = 30.sp,
             fontFamily = NotoSansKr,
-            fontWeight = FontWeight.SemiBold,
+            fontWeight = FontWeight.Bold,
             style = TextStyle(
                 platformStyle = PlatformTextStyle(
                     includeFontPadding = false
                 ),
                 lineHeight = 2.5.em
+            )
+        )
+    }
+}
+
+@Composable
+fun NoticeDetailWriterTxt(title: String){
+    Text(
+        text = title,
+        fontSize = 14.sp,
+        fontFamily = NotoSansKr,
+        fontWeight = FontWeight.Normal,
+    )
+}
+
+@Composable
+fun NoticeDetailContentTxt(title: String) {
+    Column {
+        Text(
+            text = title,
+            textAlign = TextAlign.Left,
+            fontSize = 16.sp,
+            fontFamily = NotoSansKr,
+            fontWeight = FontWeight.Medium,
+            style = TextStyle(
+                platformStyle = PlatformTextStyle(
+                    includeFontPadding = false
+                ),
+                lineHeight = 1.5.em
             )
         )
     }

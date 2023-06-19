@@ -10,6 +10,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
@@ -18,19 +19,18 @@ import com.example.tave.ui.font.NotoSansKr
 @Composable
 fun NoticeCard(title: String, content: String){
     Card(
-        modifier = Modifier.height(228.dp),
+        modifier = Modifier.height(228.dp).fillMaxWidth(),
         elevation = CardDefaults.cardElevation(5.dp),
         colors = CardDefaults.cardColors(Color.White)
     ) {
         Column(
-            modifier = Modifier
-                .padding(10.dp)
-                .fillMaxWidth()
-        ) {
-            CardTextTitle(title = title)
-            Spacer(modifier = Modifier.height(22.dp))
-            CardTextContent(content = content)
-        }
+            modifier = Modifier.padding(10.dp).fillMaxWidth(),
+            content = {
+                CardTextTitle(title = title)
+                Spacer(modifier = Modifier.height(20.dp))
+                CardTextContent(content = content)
+            }
+        )
     }
     Spacer(modifier = Modifier.height(10.dp))
 }
@@ -61,4 +61,10 @@ fun CardTextContent(content: String){
             lineHeight = 1.25.em
         ),
     )
+}
+
+@Preview
+@Composable
+fun PreviewCardView() {
+    NoticeCard(title = "공지사항", content = "후반기 프로젝트 뭐시기 블라블라")
 }

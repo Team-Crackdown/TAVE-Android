@@ -38,11 +38,3 @@ fun UpdateProfilePage(navController: NavController) {
         }
     }
 }
-
-
-
-@Composable
-@Preview("UpdateProfile Preview.ver_1")
-fun UpdateProfilePreview() {
-    //UpdateProfilePage()
-}

@@ -9,44 +9,58 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.tave.common.Constants
 import com.example.tave.common.Constants.BLACK
 import com.example.tave.common.Constants.WHITE
+import com.example.tave.ui.theme.Shape
 import com.google.zxing.*
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
 
 @Composable
 fun CheckQrcode(onDismiss: ()-> Unit){
-    Dialog(onDismissRequest = onDismiss) {
-        DialogContent()
-    }
+    Dialog(
+        onDismissRequest = onDismiss,
+        content = { QRDialogView(modifier = Modifier, baseURL = Constants.TEST_QR_URL) }
+    )
 }
 
 @Composable
-fun DialogContent(){
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        generateQRCode(Constants.TEST_QR_URL)?.let {
-            Image(bitmap = it.asImageBitmap(), contentDescription = "qrcode")
+fun QRDialogView(
+    modifier: Modifier,
+    baseURL: String
+) {
+    Box(
+        modifier = modifier
+            .width(312.dp)
+            .height(310.dp)
+            .clip(Shape.extraLarge),
+        contentAlignment = Alignment.Center,
+        content = {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                generateQRCode(baseURL)?.let { QRCode ->
+                    Image(bitmap = QRCode.asImageBitmap(), contentDescription = "QR Code")
+                }
+                Spacer(modifier = modifier.size(10.dp))
+                IconButton(
+                    onClick = { /*TODO*/ },
+                    colors = IconButtonDefaults.filledIconButtonColors(Color.Gray),
+                    content = {
+                        Icon(imageVector = Icons.Default.Refresh, contentDescription = "Refresh Button")
+                    }
+                )
+            }
         }
-        Spacer(modifier = Modifier.height(10.dp))
-        IconButton(
-            onClick = { /*TODO*/ },
-            colors = IconButtonDefaults.filledIconButtonColors(Color.Gray)
-        ) {
-            Icon(imageVector = Icons.Default.Refresh, contentDescription = "refresh")
-        }
-    }
+    )
 }
-
 
 
 /***
@@ -83,10 +97,4 @@ private fun qrCodeToBitmap(matrix: BitMatrix): Bitmap? {
         }
     }
     return bmp
-}
-
-@Composable
-@Preview
-fun QRCodePreview(){
-    CheckQrcode(onDismiss = {})
 }

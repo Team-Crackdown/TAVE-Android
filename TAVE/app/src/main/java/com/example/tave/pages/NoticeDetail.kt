@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tave.items.notice.NoticeDetailContentTxt
+import com.example.tave.items.notice.NoticeDetailTitleTxt
 import com.example.tave.items.notice.NoticeDetailWriterTxt
-import com.example.tave.items.notice.NoticeTitleTxt
 
 @Composable
 fun NoticeDetailPage() {
@@ -22,7 +22,7 @@ fun NoticeDetailPage() {
                 .fillMaxSize()
                 .verticalScroll(scrollState)
         ) {
-            NoticeTitleTxt(title = "후반기 프로젝트 보증금 안내")
+            NoticeDetailTitleTxt("후반기 보증금 안내")
             Spacer(modifier = Modifier.height(10.dp))
             Row {
                 NoticeDetailWriterTxt(title = "2023/06/20")
@@ -47,7 +47,7 @@ fun PreviewNoticeDetailPage() {
                 .fillMaxSize()
                 .verticalScroll(scrollState)
         ) {
-            NoticeTitleTxt(title = "후반기 프로젝트 보증금 안내")
+            NoticeDetailTitleTxt(title = "후반기 프로젝트 보증금 안내")
             Spacer(modifier = Modifier.height(10.dp))
             Row {
                 NoticeDetailWriterTxt(title = "2023/06/20")

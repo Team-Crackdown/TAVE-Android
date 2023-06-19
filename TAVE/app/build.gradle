@@ -56,6 +56,10 @@ dependencies {
     implementation 'androidx.compose.material3:material3:1.2.0-alpha02'
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 
+    // Project Dependency
+    implementation project(path: ':data')
+    implementation project(path: ':domain')
+
     // Android Test Tools (JUnit, espresso, Compose UI Test Tool)
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
@@ -71,6 +75,10 @@ dependencies {
     def nav_version = "2.6.0"
     implementation("androidx.navigation:navigation-compose:$nav_version")
 
+    // Dagger-Hilt DI(Dependency Injection) Tool
+    implementation "com.google.dagger:hilt-android:2.44.2"
+    kapt "com.google.dagger:hilt-android-compiler:2.44.2"
+
     // LandScapist-Glide
     implementation "com.github.skydoves:landscapist-glide:1.4.7"
 
@@ -78,8 +86,7 @@ dependencies {
     implementation('com.journeyapps:zxing-android-embedded:4.3.0') { transitive = false }
     implementation 'com.google.zxing:core:3.3.0'
 
-    // Dagger-Hilt DI(Dependency Injection) Tool
-    implementation "com.google.dagger:hilt-android:2.44.2"
-    implementation project(path: ':domain')
-    kapt "com.google.dagger:hilt-android-compiler:2.44.2"
+    // Retrofit2
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }

@@ -67,12 +67,12 @@ fun QRDialogView(
  * generateQRCode
  *  - QR Code의 생성을 담당하는 함수
  */
-fun generateQRCode(contents: String?): Bitmap? {
+fun generateQRCode(content: String?): Bitmap? {
     var bitmap: Bitmap? = null
     try {
         bitmap = qrCodeToBitmap(
             QRCodeWriter().encode(
-                contents,
+                content,
                 BarcodeFormat.QR_CODE,
                 Constants.QR_WIDTH,
                 Constants.QR_HEIGHT

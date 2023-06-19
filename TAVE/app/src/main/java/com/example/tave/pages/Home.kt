@@ -15,7 +15,6 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.tave.R
 import com.example.tave.items.home.*
-import com.example.tave.ui.theme.LightColorPalette
 import com.example.tave.ui.theme.TAVETheme
 import com.example.tave.ui.theme.CustomShape
 
@@ -34,15 +33,15 @@ fun HomePage(
         TopTitle(name)
         Row {
             UserBadge(
-                radix,
-                LightColorPalette.onPrimary,
-                CardDefaults.cardColors(LightColorPalette.primary)
+                text = radix,
+                textColor = MaterialTheme.colorScheme.onPrimary,
+                backgroundColor = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.width(10.dp))
             UserBadge(
-                generation,
-                LightColorPalette.onSecondary,
-                CardDefaults.cardColors(LightColorPalette.secondary)
+                text = generation,
+                textColor = MaterialTheme.colorScheme.onSecondary,
+                backgroundColor = MaterialTheme.colorScheme.secondary
             )
         }
         Spacer(modifier = Modifier.height(33.dp))

@@ -31,9 +31,6 @@ class MainActivity : ComponentActivity() {
                     composable("updateProfile"){
                         UpdateProfilePage(navController)
                     }
-                    composable("notice"){
-                        NoticePage()
-                    }
                 }
             }
         }

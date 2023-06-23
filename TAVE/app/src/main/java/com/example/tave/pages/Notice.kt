@@ -1,59 +1,78 @@
 package com.example.tave.pages
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.PlatformTextStyle
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.tave.items.notice.NoticeCard
-import com.example.tave.items.notice.NoticeTitleTxt
-
-data class Notice(val title: String, val content: String)
-
-val notices = mutableListOf(
-    Notice(
-        title = "후반기 프로젝트 보증금 안내",
-        content = "테-하! 안녕하세요, 경영처 회계부 진수빈입니다.\n" +
-            "후반기 프로젝트 보증금 안내를 드리고자합니다."
-    ),
-    Notice(
-        title = "후반기 만남의 장 회원 소개 part2",
-        content = "테-하! 안녕하세요, 경영처장 박정재입니다.\n" +
-            "이어서 금일은 회원 소개 2탄으로 돌아왔습니다."
-    ),
-    Notice(
-        title = "후반기 만남의 장 회원 소개 part1",
-        content = "테-하! 안녕하세요, 경영처 기획부 김태건입니다.\n" +
-                "이번주 토요일에 예정된 만남의 장에서는 새로운 회원분들과 소통하며 후반기 프로젝트를 기획하는..."
-    )
-)
+import androidx.compose.ui.unit.sp
+import com.example.tave.R
+import com.example.tave.items.notice.MainNoticeCard
+import com.example.tave.ui.font.NotoSansKr
 
 @Composable
-fun NoticePage() {
-    Scaffold(
-        modifier = Modifier.padding(10.dp),
-        content = {
-            Column(
-                modifier = Modifier.padding(it),
-                content = {
-                    NoticeTitleTxt(modifier = Modifier)
-                    Spacer(modifier = Modifier.size(10.dp))
-                    LazyColumn(content = {
-                        items(notices.size) { index ->
-                            NoticeCard(title = notices[index].title, content = notices[index].content)
-                        }
-                    })
-                }
-            )
-        }
-    )
+fun NoticePage(
+    modifier: Modifier,
+    mainTitle: String,
+    mainWriter: String,
+    mainUploadTime: String
+) {
+    Scaffold(modifier = modifier.padding(10.dp)) { contentPadding ->
+        Column(
+            modifier = modifier.padding(contentPadding),
+            content = {
+                Text(
+                    text = stringResource(id = R.string.Notice),
+                    modifier = modifier.padding(bottom = 10.dp),
+                    style = TextStyle(
+                        fontSize = 30.sp,
+                        fontFamily = NotoSansKr,
+                        fontWeight = FontWeight.Bold,
+                        platformStyle = PlatformTextStyle(includeFontPadding = false)
+                    )
+                )
+                MainNoticeCard(
+                    modifier = modifier,
+                    titleTxt = mainTitle,
+                    writer = mainWriter,
+                    uploadTime = mainUploadTime
+                )
+                LazyColumn(
+                    modifier = modifier.padding(bottom = 10.dp),
+                    content = { /* TODO: Implement NoticeSubItems into LazyColumn */ }
+                )
+                Text(
+                    text = stringResource(id = R.string.Tech_Letter),
+                    modifier = modifier.padding(bottom = 10.dp),
+                    style = TextStyle(
+                        fontSize = 30.sp,
+                        fontFamily = NotoSansKr,
+                        fontWeight = FontWeight.Bold,
+                        platformStyle = PlatformTextStyle(includeFontPadding = false)
+                    )
+                )
+                LazyRow(content = {  /* TODO: Implement TechLetterItems into LazyRow */  })
+            }
+        )
+    }
 }
-
 
 @Composable
 @Preview(showBackground = true)
-fun NoticePreview(){
-    NoticePage()
+fun PreviewNoticePage(){
+    NoticePage(
+        modifier = Modifier,
+        mainTitle = "후반기 프로젝트 팀 소개 part1 김건우의 팀 단속",
+        mainWriter = "TAVE 운영진",
+        mainUploadTime = "1분 전"
+    )
 }

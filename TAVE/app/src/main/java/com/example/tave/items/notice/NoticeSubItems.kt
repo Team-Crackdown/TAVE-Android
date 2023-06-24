@@ -1,13 +1,8 @@
 package com.example.tave.items.notice
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -56,7 +51,7 @@ fun NoticeSubItems(
                 NoticeSubItemTitle(titleTxt = subItemTitle)
                 Row(
                     modifier = modifier.fillMaxWidth(),
-                    content =  {
+                    content = {
                         NoticeSubItemWriter(writer = subItemWriter)
                         NoticeSubItemTimeStamp(uploadTime = subItemTimeStamp)
                     }
@@ -112,7 +107,7 @@ fun NoticeSubItemTimeStamp(uploadTime: String) {
 }
 
 @Composable
-@Preview(showBackground = true)
+@Preview(showBackground = true, showSystemUi = true)
 fun PreviewNoticeSubItems() {
     NoticeSubItems(
         modifier = Modifier,

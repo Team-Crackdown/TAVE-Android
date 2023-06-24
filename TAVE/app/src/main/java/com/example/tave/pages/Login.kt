@@ -24,7 +24,7 @@ import androidx.navigation.NavController
 import com.example.tave.items.login.LoginBtn
 
 @Composable
-fun LoginPage(context: Context, navController: NavController) {
+fun LoginPage(navController: NavController) {
     Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
         Column(
             modifier = Modifier
@@ -44,14 +44,14 @@ fun LoginPage(context: Context, navController: NavController) {
                     .fillMaxWidth()
                     .padding(bottom = 20.dp)
             )
-            LoginBox(context, navController)
+            LoginBox(navController)
         }
     }
 }
 
 
 @Composable
-private fun LoginBox(context: Context, navController: NavController) {
+private fun LoginBox(navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -91,12 +91,12 @@ private fun LoginBox(context: Context, navController: NavController) {
         LoginBtn(
             txt = "로그인",
             onClicked = {
-                if (email == "luna" && password == "1234") {
-                    logged(email, password, context)
-                    navController.navigate("home")
-                } else {
-                    logged(email, password, context)
-                }
+//                if (email == "luna" && password == "1234") {
+//                    logged(email, password, context)
+//                    navController.navigate("home")
+//                } else {
+//                    logged(email, password, context)
+//                }
             }
         )
     }

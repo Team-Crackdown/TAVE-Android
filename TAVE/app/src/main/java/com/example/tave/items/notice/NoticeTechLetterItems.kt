@@ -8,16 +8,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tave.R
-import com.example.tave.pages.NoticePage
 import com.example.tave.ui.theme.Shape
 
 @Composable
-fun NoticeTechLetterItems() {
+fun NoticeTechLetterItems(
+    painterResourceId: Int
+) {
     Image(
         modifier = Modifier
             .size(150.dp)
             .clip(shape = Shape.large),
-        painter = painterResource(R.drawable.tech_letter),
+        painter = painterResource(painterResourceId),
         contentScale = ContentScale.Fit,
         contentDescription = "Sub Items Tech Letter"
     )
@@ -27,5 +28,5 @@ fun NoticeTechLetterItems() {
 @Composable
 @Preview(showBackground = true, showSystemUi = true)
 fun PreviewNoticeTechLetterItems() {
-    NoticeTechLetterItems()
+    NoticeTechLetterItems(painterResourceId = R.drawable.tech_letter)
 }

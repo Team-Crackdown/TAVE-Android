@@ -31,6 +31,7 @@ fun NoticePage(
     subItemTitle: String,
     subItemWriter: String,
     subItemTimeStamp: String,
+    painterResourceId: Int,
 ) {
     Scaffold(modifier = modifier.padding(10.dp)) { contentPadding ->
         Column(
@@ -85,7 +86,7 @@ fun NoticePage(
                 Spacer(modifier = Modifier.height(10.dp))
                 LazyRow{
                     items(count = 3){
-                        NoticeTechLetterItems()
+                        NoticeTechLetterItems(painterResourceId = painterResourceId)
                     }
                 }
             }
@@ -103,6 +104,7 @@ fun PreviewNoticePage() {
         mainUploadTime = "1분 전",
         subItemTitle = "후반기 프로젝트 보증금 안내",
         subItemWriter = "TAVE 운영진",
-        subItemTimeStamp = "1시간 전"
+        subItemTimeStamp = "1시간 전",
+        painterResourceId = R.drawable.tech_letter
     )
 }

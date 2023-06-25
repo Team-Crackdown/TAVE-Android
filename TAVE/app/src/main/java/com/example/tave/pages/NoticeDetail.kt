@@ -18,7 +18,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.tave.R
 import com.example.tave.items.noticeDetail.NoticeDetailCard
+import com.example.tave.items.noticeDetail.NoticeDetailLazyGridsPics
 import com.example.tave.items.noticeDetail.NoticeDetailPublisherBar
 import com.example.tave.items.noticeDetail.NoticeDetailTopBar
 import com.example.tave.ui.font.NotoSansKr
@@ -28,7 +30,9 @@ fun NoticeDetailPage(
     modifier: Modifier,
     mainTitle: String,
     publisherText: String,
-    upDateTime: String
+    upDateTime: String,
+    itemCount: Int,
+    painterResourceId: Int
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -36,14 +40,15 @@ fun NoticeDetailPage(
             NoticeDetailTopBar(
                 modifier = modifier,
                 publisher = publisherText,
-                iconButtonOnClick = { /* TODO */}
+                iconButtonOnClick = { /* TODO */ }
             )
         }
     ) { contentPadding ->
         Column(
             modifier
                 .padding(contentPadding)
-                .padding(start = 10.dp, end = 10.dp)) {
+                .padding(start = 10.dp, end = 10.dp)
+        ) {
             NoticeDetailCard(
                 modifier = modifier,
                 cardTitle = mainTitle
@@ -67,7 +72,9 @@ fun NoticeDetailPage(
             )
             Spacer(modifier = modifier.size(5.dp))
             Divider(modifier = modifier.fillMaxWidth(), thickness = 0.5.dp, Color.Gray)
+            Spacer(modifier = modifier.size(5.dp))
             /* TODO: Image Grid View : n*5 Grid */
+            NoticeDetailLazyGridsPics(itemCount = itemCount, painterResourceId = painterResourceId)
         }
     }
 }
@@ -79,6 +86,8 @@ fun PreviewNoticeDetailPage() {
         modifier = Modifier,
         mainTitle = "후반기 프로젝트 팀 소개 Part1. 김건우의 팀 단속",
         publisherText = "TAVE 운영진",
-        upDateTime = "6시간 전"
+        upDateTime = "6시간 전",
+        itemCount = 12,
+        painterResourceId = R.drawable.tech_letter
     )
 }

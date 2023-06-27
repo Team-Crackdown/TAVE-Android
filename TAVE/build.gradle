@@ -1,4 +1,11 @@
-buildscript { ext { compose_version = '1.4.3'} }
+buildscript {
+    ext { compose_version = '1.4.3'}
+    repositories {
+        google()
+        jcenter()
+        mavenCentral()
+    }
+}
 
 plugins {
     id 'com.android.application' version '7.4.1' apply false

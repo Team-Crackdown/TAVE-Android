@@ -74,7 +74,11 @@ fun NoticeDetailPage(
             Divider(modifier = modifier.fillMaxWidth(), thickness = 0.5.dp, Color.Gray)
             Spacer(modifier = modifier.size(5.dp))
             /* TODO: Image Grid View : n*5 Grid */
-            NoticeDetailLazyGridsPics(itemCount = itemCount, painterResourceId = painterResourceId)
+            NoticeDetailLazyGridsPics(
+                itemCount = itemCount,
+                imageUrl = { /*TODO*/ },
+                modifier = Modifier
+            )
         }
     }
 }

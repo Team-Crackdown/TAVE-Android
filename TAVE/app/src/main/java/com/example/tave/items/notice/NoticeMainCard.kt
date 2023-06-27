@@ -1,13 +1,8 @@
 package com.example.tave.items.notice
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,13 +20,15 @@ import androidx.compose.ui.unit.sp
 import com.example.tave.R
 import com.example.tave.ui.font.NotoSansKr
 import com.example.tave.ui.theme.Shape
+import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun MainNoticeCard(
     modifier: Modifier,
     titleTxt: String,
     writer: String,
-    uploadTime: String
+    uploadTime: String,
+    imageUrl: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -40,14 +37,9 @@ fun MainNoticeCard(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top
     ) {
-        Image(
-            modifier = modifier
-                .fillMaxWidth()
-                .height(150.dp)
-                .clip(Shape.extraLarge),
-            painter = painterResource(id = R.drawable.tave_cover),
-            contentScale = ContentScale.FillWidth,
-            contentDescription = "MainNoticeCard Image"
+        MainNoticeImage(
+            imageUrl = imageUrl,
+            modifier = Modifier
         )
         Spacer(modifier = modifier.size(5.dp))
         MainNoticeTitle(titleTxt = titleTxt)
@@ -56,6 +48,49 @@ fun MainNoticeCard(
         Spacer(modifier = modifier.size(5.dp))
         MainNoticeTimeStamp(uploadTime = uploadTime)
     }
+}
+
+@Composable
+fun MainNoticeImage(
+    imageUrl: () -> Unit,
+    modifier: Modifier
+) {
+    GlideImage(
+        imageModel = imageUrl,
+        modifier = modifier,
+        loading = {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                content = {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(30.dp),
+                        strokeWidth = 4.dp
+                    )
+                }
+            )
+        },
+        success = { imageState, painter ->
+            imageState.imageBitmap?.let {
+                Image(
+                    bitmap = it,
+                    contentDescription = "tech letter",
+                    modifier = Modifier
+                        .size(150.dp, 150.dp)
+                )
+            }
+        },
+        failure = {
+            Image(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .height(150.dp)
+                    .clip(Shape.extraLarge),
+                painter = painterResource(id = R.drawable.tave_cover),
+                contentScale = ContentScale.FillWidth,
+                contentDescription = "MainNoticeCard Image"
+            )
+        }
+    )
 }
 
 @Composable
@@ -110,6 +145,7 @@ fun PreviewMainNoticeCard() {
         modifier = Modifier,
         titleTxt = "후반기 프로젝트 팀 소개 part1 김건우의 팀 단속",
         writer = "TAVE 운영진",
-        uploadTime = "1분 전"
+        uploadTime = "1분 전",
+        imageUrl = {/*TODO*/}
     )
 }

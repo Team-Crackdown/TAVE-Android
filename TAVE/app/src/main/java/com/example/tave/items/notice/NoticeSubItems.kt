@@ -2,7 +2,7 @@ package com.example.tave.items.notice
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Divider
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,13 +20,15 @@ import androidx.compose.ui.unit.sp
 import com.example.tave.R
 import com.example.tave.ui.font.NotoSansKr
 import com.example.tave.ui.theme.Shape
+import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun NoticeSubItems(
     modifier: Modifier,
     subItemTitle: String,
     subItemWriter: String,
-    subItemTimeStamp: String
+    subItemTimeStamp: String,
+    imageUrl: () -> Unit
 ) {
     Row(
         modifier = modifier
@@ -36,13 +38,9 @@ fun NoticeSubItems(
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
+        NoticeSubItemImage(
+            imageUrl = imageUrl,
             modifier = modifier
-                .size(30.dp)
-                .clip(shape = Shape.large),
-            painter = painterResource(R.drawable.tave_profile),
-            contentScale = ContentScale.Fit,
-            contentDescription = "Sub Items Image View"
         )
         Column(
             modifier = modifier.fillMaxWidth(),
@@ -59,6 +57,48 @@ fun NoticeSubItems(
             }
         )
     }
+}
+
+@Composable
+fun NoticeSubItemImage(
+    imageUrl: () -> Unit,
+    modifier: Modifier
+) {
+    GlideImage(
+        imageModel = imageUrl,
+        modifier = modifier,
+        loading = {
+            Box(
+                modifier = Modifier.fillMaxSize(),
+                content = {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(30.dp),
+                        strokeWidth = 4.dp
+                    )
+                }
+            )
+        },
+        success = { imageState, painter ->
+            imageState.imageBitmap?.let {
+                Image(
+                    bitmap = it,
+                    contentDescription = "tech letter",
+                    modifier = Modifier
+                        .size(150.dp, 150.dp)
+                )
+            }
+        },
+        failure = {
+            Image(
+                modifier = modifier
+                    .size(30.dp)
+                    .clip(shape = Shape.large),
+                painter = painterResource(R.drawable.tave_profile),
+                contentScale = ContentScale.Fit,
+                contentDescription = "Sub Items Image View"
+            )
+        }
+    )
 }
 
 @Composable
@@ -113,6 +153,7 @@ fun PreviewNoticeSubItems() {
         modifier = Modifier,
         subItemTitle = "후반기 만남의 장 회원 소개 Part1",
         subItemWriter = "TAVE 운영진",
-        subItemTimeStamp = "6시간 전"
+        subItemTimeStamp = "6시간 전",
+        imageUrl = {/*TODO*/ }
     )
 }

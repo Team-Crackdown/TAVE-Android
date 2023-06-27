@@ -8,12 +8,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.tave.items.profile.*
+import com.example.tave.viewmodel.ProfileViewModel
 
 @Composable
 fun ProfilePage(
-    navController: NavController
+    navController: NavController,
+    viewModel: ProfileViewModel = hiltViewModel()
 ) {
     Scaffold(
         floatingActionButton = {
@@ -26,9 +29,9 @@ fun ProfilePage(
         Column(modifier = Modifier.padding(contentPadding)) {
             ProfileImage()
             ProfileContent(
-                "11기",
-                "테이브 대학교",
-                "김테비",
+                viewModel.userProfile.value?.userRadix.toString(),
+                viewModel.userProfile.value?.userUniv.toString(),
+                viewModel.userProfile.value?.userUniv.toString(),
                 "kimTavy@tave.com",
                 "010-0000-0000",
                 "앱(Android)",

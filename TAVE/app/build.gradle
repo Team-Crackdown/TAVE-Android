@@ -84,7 +84,7 @@ dependencies {
     implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 
     // LandScapist-Glide
-    implementation "com.github.skydoves:landscapist-glide:1.4.7"
+    implementation "com.github.skydoves:landscapist-glide:2.2.2"
 
     // Zxing
     implementation('com.journeyapps:zxing-android-embedded:4.3.0') { transitive = false }

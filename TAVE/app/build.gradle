@@ -6,6 +6,9 @@ plugins {
 
 apply plugin: 'com.google.dagger.hilt.android'
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     namespace 'com.example.tave'
     compileSdk 33
@@ -16,7 +19,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
-
+        buildConfigField "String", "TAVE_API_URL", properties["TAVE_API_URL"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary true }
     }
@@ -78,6 +81,7 @@ dependencies {
     // Dagger-Hilt DI(Dependency Injection) Tool
     implementation "com.google.dagger:hilt-android:2.44.2"
     kapt "com.google.dagger:hilt-android-compiler:2.44.2"
+    implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
 
     // LandScapist-Glide
     implementation "com.github.skydoves:landscapist-glide:1.4.7"

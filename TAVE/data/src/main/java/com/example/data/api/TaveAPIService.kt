@@ -1,25 +1,36 @@
 package com.example.data.api
 
-import com.example.data.model.HomeItemModel
-import com.example.data.model.NoticeItemModel
-import com.example.data.model.UserProfileModel
+import com.example.data.model.notice.NoticeDetailModel
+import com.example.data.model.score.TeamScoreModel
+import com.example.data.model.profile.UserProfileModel
+import com.example.data.model.schedule.ScheduleModel
+import com.example.data.model.score.UserScoreModel
 import retrofit2.Response
+import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.PATCH
 import retrofit2.http.Query
 
 interface TaveAPIService {
-    @GET("member/json")
-    suspend fun getHomeItemInfo(
-        @Query("user")
-        userUID: String
-    ): Response<HomeItemModel>
+    @GET("member/getmember")
+    suspend fun getProfileInfo(@Query("memberId") userUID: Int): Response<UserProfileModel>
 
-    @GET("profile/json")
-    suspend fun getUserProfileInfo(
-        @Query("user")
-        userUID: String
-    ): Response<UserProfileModel>
+    @PATCH("member/modifyprofileimage")
+    suspend fun updateProfileImage(
+        @Query("memberId") userUID: Int,
+        @Body profileImage: String
+    ): Response<Result<Unit>>
 
-    @GET("notice/json")
-    suspend fun getNoticeInfo(): Response<NoticeItemModel>
+    @GET("memberScoreNote/getmemberscorenote")
+    suspend fun getUserScore(@Query("memberScoreNoteId") userUID: Int): Response<UserScoreModel>
+
+    @GET("teamScoreNote/getteamscorenote")
+    suspend fun getTeamScore(@Query("teamScoreNoteId") teamID: Int): Response<TeamScoreModel>
+
+    @GET("schedule/getschedule")
+    suspend fun getSchedule(@Query("scheduleId") scheduleID: Int): Response<ScheduleModel>
+
+    @GET("notice/getnotice")
+    suspend fun getNoticeDetail(@Query("noticeId") noticeID: Int): Response<NoticeDetailModel>
+
 }

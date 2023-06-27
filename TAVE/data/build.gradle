@@ -6,6 +6,9 @@ plugins {
 
 apply plugin: 'com.google.dagger.hilt.android'
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     namespace 'com.example.data'
     compileSdk 33
@@ -13,7 +16,7 @@ android {
     defaultConfig {
         minSdk 31
         targetSdk 33
-
+        buildConfigField "String", "TAVE_API_URL", properties["TAVE_API_URL"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }

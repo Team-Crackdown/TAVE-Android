@@ -1,4 +1,4 @@
-package com.example.data.util
+package com.example.data.util.common
 
 object Constant {
     const val DELAY_TIME_MILLIS: Long = 2000L

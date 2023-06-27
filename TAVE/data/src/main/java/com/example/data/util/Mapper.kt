@@ -1,39 +1,47 @@
 package com.example.data.util
 
-import com.example.data.model.HomeItemModel
-import com.example.data.model.NoticeItemModel
-import com.example.data.model.UserProfileModel
-import com.example.domain.entity.HomeItemEntity
-import com.example.domain.entity.NoticeItemEntity
-import com.example.domain.entity.UserProfileEntity
-
-fun toHomeItemEntityMapper(
-    item: HomeItemModel
-): HomeItemEntity = HomeItemEntity(
-    userRadix = item.userRadix,
-    personalScore = item.personalScore,
-    teamScore = item.teamScore,
-    eventDateTime = item.eventDateTime
-)
+import com.example.data.model.notice.NoticeDetailModel
+import com.example.data.model.score.TeamScoreModel
+import com.example.data.model.profile.UserProfileModel
+import com.example.data.model.schedule.ScheduleModel
+import com.example.data.model.score.UserScoreModel
+import com.example.domain.entity.notice.NoticeDetailEntity
+import com.example.domain.entity.score.TeamScoreEntity
+import com.example.domain.entity.profile.UserProfileEntity
+import com.example.domain.entity.schedule.ScheduleEntity
+import com.example.domain.entity.score.UserScoreEntity
 
 fun toUserProfileEntityMapper(
     item: UserProfileModel
 ): UserProfileEntity = UserProfileEntity(
-    userRadix = item.userRadix,
-    userName = item.userName,
-    userEmail = item.userEmail,
-    userDept = item.userDept,
-    userUniversity = item.userUniversity,
-    userPhoneNumber = item.userPhoneNumber,
-    userIntro = item.userIntro
+    userUID = item.id,
+    userEmail = item.email,
+    userName = item.name,
+    userProfileImage = item.profileImage,
+    userRadix = item.rad,
+    userPhoneNumber = item.phoneNumber,
+    userTech = item.techField,
+    userTeamID = item.teamID,
+    userUniv = item.university,
+    userType = item.memberType
 )
 
-fun toNoticeItemEntityMapper(
-    items: List<NoticeItemModel>
-): List<NoticeItemEntity> = items.map {
-    NoticeItemEntity(
-        notice_ID = it.notice_ID,
-        notice_Content = it.notice_Content,
-        notice_Photos = it.notice_Photos
-    )
-}
+fun toUserScoreEntityMapper(
+    item: UserScoreModel
+): UserScoreEntity = UserScoreEntity(personalScore = item.score)
+
+fun toTeamScoreEntityMapper(
+    item: TeamScoreModel
+): TeamScoreEntity = TeamScoreEntity(teamScore = item.score)
+
+fun toNoticeDetailEntityMapper(
+    item: NoticeDetailModel
+): NoticeDetailEntity = NoticeDetailEntity(content = item.content)
+
+fun toScheduleEntityMapper(
+    item: ScheduleModel
+): ScheduleEntity = ScheduleEntity(
+    place = item.place,
+    title = item.title,
+    date = item.date
+)

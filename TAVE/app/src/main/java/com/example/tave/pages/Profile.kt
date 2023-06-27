@@ -12,7 +12,9 @@ import androidx.navigation.NavController
 import com.example.tave.items.profile.*
 
 @Composable
-fun ProfilePage(navController: NavController) {
+fun ProfilePage(
+    navController: NavController
+) {
     Scaffold(
         floatingActionButton = {
             UpdateFloatingBtn(
@@ -31,6 +33,7 @@ fun ProfilePage(navController: NavController) {
                 "010-0000-0000",
                 "앱(Android)",
                 "안녕하세요 \n저는 김테비입니다.\n" +
+                "안녕하세요 \n저는 김테비입니다.\n" +
                         "저는 김테비입니다.\n" +
                         "저는 김테비입니다.\n" +
                         "저는 김테비입니다.\n" +
@@ -42,7 +45,9 @@ fun ProfilePage(navController: NavController) {
 
 @Composable
 fun ProfileImage() {
-    Box(modifier = Modifier.fillMaxWidth().height(300.dp)) {
+    Box(modifier = Modifier
+        .fillMaxWidth()
+        .height(300.dp)) {
         Text("이미지")
     }
 }

@@ -13,7 +13,7 @@ import kotlinx.coroutines.Dispatchers
 /**
  * Dispatcher Module
  *  - 코루틴 디스패처 모듈입니다.
- *  - Main Dispatcher : UI에 주로 사용
+ *  - Main Dispatcher : UI에 주로 사용하는 Dispatcher 입니다.
  *  - IO Dispatcher : Network 나 Database CRUD 작업에 주로 사용합니다.
  *  - Default Dispatcher : 위 두 디스패처가 감당하기 힘든 연산 작업을 주로 담당합니다.
  */

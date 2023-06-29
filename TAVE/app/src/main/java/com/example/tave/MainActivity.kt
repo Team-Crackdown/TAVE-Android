@@ -22,7 +22,7 @@ class MainActivity : ComponentActivity() {
                     startDestination = "home"
                 ) {
                     composable("login") {
-                        LoginPage(navController)
+                        LoginPage()
                     }
                     composable("home"){
                         HomePage("김테비", "11기", "OB", navController)

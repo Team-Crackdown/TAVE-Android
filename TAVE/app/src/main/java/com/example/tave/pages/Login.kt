@@ -1,7 +1,5 @@
 package com.example.tave.pages
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -13,6 +11,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -21,45 +21,50 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.tave.R
 import com.example.tave.items.login.LoginBtn
+import com.example.tave.ui.font.NotoSansKr
 
 @Composable
-fun LoginPage(navController: NavController) {
-    Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+fun LoginPage() {
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(20.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                text = "TAVE",
-                fontFamily = FontFamily.Monospace,
-                textAlign = TextAlign.Center,
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Blue,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 20.dp)
-            )
-            LoginBox(navController)
-        }
+            content = {
+                Text(
+                    text = stringResource(id = R.string.app_name),
+                    modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp),
+                    style = TextStyle(
+                        fontSize = 40.sp,
+                        fontFamily = NotoSansKr,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center,
+                        color = Color.Blue
+                    )
+                )
+                LoginBox(Modifier)
+            }
+        )
     }
 }
 
 
 @Composable
-private fun LoginBox(navController: NavController) {
+private fun LoginBox(
+    modifier: Modifier
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp)
-            .background(Color.LightGray),
+        modifier = modifier.fillMaxWidth().padding(10.dp).background(Color.LightGray),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -67,10 +72,8 @@ private fun LoginBox(navController: NavController) {
             value = email,
             onValueChange = { email = it },
             label = { Text("Enter your e-mail") },
-            leadingIcon = {
-                Icon(Icons.Default.Person, contentDescription = "person")
-            },
-            modifier = Modifier
+            leadingIcon = { Icon(Icons.Default.Person, contentDescription = "person") },
+            modifier = modifier
                 .padding(bottom = 10.dp, top = 10.dp)
                 .width(300.dp)
         )
@@ -79,10 +82,8 @@ private fun LoginBox(navController: NavController) {
             value = password,
             onValueChange = { password = it },
             label = { Text("Enter your password") },
-            leadingIcon = {
-                Icon(Icons.Default.Info, contentDescription = "password")
-            },
-            modifier = Modifier
+            leadingIcon = { Icon(Icons.Default.Info, contentDescription = "password") },
+            modifier = modifier
                 .padding(bottom = 10.dp, top = 10.dp)
                 .width(300.dp),
             visualTransformation = PasswordVisualTransformation(),
@@ -90,23 +91,7 @@ private fun LoginBox(navController: NavController) {
         )
         LoginBtn(
             txt = "로그인",
-            onClicked = {
-//                if (email == "luna" && password == "1234") {
-//                    logged(email, password, context)
-//                    navController.navigate("home")
-//                } else {
-//                    logged(email, password, context)
-//                }
-            }
+            onClicked = { /*TODO*/ }
         )
-    }
-}
-
-
-fun logged(email: String, password: String, context: Context) {
-    if (email == "luna" && password == "1234") {
-        Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
-    } else {
-        Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show()
     }
 }

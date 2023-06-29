@@ -12,11 +12,11 @@ interface TaveAPIRepository {
 
     fun updateUserProfile(userUID: Int, profileImage: String): Flow<Result<Unit>>
 
-    fun getUserScore(userUID: Int): Flow<UserScoreEntity>
+    fun getUserScore(userUID: Int): Flow<UserScoreEntity?>
 
-    fun getTeamScore(teamID: Int): Flow<TeamScoreEntity>
+    fun getTeamScore(teamID: Int): Flow<TeamScoreEntity?>
 
-    fun getNoticeDetail(noticeID: Int): Flow<NoticeDetailEntity>
+    fun getNoticeDetail(noticeID: Int): Flow<NoticeDetailEntity?>
 
-    fun getSchedule(scheduleID: Int): Flow<ScheduleEntity>
+    fun getSchedule(scheduleID: Int): Flow<ScheduleEntity?>
 }

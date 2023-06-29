@@ -27,7 +27,6 @@ class ProfileViewModel @Inject constructor(
         }
     }
 
-
     override fun onCleared() {
         super.onCleared()
         viewModelScope.cancel()

@@ -35,7 +35,7 @@ class TaveAPIRepositoryImpl @Inject constructor(
     override fun getUserProfile(
         userUID: Int
     ): Flow<UserProfileEntity?> = flow<UserProfileEntity?> {
-        val response: Response<UserProfileModel> = taveAPIService.getProfileInfo(1)
+        val response: Response<UserProfileModel> = taveAPIService.getProfileInfo(userUID)
 
         if (response.isSuccessful && response.body() != null) {
             val result: UserProfileEntity = toUserProfileEntityMapper(response.body()!!)
@@ -49,12 +49,17 @@ class TaveAPIRepositoryImpl @Inject constructor(
     }.catch { exception ->
         when (exception) {
             is IOException -> emit(null)
+            is HttpException -> emit(null)
             is IllegalStateException -> emit(null)
             else -> throw exception
         }
     }. retryWhen { cause, attempt ->
         when {
             (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constant.DELAY_TIME_MILLIS)
+                true
+            }
+            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
                 delay(Constant.DELAY_TIME_MILLIS)
                 true
             }
@@ -65,13 +70,33 @@ class TaveAPIRepositoryImpl @Inject constructor(
     override fun updateUserProfile(
         userUID: Int,
         profileImage: String
-    ): Flow<Result<Unit>> {
-        TODO("Not yet implemented")
+    ): Flow<Result<Unit>>  = flow {
+        taveAPIService.updateProfileImage(userUID, profileImage)
+        emit(Result.success(Unit))
+    }.catch { exception ->
+        when (exception) {
+            is IOException -> emit(Result.failure(exception))
+            is HttpException -> emit(Result.failure(exception))
+            is IllegalStateException -> emit(Result.failure(exception))
+            else -> throw exception
+        }
+    }.retryWhen { cause, attempt ->
+        when {
+            (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constant.DELAY_TIME_MILLIS)
+                true
+            }
+            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constant.DELAY_TIME_MILLIS)
+                true
+            }
+            else -> false
+        }
     }
 
     override fun getUserScore(
         userUID: Int
-    ): Flow<UserScoreEntity> = flow {
+    ): Flow<UserScoreEntity?> = flow<UserScoreEntity?> {
         val response: Response<UserScoreModel> = taveAPIService.getUserScore(userUID)
 
         if (response.isSuccessful && response.body() != null) {
@@ -83,9 +108,20 @@ class TaveAPIRepositoryImpl @Inject constructor(
                 (response.body() == null) -> throw NullPointerException()
             }
         }
+    }.catch { exception ->
+        when (exception) {
+            is IOException -> emit(null)
+            is HttpException -> emit(null)
+            is IllegalStateException -> emit(null)
+            else -> throw exception
+        }
     }.retryWhen { cause, attempt ->
         when {
             (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constant.DELAY_TIME_MILLIS)
+                true
+            }
+            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
                 delay(Constant.DELAY_TIME_MILLIS)
                 true
             }
@@ -95,7 +131,7 @@ class TaveAPIRepositoryImpl @Inject constructor(
 
     override fun getTeamScore(
         teamID: Int
-    ): Flow<TeamScoreEntity> = flow {
+    ): Flow<TeamScoreEntity?> = flow<TeamScoreEntity?> {
         val response: Response<TeamScoreModel> = taveAPIService.getTeamScore(teamID)
 
         if (response.isSuccessful && response.body() != null) {
@@ -107,9 +143,20 @@ class TaveAPIRepositoryImpl @Inject constructor(
                 (response.body() == null) -> throw NullPointerException()
             }
         }
+    }.catch { exception ->
+        when (exception) {
+            is IOException -> emit(null)
+            is HttpException -> emit(null)
+            is IllegalStateException -> emit(null)
+            else -> throw exception
+        }
     }.retryWhen { cause, attempt ->
         when {
             (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constant.DELAY_TIME_MILLIS)
+                true
+            }
+            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
                 delay(Constant.DELAY_TIME_MILLIS)
                 true
             }
@@ -119,7 +166,7 @@ class TaveAPIRepositoryImpl @Inject constructor(
 
     override fun getNoticeDetail(
         noticeID: Int
-    ): Flow<NoticeDetailEntity> = flow {
+    ): Flow<NoticeDetailEntity?> = flow<NoticeDetailEntity?> {
         val response: Response<NoticeDetailModel> = taveAPIService.getNoticeDetail(noticeID)
 
         if (response.isSuccessful && response.body() != null) {
@@ -131,9 +178,20 @@ class TaveAPIRepositoryImpl @Inject constructor(
                 (response.body() == null) -> throw NullPointerException()
             }
         }
+    }.catch { exception ->
+        when (exception) {
+            is IOException -> emit(null)
+            is HttpException -> emit(null)
+            is IllegalStateException -> emit(null)
+            else -> throw exception
+        }
     }.retryWhen { cause, attempt ->
         when {
             (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constant.DELAY_TIME_MILLIS)
+                true
+            }
+            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
                 delay(Constant.DELAY_TIME_MILLIS)
                 true
             }
@@ -143,7 +201,7 @@ class TaveAPIRepositoryImpl @Inject constructor(
 
     override fun getSchedule(
         scheduleID: Int
-    ): Flow<ScheduleEntity> = flow {
+    ): Flow<ScheduleEntity?> = flow<ScheduleEntity?> {
         val response: Response<ScheduleModel> = taveAPIService.getSchedule(scheduleID)
 
         if (response.isSuccessful && response.body() != null) {
@@ -155,9 +213,20 @@ class TaveAPIRepositoryImpl @Inject constructor(
                 (response.body() == null) -> throw NullPointerException()
             }
         }
+    }.catch { exception ->
+        when (exception) {
+            is IOException -> emit(null)
+            is HttpException -> emit(null)
+            is IllegalStateException -> emit(null)
+            else -> throw exception
+        }
     }.retryWhen { cause, attempt ->
         when {
             (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constant.DELAY_TIME_MILLIS)
+                true
+            }
+            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
                 delay(Constant.DELAY_TIME_MILLIS)
                 true
             }

@@ -78,21 +78,18 @@ fun NoticeSubItemImage(
                 }
             )
         },
-        success = { imageState, painter ->
+        success = { imageState, _ ->
             imageState.imageBitmap?.let {
                 Image(
                     bitmap = it,
                     contentDescription = "tech letter",
-                    modifier = Modifier
-                        .size(150.dp, 150.dp)
+                    modifier = Modifier.size(150.dp, 150.dp)
                 )
             }
         },
         failure = {
             Image(
-                modifier = modifier
-                    .size(30.dp)
-                    .clip(shape = Shape.large),
+                modifier = modifier.size(30.dp).clip(shape = Shape.large),
                 painter = painterResource(R.drawable.tave_profile),
                 contentScale = ContentScale.Fit,
                 contentDescription = "Sub Items Image View"

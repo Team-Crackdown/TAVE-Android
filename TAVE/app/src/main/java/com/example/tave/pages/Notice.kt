@@ -111,9 +111,7 @@ fun NoticePage(
                 LazyRow {
                     items(count = techLetters.size) { index ->
                         NoticeTechLetterItems(
-                            modifier = modifier
-                                .size(150.dp)
-                                .clip(shape = Shape.large),
+                            modifier = modifier.size(150.dp).clip(shape = Shape.large),
                             imageUrl = { techLetters[index].url }
                         )
                     }

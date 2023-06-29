@@ -64,11 +64,7 @@ private fun LoginBox(
     var password by remember { mutableStateOf("") }
 
     Column(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(10.dp)
-            .clip(shape = Shape.large),
-            //.background(Color.LightGray),
+        modifier = modifier.fillMaxWidth().padding(10.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {

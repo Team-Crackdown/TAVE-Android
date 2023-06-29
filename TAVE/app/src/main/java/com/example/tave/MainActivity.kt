@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
                         )
                     }
                     composable("profile"){
-                        ProfilePage(modifier = Modifier, navController = navController)
+                        ProfilePage(modifier = Modifier)
                     }
                     composable("updateProfile"){
                         UpdateProfilePage(modifier = Modifier, navController = navController)

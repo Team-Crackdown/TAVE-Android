@@ -81,40 +81,11 @@ fun ProfileContentTxtSizeSmall(txt: String, answer: String) {
     }
 }
 
-@Composable
-fun ProfileContentTxtSizeOnlyForIntro(txt: String, answer: String) {
-    val constraints = decoupledConstraints(
-        widthTxt = Dimension.value(316.dp),
-        widthAnswer = Dimension.value(316.dp)
-    )
 
-    ConstraintLayout(constraints) {
-        Text(
-            text = txt,
-            modifier = Modifier.layoutId("txt"),
-            fontSize = 20.sp,
-            fontFamily = NotoSansKr,
-            fontWeight = FontWeight.Bold,
-            style = TextStyle(
-                platformStyle = PlatformTextStyle(includeFontPadding = false),
-                lineHeight = 2.5.em
-            )
-        )
-        Text(
-            text = answer,
-            modifier = Modifier.layoutId("answer"),
-            fontSize = 10.sp,
-            fontFamily = NotoSansKr,
-            fontWeight = FontWeight.Bold,
-            style = TextStyle(
-                platformStyle = PlatformTextStyle(includeFontPadding = false),
-                lineHeight = 2.5.em
-            )
-        )
-    }
-}
-
-private fun decoupledConstraints(widthTxt: Dimension, widthAnswer: Dimension): ConstraintSet {
+private fun decoupledConstraints(
+    widthTxt: Dimension,
+    widthAnswer: Dimension
+): ConstraintSet {
     return ConstraintSet {
         val txt = createRefFor("text")
         val answer = createRefFor("answer")
@@ -122,13 +93,11 @@ private fun decoupledConstraints(widthTxt: Dimension, widthAnswer: Dimension): C
         constrain(txt) {
             top.linkTo(parent.top, margin = 20.dp)
             width = widthTxt
-            // height = Dimension.value(50.dp)
         }
         constrain(answer) {
             top.linkTo(txt.bottom, margin = 20.dp)
             start.linkTo(txt.end)
             width = widthAnswer
-            // height = Dimension.value(50.dp)
         }
     }
 }

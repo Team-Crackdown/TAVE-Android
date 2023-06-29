@@ -4,6 +4,7 @@ import com.example.data.api.TaveAPIService
 import com.example.data.repositoryImpl.TaveAPIRepositoryImpl
 import com.example.domain.repository.TaveAPIRepository
 import com.example.tave.BuildConfig
+import com.example.tave.common.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,7 +37,7 @@ import javax.net.ssl.X509TrustManager
 object TaveAPIModule {
     @Provides
     @Singleton
-    fun provideBaseURL(): String = BuildConfig.TAVE_API_URL
+    fun provideBaseURL(): String = Constants.TAVE_URL
 
     @Provides
     @Singleton

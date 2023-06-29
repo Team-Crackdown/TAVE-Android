@@ -8,5 +8,15 @@
     <string name="dept">분야</string>
     <string name="intro">자기소개</string>
     <string name="Notice">공지사항</string>
+    <string name="Notice_Confirm">공지사항 확인하기</string>
     <string name="Tech_Letter">기술레터</string>
+    <string name="Profile">프로필</string>
+    <string name="Check">출석</string>
+    <string name="Check_Confirm">출석 인증하기</string>
+    <string name="Personal_Score">개인 활동 점수</string>
+    <string name="Score_126">126점</string>
+    <string name="Team_Score">팀 활동 점수</string>
+    <string name="Score_80">80점</string>
+    <string name="D_day">D-day</string>
+    <string name="D_day_Title">후반기 만남의 장까지</string>
 </resources>

@@ -18,7 +18,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.tave.R
 import com.example.tave.items.noticeDetail.NoticeDetailCard
 import com.example.tave.items.noticeDetail.NoticeDetailLazyGridsPics
 import com.example.tave.items.noticeDetail.NoticeDetailPublisherBar
@@ -32,7 +31,6 @@ fun NoticeDetailPage(
     publisherText: String,
     upDateTime: String,
     itemCount: Int,
-    painterResourceId: Int
 ) {
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -77,7 +75,7 @@ fun NoticeDetailPage(
             NoticeDetailLazyGridsPics(
                 itemCount = itemCount,
                 imageUrl = { /*TODO*/ },
-                modifier = Modifier
+                modifier = modifier
             )
         }
     }
@@ -92,6 +90,5 @@ fun PreviewNoticeDetailPage() {
         publisherText = "TAVE 운영진",
         upDateTime = "6시간 전",
         itemCount = 12,
-        painterResourceId = R.drawable.tech_letter
     )
 }

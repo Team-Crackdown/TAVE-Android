@@ -3,6 +3,7 @@ package com.example.tave
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -22,16 +23,22 @@ class MainActivity : ComponentActivity() {
                     startDestination = "home"
                 ) {
                     composable("login") {
-                        LoginPage()
+                        LoginPage(modifier = Modifier)
                     }
                     composable("home"){
-                        HomePage("김테비", "11기", "OB", navController)
+                        HomePage(
+                            modifier = Modifier,
+                            name = "김테비",
+                            radix = "11기",
+                            generation = "OB",
+                            navController =  navController
+                        )
                     }
                     composable("profile"){
-                        ProfilePage(navController)
+                        ProfilePage(modifier = Modifier, navController = navController)
                     }
                     composable("updateProfile"){
-                        UpdateProfilePage(navController)
+                        UpdateProfilePage(modifier = Modifier, navController = navController)
                     }
                 }
             }

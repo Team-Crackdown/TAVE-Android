@@ -15,7 +15,7 @@ import com.example.tave.items.profile.UpdateTextField
 import com.example.tave.items.profile.UpdateTextFieldForIntro
 
 @Composable
-fun UpdateProfilePage(navController: NavController) {
+fun UpdateProfilePage(modifier: Modifier, navController: NavController) {
     Scaffold(
         floatingActionButton = { UpdateFloatingBtn(
             txt = "수정하기",
@@ -23,7 +23,7 @@ fun UpdateProfilePage(navController: NavController) {
         ) }
     ) { contentPadding ->
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .verticalScroll(rememberScrollState())
                 .padding(contentPadding)
         ) {

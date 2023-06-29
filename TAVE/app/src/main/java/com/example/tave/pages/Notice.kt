@@ -78,7 +78,7 @@ fun NoticePage(
                 )
                 Divider(
                     color = Color.Black.copy(alpha = 0.2f),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = modifier.fillMaxWidth()
                 )
                 LazyColumn {
                     items(notices.size) { index ->
@@ -89,14 +89,14 @@ fun NoticePage(
                             subItemTimeStamp = notices[index].timeStamp,
                             imageUrl = { notices[index].url }
                         )
-                        Spacer(modifier = Modifier.height(5.dp))
+                        Spacer(modifier = modifier.height(5.dp))
                         Divider(
                             color = Color.Black.copy(alpha = 0.2f),
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = modifier.fillMaxWidth()
                         )
                     }
                 }
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = modifier.height(10.dp))
                 Text(
                     text = stringResource(id = R.string.Tech_Letter),
                     modifier = modifier.padding(bottom = 10.dp),
@@ -107,11 +107,11 @@ fun NoticePage(
                         platformStyle = PlatformTextStyle(includeFontPadding = false)
                     )
                 )
-                Spacer(modifier = Modifier.height(10.dp))
+                Spacer(modifier = modifier.height(10.dp))
                 LazyRow {
                     items(count = techLetters.size) { index ->
                         NoticeTechLetterItems(
-                            modifier = Modifier
+                            modifier = modifier
                                 .size(150.dp)
                                 .clip(shape = Shape.large),
                             imageUrl = { techLetters[index].url }

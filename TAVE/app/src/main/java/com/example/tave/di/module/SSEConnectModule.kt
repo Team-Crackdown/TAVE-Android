@@ -1,6 +1,7 @@
 package com.example.tave.di.module
 
 import com.example.tave.BuildConfig
+import com.example.tave.common.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,7 +18,7 @@ object SSEConnectModule {
     @Provides
     @Singleton
     fun provideSSERequestHeader(): Request = Request.Builder()
-        .url(BuildConfig.TAVE_API_URL)
+        .url(Constants.TAVE_URL)
         .header("Accept", "text/event-stream")
         .build()
 }

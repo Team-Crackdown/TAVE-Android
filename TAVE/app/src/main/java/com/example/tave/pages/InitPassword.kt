@@ -15,13 +15,15 @@ import androidx.compose.ui.unit.dp
 import com.example.tave.items.login.LoginBtn
 
 @Composable
-private fun InitPasswordPage() {
+private fun InitPasswordPage(
+    modifier: Modifier
+) {
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
 
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Surface(modifier = modifier.fillMaxSize()) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(10.dp)
                 .background(Color.White),
@@ -32,7 +34,7 @@ private fun InitPasswordPage() {
                 value = password,
                 onValueChange = { password = it },
                 label = { Text("새로운 비밀번호") },
-                modifier = Modifier
+                modifier = modifier
                     .padding(bottom = 10.dp, top = 10.dp)
                     .width(300.dp),
                 visualTransformation = PasswordVisualTransformation(),
@@ -42,20 +44,20 @@ private fun InitPasswordPage() {
                 value = confirmPassword,
                 onValueChange = { confirmPassword = it },
                 label = { Text("새로운 비밀번호 확인") },
-                modifier = Modifier
+                modifier = modifier
                     .padding(bottom = 10.dp, top = 10.dp)
                     .width(300.dp),
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
-            Spacer(modifier = Modifier.height(70.dp))
+            Spacer(modifier = modifier.height(70.dp))
             /** padding 값 확인 부탁드립니다 */
             Column(
-                modifier = Modifier.padding(start = 100.dp)
+                modifier = modifier.padding(start = 100.dp)
             ){
                 LoginBtn(
                     txt = "변경하기",
-                    onClicked = {}
+                    onClicked = {/*TODO*/}
                 )
             }
         }
@@ -65,5 +67,5 @@ private fun InitPasswordPage() {
 @Composable
 @Preview(showSystemUi = true)
 fun PreviewInitPassword() {
-    InitPasswordPage()
+    InitPasswordPage(modifier = Modifier)
 }

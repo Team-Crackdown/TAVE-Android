@@ -15,6 +15,7 @@ import com.example.tave.viewmodel.ProfileViewModel
 
 @Composable
 fun ProfilePage(
+    modifier: Modifier,
     navController: NavController,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
@@ -26,9 +27,10 @@ fun ProfilePage(
             )
         }
     ) { contentPadding ->
-        Column(modifier = Modifier.padding(contentPadding)) {
-            ProfileImage()
+        Column(modifier = modifier.padding(contentPadding)) {
+            ProfileImage(modifier = modifier)
             ProfileContent(
+                modifier = modifier,
                 viewModel.userProfile.value?.userRadix.toString(),
                 viewModel.userProfile.value?.userUniv.toString(),
                 viewModel.userProfile.value?.userUniv.toString(),
@@ -47,8 +49,8 @@ fun ProfilePage(
 }
 
 @Composable
-fun ProfileImage() {
-    Box(modifier = Modifier
+fun ProfileImage(modifier: Modifier) {
+    Box(modifier = modifier
         .fillMaxWidth()
         .height(300.dp)) {
         Text("이미지")
@@ -57,6 +59,7 @@ fun ProfileImage() {
 
 @Composable
 fun ProfileContent(
+    modifier: Modifier,
     radix: String,
     university: String,
     name: String,
@@ -66,26 +69,26 @@ fun ProfileContent(
     intro: String
 ) {
     Column(
-        modifier = Modifier.padding(25.dp)
+        modifier = modifier.padding(25.dp)
     ) {
         Row{
             ProfileContentTxtSizeLarge(txt = stringResource(id = R.string.radix), answer = radix)
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = modifier.width(16.dp))
             ProfileContentTxtSizeLarge(txt = stringResource(id = R.string.university), answer = university)
         }
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = modifier.height(20.dp))
         Row{
             ProfileContentTxtSizeLarge(txt = stringResource(id = R.string.name), answer = name)
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = modifier.width(16.dp))
             ProfileContentTxtSizeSmall(txt = stringResource(id = R.string.email), answer = email)
         }
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = modifier.height(20.dp))
         Row{
             ProfileContentTxtSizeSmall(txt = stringResource(id = R.string.phoneNumber), answer = phoneNumber)
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = modifier.width(16.dp))
             ProfileContentTxtSizeSmall(txt = stringResource(id = R.string.dept), answer = dept)
         }
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = modifier.height(20.dp))
         ProfileContentTxtSizeOnlyForIntro(txt = stringResource(id = R.string.intro), answer = intro)
     }
 
@@ -97,8 +100,9 @@ fun ProfileContent(
 fun ProfilePreview() {
     Scaffold { contentPadding ->
         Column(modifier = Modifier.padding(contentPadding)) {
-            ProfileImage()
+            ProfileImage(modifier = Modifier)
             ProfileContent(
+                modifier = Modifier,
                 "11기",
                 "테이브 대학교",
                 "김테비",

@@ -1,6 +1,5 @@
 package com.example.tave.pages
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -10,6 +9,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -17,20 +17,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tave.R
 import com.example.tave.items.login.LoginBtn
 import com.example.tave.ui.font.NotoSansKr
+import com.example.tave.ui.theme.Shape
 
 @Composable
-fun LoginPage() {
+fun LoginPage(modifier: Modifier) {
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .padding(20.dp),
             verticalArrangement = Arrangement.Center,
@@ -38,7 +40,7 @@ fun LoginPage() {
             content = {
                 Text(
                     text = stringResource(id = R.string.app_name),
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp),
+                    modifier = modifier.fillMaxWidth().padding(bottom = 20.dp),
                     style = TextStyle(
                         fontSize = 40.sp,
                         fontFamily = NotoSansKr,
@@ -47,7 +49,7 @@ fun LoginPage() {
                         color = Color.Blue
                     )
                 )
-                LoginBox(Modifier)
+                LoginBox(modifier)
             }
         )
     }
@@ -62,7 +64,11 @@ private fun LoginBox(
     var password by remember { mutableStateOf("") }
 
     Column(
-        modifier = modifier.fillMaxWidth().padding(10.dp).background(Color.LightGray),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(10.dp)
+            .clip(shape = Shape.large),
+            //.background(Color.LightGray),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -73,7 +79,6 @@ private fun LoginBox(
             leadingIcon = { Icon(Icons.Default.Person, contentDescription = "person") },
             modifier = modifier.padding(bottom = 10.dp, top = 10.dp).width(300.dp)
         )
-
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
@@ -83,9 +88,17 @@ private fun LoginBox(
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
+        Spacer(modifier = modifier.height(10.dp))
         LoginBtn(
             txt = "로그인",
             onClicked = { /*TODO*/ }
         )
+        Spacer(modifier = modifier.height(10.dp))
     }
+}
+
+@Composable
+@Preview
+fun PreviewLogin(){
+    LoginPage(modifier = Modifier)
 }

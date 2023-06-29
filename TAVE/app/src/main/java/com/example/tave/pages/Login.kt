@@ -9,7 +9,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
@@ -23,7 +22,6 @@ import androidx.compose.ui.unit.sp
 import com.example.tave.R
 import com.example.tave.items.login.LoginBtn
 import com.example.tave.ui.font.NotoSansKr
-import com.example.tave.ui.theme.Shape
 
 @Composable
 fun LoginPage(modifier: Modifier) {
@@ -40,7 +38,9 @@ fun LoginPage(modifier: Modifier) {
             content = {
                 Text(
                     text = stringResource(id = R.string.app_name),
-                    modifier = modifier.fillMaxWidth().padding(bottom = 20.dp),
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 20.dp),
                     style = TextStyle(
                         fontSize = 40.sp,
                         fontFamily = NotoSansKr,
@@ -54,7 +54,6 @@ fun LoginPage(modifier: Modifier) {
         )
     }
 }
-
 
 @Composable
 private fun LoginBox(
@@ -71,22 +70,26 @@ private fun LoginBox(
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
-            label = { Text("Enter your e-mail") },
-            leadingIcon = { Icon(Icons.Default.Person, contentDescription = "person") },
-            modifier = modifier.padding(bottom = 10.dp, top = 10.dp).width(300.dp)
+            label = { Text(stringResource(id = R.string.Enter_Email)) },
+            leadingIcon = { Icon(Icons.Default.Person, contentDescription = stringResource(id = R.string.email)) },
+            modifier = modifier
+                .padding(bottom = 10.dp, top = 10.dp)
+                .width(300.dp)
         )
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
-            label = { Text("Enter your password") },
-            leadingIcon = { Icon(Icons.Default.Info, contentDescription = "password") },
-            modifier = modifier.padding(bottom = 10.dp, top = 10.dp).width(300.dp),
+            label = { Text(stringResource(id = R.string.Enter_Pwd)) },
+            leadingIcon = { Icon(Icons.Default.Info, contentDescription = stringResource(id = R.string.Password)) },
+            modifier = modifier
+                .padding(bottom = 10.dp, top = 10.dp)
+                .width(300.dp),
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
         Spacer(modifier = modifier.height(10.dp))
         LoginBtn(
-            txt = "로그인",
+            txt = stringResource(id = R.string.Login),
             onClicked = { /*TODO*/ }
         )
         Spacer(modifier = modifier.height(10.dp))

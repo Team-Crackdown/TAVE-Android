@@ -1,20 +1,11 @@
 package com.example.tave.items.noticeDetail
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -22,6 +13,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tave.R
+import com.example.tave.items.glide.GlideImageView
 import com.example.tave.ui.font.NotoSansKr
 import com.example.tave.ui.theme.Shape
 
@@ -37,14 +29,14 @@ fun NoticeDetailCard(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Center
     ) {
-        Image(
+        GlideImageView(
             modifier = modifier
                 .fillMaxWidth()
                 .height(150.dp)
                 .clip(Shape.extraLarge),
-            painter = painterResource(id = R.drawable.tave_cover),
-            contentScale = ContentScale.FillWidth,
-            contentDescription = "Main Card Image"
+            imageUrl = { /*TODO*/ },
+            contentDescription = "Main Card Image",
+            painterResource = R.drawable.tave_cover
         )
         Spacer(modifier = modifier.size(10.dp))
         Text(

@@ -10,5 +10,5 @@ class GetUserScoreUseCase @Inject constructor(
 ) {
     operator fun invoke(
         userUID: Int
-    ): Flow<UserScoreEntity> = taveAPIRepository.getUserScore(userUID)
+    ): Flow<UserScoreEntity?> = taveAPIRepository.getUserScore(userUID)
 }

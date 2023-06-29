@@ -1,16 +1,12 @@
 package com.example.tave.items.notice
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -18,9 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tave.R
+import com.example.tave.items.glide.GlideImageView
 import com.example.tave.ui.font.NotoSansKr
 import com.example.tave.ui.theme.Shape
-import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun MainNoticeCard(
@@ -55,41 +51,14 @@ fun MainNoticeImage(
     imageUrl: () -> Unit,
     modifier: Modifier
 ) {
-    GlideImage(
-        imageModel = imageUrl,
-        modifier = modifier,
-        loading = {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                content = {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(30.dp),
-                        strokeWidth = 4.dp
-                    )
-                }
-            )
-        },
-        success = { imageState, painter ->
-            imageState.imageBitmap?.let {
-                Image(
-                    bitmap = it,
-                    contentDescription = "tech letter",
-                    modifier = Modifier
-                        .size(150.dp, 150.dp)
-                )
-            }
-        },
-        failure = {
-            Image(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .height(150.dp)
-                    .clip(Shape.extraLarge),
-                painter = painterResource(id = R.drawable.tave_cover),
-                contentScale = ContentScale.FillWidth,
-                contentDescription = "MainNoticeCard Image"
-            )
-        }
+    GlideImageView(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(150.dp)
+            .clip(Shape.extraLarge),
+        imageUrl = imageUrl,
+        contentDescription = "tech letter",
+        painterResource = R.drawable.tave_cover
     )
 }
 

@@ -114,6 +114,7 @@ fun NoticePage(
                             modifier = modifier.size(150.dp).clip(shape = Shape.large),
                             imageUrl = { techLetters[index].url }
                         )
+                        Spacer(modifier = modifier.width(5.dp))
                     }
                 }
             }

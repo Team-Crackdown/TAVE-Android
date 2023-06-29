@@ -10,5 +10,5 @@ class GetScheduleUseCase @Inject constructor(
 ) {
     operator fun invoke(
         scheduleID: Int
-    ): Flow<ScheduleEntity> = taveAPIRepository.getSchedule(scheduleID)
+    ): Flow<ScheduleEntity?> = taveAPIRepository.getSchedule(scheduleID)
 }

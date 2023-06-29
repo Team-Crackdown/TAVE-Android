@@ -1,19 +1,17 @@
 package com.example.tave.pages
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import com.example.tave.R
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.tave.items.glide.GlideImageView
 import com.example.tave.items.profile.*
 import com.example.tave.viewmodel.ProfileViewModel
-import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun ProfilePage(
@@ -44,31 +42,13 @@ fun ProfileImage(
     modifier: Modifier,
     imageUrl: () -> Unit
 ) {
-    GlideImage(
-        imageModel = imageUrl,
+    GlideImageView(
         modifier = modifier
             .fillMaxWidth()
             .height(300.dp),
-        loading = {
-            Box {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(30.dp),
-                    strokeWidth = 4.dp
-                )
-            }
-        },
-        success = { imageState, _ ->
-            imageState.imageBitmap?.let {
-                Image(bitmap = it, contentDescription = "Profile Image")
-            }
-        },
-        failure = {
-            Image(
-                painter = painterResource(R.drawable.tave_profile),
-                contentScale = ContentScale.Fit,
-                contentDescription = "On Failed"
-            )
-        }
+        imageUrl = imageUrl,
+        contentDescription = "Profile Image",
+        painterResource = R.drawable.tave_profile
     )
 }
 
@@ -104,4 +84,10 @@ fun ProfileContent(
         }
     }
 
+}
+
+@Composable
+@Preview
+fun PreviewProfile(){
+    ProfileImage(modifier = Modifier, imageUrl = {/*TODO*/})
 }

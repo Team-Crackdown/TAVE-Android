@@ -10,5 +10,5 @@ class GetNoticeDetailUseCase @Inject constructor(
 ) {
     operator fun invoke(
         noticeID: Int
-    ): Flow<NoticeDetailEntity> = taveAPIRepository.getNoticeDetail(noticeID)
+    ): Flow<NoticeDetailEntity?> = taveAPIRepository.getNoticeDetail(noticeID)
 }

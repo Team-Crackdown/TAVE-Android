@@ -1,6 +1,5 @@
 package com.example.tave.items.noticeDetail
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,8 +13,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -23,6 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tave.R
+import com.example.tave.items.glide.GlideImageView
 import com.example.tave.ui.font.NotoSansKr
 import com.example.tave.ui.theme.Shape
 
@@ -39,11 +37,11 @@ fun NoticeDetailPublisherBar(
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Image(
+        GlideImageView(
             modifier = modifier.size(30.dp).clip(shape = Shape.large),
-            painter = painterResource(id = R.drawable.tave_profile),
-            contentScale = ContentScale.Fit,
-            contentDescription = "Publisher Profile Image"
+            imageUrl = { /*TODO*/ },
+            contentDescription = "Publisher Profile Image",
+            painterResource = R.drawable.tave_profile
         )
         Column(
             modifier = modifier.fillMaxWidth(),

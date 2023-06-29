@@ -6,6 +6,10 @@
     <string name="email">이메일</string>
     <string name="phoneNumber">전화</string>
     <string name="dept">분야</string>
+    <string name="Login">로그인</string>
+    <string name="Password">비밀번호</string>
+    <string name="Enter_Email">Enter your e-mail</string>
+    <string name="Enter_Pwd">Enter your password</string>
     <string name="intro">자기소개</string>
     <string name="Notice">공지사항</string>
     <string name="Notice_Confirm">공지사항 확인하기</string>

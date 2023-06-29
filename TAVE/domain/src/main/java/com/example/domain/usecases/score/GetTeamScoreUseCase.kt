@@ -10,5 +10,5 @@ class GetTeamScoreUseCase @Inject constructor(
 ) {
     operator fun invoke(
         teamID: Int
-    ): Flow<TeamScoreEntity> = taveAPIRepository.getTeamScore(teamID)
+    ): Flow<TeamScoreEntity?> = taveAPIRepository.getTeamScore(teamID)
 }

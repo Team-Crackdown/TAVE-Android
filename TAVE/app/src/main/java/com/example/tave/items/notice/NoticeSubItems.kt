@@ -1,16 +1,12 @@
 package com.example.tave.items.notice
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -18,9 +14,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tave.R
+import com.example.tave.items.glide.GlideImageView
 import com.example.tave.ui.font.NotoSansKr
 import com.example.tave.ui.theme.Shape
-import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun NoticeSubItems(
@@ -46,12 +42,12 @@ fun NoticeSubItems(
             modifier = modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.Start,
             content = {
-                NoticeSubItemTitle(titleTxt = subItemTitle)
+                NoticeSubItemTitle(modifier = Modifier, titleTxt = subItemTitle)
                 Row(
                     modifier = modifier.fillMaxWidth(),
                     content = {
-                        NoticeSubItemWriter(writer = subItemWriter)
-                        NoticeSubItemTimeStamp(uploadTime = subItemTimeStamp)
+                        NoticeSubItemWriter(modifier = Modifier, writer = subItemWriter)
+                        NoticeSubItemTimeStamp(modifier = Modifier, uploadTime = subItemTimeStamp)
                     }
                 )
             }
@@ -61,50 +57,25 @@ fun NoticeSubItems(
 
 @Composable
 fun NoticeSubItemImage(
-    imageUrl: () -> Unit,
-    modifier: Modifier
+    modifier: Modifier,
+    imageUrl: () -> Unit
 ) {
-    GlideImage(
-        imageModel = imageUrl,
-        modifier = modifier,
-        loading = {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                content = {
-                    CircularProgressIndicator(
-                        modifier = Modifier.size(30.dp),
-                        strokeWidth = 4.dp
-                    )
-                }
-            )
-        },
-        success = { imageState, _ ->
-            imageState.imageBitmap?.let {
-                Image(
-                    bitmap = it,
-                    contentDescription = "tech letter",
-                    modifier = Modifier.size(150.dp, 150.dp)
-                )
-            }
-        },
-        failure = {
-            Image(
-                modifier = modifier.size(30.dp).clip(shape = Shape.large),
-                painter = painterResource(R.drawable.tave_profile),
-                contentScale = ContentScale.Fit,
-                contentDescription = "Sub Items Image View"
-            )
-        }
+    GlideImageView(
+        modifier = modifier.size(30.dp).clip(Shape.large),
+        imageUrl = imageUrl,
+        contentDescription = "notice sub item Image",
+        painterResource = R.drawable.tave_profile
     )
 }
 
 @Composable
 fun NoticeSubItemTitle(
+    modifier: Modifier,
     titleTxt: String
 ) {
     Text(
         text = titleTxt,
-        modifier = Modifier.padding(start = 5.dp),
+        modifier = modifier.padding(start = 5.dp),
         style = TextStyle(
             fontSize = 20.sp,
             fontFamily = NotoSansKr,
@@ -115,10 +86,10 @@ fun NoticeSubItemTitle(
 }
 
 @Composable
-fun NoticeSubItemWriter(writer: String) {
+fun NoticeSubItemWriter(modifier: Modifier, writer: String) {
     Text(
         text = writer,
-        modifier = Modifier.padding(start = 5.dp),
+        modifier = modifier.padding(start = 5.dp),
         style = TextStyle(
             fontSize = 12.sp,
             fontFamily = NotoSansKr,
@@ -129,10 +100,10 @@ fun NoticeSubItemWriter(writer: String) {
 }
 
 @Composable
-fun NoticeSubItemTimeStamp(uploadTime: String) {
+fun NoticeSubItemTimeStamp(modifier: Modifier, uploadTime: String) {
     Text(
         text = uploadTime,
-        modifier = Modifier.padding(start = 10.dp),
+        modifier = modifier.padding(start = 10.dp),
         style = TextStyle(
             color = Color.DarkGray,
             fontSize = 12.sp,

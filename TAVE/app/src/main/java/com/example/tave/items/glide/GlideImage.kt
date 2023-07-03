@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -24,10 +25,10 @@ fun GlideImageView(
         modifier = modifier,
         loading = {
             Box(
-                modifier = modifier.fillMaxSize(),
+                modifier = modifier.size(20.dp),
+                contentAlignment = Alignment.Center,
                 content = {
                     CircularProgressIndicator(
-                        modifier = modifier.size(30.dp),
                         strokeWidth = 4.dp
                     )
                 }

@@ -8,7 +8,5 @@ import javax.inject.Inject
 class GetUserProfileUseCase @Inject constructor(
     private val taveAPIRepository: TaveAPIRepository
 ) {
-    operator fun invoke(
-        userUID: Int
-    ): Flow<UserProfileEntity?> = taveAPIRepository.getUserProfile(userUID)
+    operator fun invoke(): Flow<UserProfileEntity?> = taveAPIRepository.getProfileInfo()
 }

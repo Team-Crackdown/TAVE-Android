@@ -9,18 +9,17 @@ import com.example.domain.entity.score.UserScoreEntity
 import kotlinx.coroutines.flow.Flow
 
 interface TaveAPIRepository {
+    fun userLogIn(logInBody: LogInBodyEntity): Flow<String?>
 
-    fun userLogIn(logInBody: LogInBodyEntity): Flow<String>
+    fun getProfileInfo(): Flow<UserProfileEntity?>
 
-    fun getUserProfile(userUID: Int): Flow<UserProfileEntity?>
-
-    fun updateUserProfile(userUID: Int, profileImage: String): Flow<Result<Unit>>
-
-    fun getUserScore(userUID: Int): Flow<UserScoreEntity?>
+    fun updateProfileImage(profileImage: String): Flow<Result<Unit>>
 
     fun getTeamScore(teamID: Int): Flow<TeamScoreEntity?>
 
-    fun getNoticeDetail(noticeID: Int): Flow<NoticeDetailEntity?>
+    fun getScheduleAll(): Flow<List<ScheduleEntity>?>
 
-    fun getSchedule(scheduleID: Int): Flow<ScheduleEntity?>
+    fun getNoticeAll(): Flow<List<NoticeDetailEntity>?>
+
+    fun getNoticeDetail(noticeID: Int): Flow<NoticeDetailEntity?>
 }

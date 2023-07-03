@@ -8,7 +8,5 @@ import javax.inject.Inject
 class GetScheduleUseCase @Inject constructor(
     private val taveAPIRepository: TaveAPIRepository
 ) {
-    operator fun invoke(
-        scheduleID: Int
-    ): Flow<ScheduleEntity?> = taveAPIRepository.getSchedule(scheduleID)
+    operator fun invoke(): Flow<List<ScheduleEntity>?> = taveAPIRepository.getScheduleAll()
 }

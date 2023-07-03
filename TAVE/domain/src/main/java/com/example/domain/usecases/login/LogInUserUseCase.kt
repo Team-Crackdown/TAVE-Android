@@ -2,6 +2,7 @@ package com.example.domain.usecases.login
 
 import com.example.domain.entity.login.LogInBodyEntity
 import com.example.domain.repository.TaveAPIRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class LogInUserUseCase @Inject constructor(
@@ -9,5 +10,5 @@ class LogInUserUseCase @Inject constructor(
 ) {
     operator fun invoke(
         logInBodyEntity: LogInBodyEntity
-    ) = taveAPIRepository.userLogIn(logInBodyEntity)
+    ): Flow<String?> = taveAPIRepository.userLogIn(logInBodyEntity)
 }

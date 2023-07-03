@@ -16,15 +16,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.tave.R
 import com.example.tave.items.login.LoginBtn
 import com.example.tave.ui.font.NotoSansKr
+import com.example.tave.viewmodel.LogInViewModel
 
 @Composable
-fun LoginPage(modifier: Modifier) {
+fun LoginPage(
+    modifier: Modifier,
+    navController: NavController
+) {
     Surface(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -49,7 +54,7 @@ fun LoginPage(modifier: Modifier) {
                         color = Color.Blue
                     )
                 )
-                LoginBox(modifier)
+                LoginBox(modifier, navController)
             }
         )
     }
@@ -57,19 +62,24 @@ fun LoginPage(modifier: Modifier) {
 
 @Composable
 private fun LoginBox(
-    modifier: Modifier
+    modifier: Modifier,
+    navController: NavController,
+    logInViewModel: LogInViewModel = hiltViewModel()
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
+    var userEmail by remember { mutableStateOf("") }
+    var userPassword by remember { mutableStateOf("") }
+
 
     Column(
-        modifier = modifier.fillMaxWidth().padding(10.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(10.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
+            value = userEmail,
+            onValueChange = { userEmail = it },
             label = { Text(stringResource(id = R.string.Enter_Email)) },
             leadingIcon = { Icon(Icons.Default.Person, contentDescription = stringResource(id = R.string.email)) },
             modifier = modifier
@@ -77,8 +87,8 @@ private fun LoginBox(
                 .width(300.dp)
         )
         OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
+            value = userPassword,
+            onValueChange = { userPassword = it },
             label = { Text(stringResource(id = R.string.Enter_Pwd)) },
             leadingIcon = { Icon(Icons.Default.Info, contentDescription = stringResource(id = R.string.Password)) },
             modifier = modifier
@@ -90,14 +100,14 @@ private fun LoginBox(
         Spacer(modifier = modifier.height(10.dp))
         LoginBtn(
             txt = stringResource(id = R.string.Login),
-            onClicked = { /*TODO*/ }
+            onClicked = {
+                logInViewModel.userLogInAccount(userEmail, userPassword)
+                if (logInViewModel.logInResult.value == Result.success(Unit)) {
+                    navController.navigate("home")
+                }
+            }
         )
         Spacer(modifier = modifier.height(10.dp))
     }
 }
 
-@Composable
-@Preview
-fun PreviewLogin(){
-    LoginPage(modifier = Modifier)
-}

@@ -20,26 +20,19 @@ fun toLogInModelMapper(
     password = item.password
 )
 
-fun toLogInEntityMapper(
-    item: LogInBodyModel
-): LogInBodyEntity = LogInBodyEntity(
-    userName = item.userName,
-    password = item.password
-)
-
 fun toUserProfileEntityMapper(
     item: UserProfileModel
 ): UserProfileEntity = UserProfileEntity(
     userUID = item.id,
-    userEmail = item.email,
-    userName = item.name,
+    userEmail = item.userEmail,
+    userName = item.userName,
     userProfileImage = item.profileImage,
-    userRadix = item.rad,
+    userRadix = item.userRadix,
     userPhoneNumber = item.phoneNumber,
-    userTech = item.techField,
-    userTeamID = item.teamID,
-    userUniv = item.university,
-    userType = item.memberType
+    userTech = item.userTech,
+    userTeamID = item.teamId,
+    userUniv = item.userUniversity,
+    userType = item.userType
 )
 
 fun toUserScoreEntityMapper(
@@ -54,10 +47,12 @@ fun toNoticeDetailEntityMapper(
     item: NoticeDetailModel
 ): NoticeDetailEntity = NoticeDetailEntity(content = item.content)
 
-fun toScheduleEntityMapper(
-    item: ScheduleModel
-): ScheduleEntity = ScheduleEntity(
-    place = item.place,
-    title = item.title,
-    date = item.date
-)
+fun toScheduleEntityListMapper(
+    item: List<ScheduleModel>
+): List<ScheduleEntity> = item.map {
+    ScheduleEntity(
+        it.place,
+        it.title,
+        it.date
+    )
+}

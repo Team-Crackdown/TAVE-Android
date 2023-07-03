@@ -21,13 +21,13 @@ interface TaveAPIService {
     suspend fun getProfileInfo(): Response<UserProfileModel>
 
     @PATCH("memberRole/member/modifyProfileImage")
-    suspend fun updateProfileImage(@Body profileImage: String): Response<Result<Unit>>
+    suspend fun updateProfileImage(@Body profileImage: String): Response<Void>
 
     @GET("memberRole/team/getTeamScore")
     suspend fun getTeamScore(@Query("teamScoreNoteId") teamID: Int): Response<TeamScoreModel>
 
     @GET("memberRole/schedule/getAllSchedule")
-    suspend fun getSchedule(): Response<ScheduleModel>
+    suspend fun getScheduleAll(): Response<List<ScheduleModel>>
 
     @GET("/memberRole/notice/getAllNotice")
     suspend fun getNoticeAll(): Response<List<NoticeDetailModel>>

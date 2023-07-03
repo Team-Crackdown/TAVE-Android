@@ -1,17 +1,21 @@
 package com.example.data.repositoryImpl
 
 import com.example.data.api.TaveAPIService
+import com.example.data.model.login.LogInBodyModel
 import com.example.data.model.notice.NoticeDetailModel
 import com.example.data.model.score.TeamScoreModel
 import com.example.data.model.profile.UserProfileModel
 import com.example.data.model.schedule.ScheduleModel
 import com.example.data.model.score.UserScoreModel
 import com.example.data.util.common.Constant
+import com.example.data.util.toLogInEntityMapper
+import com.example.data.util.toLogInModelMapper
 import com.example.data.util.toNoticeDetailEntityMapper
 import com.example.data.util.toScheduleEntityMapper
 import com.example.data.util.toTeamScoreEntityMapper
 import com.example.data.util.toUserProfileEntityMapper
 import com.example.data.util.toUserScoreEntityMapper
+import com.example.domain.entity.login.LogInBodyEntity
 import com.example.domain.entity.notice.NoticeDetailEntity
 import com.example.domain.entity.score.TeamScoreEntity
 import com.example.domain.entity.profile.UserProfileEntity
@@ -31,6 +35,14 @@ import javax.inject.Inject
 class TaveAPIRepositoryImpl @Inject constructor(
     private val taveAPIService: TaveAPIService
 ): TaveAPIRepository {
+
+    override fun userLogIn(
+        logInBody: LogInBodyEntity
+    ): Flow<String> = flow {
+        val logInBodyModel: LogInBodyModel = toLogInModelMapper(logInBody)
+        val authToken = taveAPIService.userLogIn(logInBodyModel).headers().get("Authorization")
+        emit(authToken!!)
+    }
 
     override fun getUserProfile(
         userUID: Int

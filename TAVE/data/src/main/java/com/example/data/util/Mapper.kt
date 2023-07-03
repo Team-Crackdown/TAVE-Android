@@ -1,15 +1,31 @@
 package com.example.data.util
 
+import com.example.data.model.login.LogInBodyModel
 import com.example.data.model.notice.NoticeDetailModel
 import com.example.data.model.score.TeamScoreModel
 import com.example.data.model.profile.UserProfileModel
 import com.example.data.model.schedule.ScheduleModel
 import com.example.data.model.score.UserScoreModel
+import com.example.domain.entity.login.LogInBodyEntity
 import com.example.domain.entity.notice.NoticeDetailEntity
 import com.example.domain.entity.score.TeamScoreEntity
 import com.example.domain.entity.profile.UserProfileEntity
 import com.example.domain.entity.schedule.ScheduleEntity
 import com.example.domain.entity.score.UserScoreEntity
+
+fun toLogInModelMapper(
+    item: LogInBodyEntity
+): LogInBodyModel = LogInBodyModel(
+    userName = item.userName,
+    password = item.password
+)
+
+fun toLogInEntityMapper(
+    item: LogInBodyModel
+): LogInBodyEntity = LogInBodyEntity(
+    userName = item.userName,
+    password = item.password
+)
 
 fun toUserProfileEntityMapper(
     item: UserProfileModel

@@ -27,6 +27,7 @@ import javax.inject.Singleton
  *        ): EventSource
  *    : EventSource 객체를 제공합니다.
  */
+
 @Module
 @InstallIn(SingletonComponent::class)
 object SSEConnectModule {

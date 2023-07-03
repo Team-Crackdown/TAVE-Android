@@ -19,21 +19,24 @@ fun ProfilePage(
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
     Scaffold { contentPadding ->
-        Column(modifier = modifier.padding(contentPadding)) {
-            ProfileImage(
-                modifier = modifier,
-                imageUrl = { "https://is4-ssl.mzstatic.com/image/thumb/Purple124/v4/6a/7b/d8/6a7bd847-25e1-c062-db00-5299ba803f69/source/512x512bb.jpg" }
-            )
-            ProfileContent(
-                modifier = modifier,
-                viewModel.userProfile.value?.userRadix.toString(),
-                viewModel.userProfile.value?.userUniv.toString(),
-                viewModel.userProfile.value?.userUniv.toString(),
-                viewModel.userProfile.value?.userEmail.toString(),
-                viewModel.userProfile.value?.userPhoneNumber.toString(),
-                viewModel.userProfile.value?.userTech.toString()
-            )
-        }
+        Column(
+            modifier = modifier.padding(contentPadding),
+            content = {
+                ProfileImage(
+                    modifier = modifier,
+                    imageUrl = { /* TODO */ }
+                )
+                ProfileContent(
+                    modifier = modifier,
+                    viewModel.userProfile.value?.userRadix.toString(),
+                    viewModel.userProfile.value?.userUniv.toString(),
+                    viewModel.userProfile.value?.userUniv.toString(),
+                    viewModel.userProfile.value?.userEmail.toString(),
+                    viewModel.userProfile.value?.userPhoneNumber.toString(),
+                    viewModel.userProfile.value?.userTech.toString()
+                )
+            }
+        )
     }
 }
 
@@ -43,9 +46,7 @@ fun ProfileImage(
     imageUrl: () -> Unit
 ) {
     GlideImageView(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(300.dp),
+        modifier = modifier.fillMaxWidth().height(300.dp),
         imageUrl = imageUrl,
         contentDescription = "Profile Image",
         painterResource = R.drawable.tave_profile

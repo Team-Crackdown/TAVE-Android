@@ -20,7 +20,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = "home"
+                    startDestination = "login"
                 ) {
                     composable("login") {
                         LoginPage(modifier = Modifier)

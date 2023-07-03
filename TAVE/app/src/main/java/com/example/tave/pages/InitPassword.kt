@@ -55,10 +55,7 @@ private fun InitPasswordPage(
             Column(
                 modifier = modifier.padding(start = 100.dp)
             ){
-                LoginBtn(
-                    txt = "변경하기",
-                    onClicked = {/*TODO*/}
-                )
+                LoginBtn(onClicked = {/*TODO*/})
             }
         }
     }

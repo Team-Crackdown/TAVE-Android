@@ -1,6 +1,5 @@
 package com.example.tave.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,18 +22,20 @@ class LogInViewModel @Inject constructor(
 ): ViewModel() {
     private val _logInResult = MutableLiveData<Result<Unit>>()
     val logInResult: LiveData<Result<Unit>> get() = _logInResult
+    val isTokenExist: Boolean = TaveApplication.authPrefs
+        .getTokenValue("accessToken", "").isEmpty()
+
 
     fun userLogInAccount(
         userEmail: String,
         userPassword: String
     ): Job = viewModelScope.launch(ioDispatcher) {
         logInUserUseCase(LogInBodyEntity(userEmail, userPassword)).collect {
-            if (it == null) {
-                _logInResult.postValue(Result.failure(Exception()))
-            } else {
+            if (it != null) {
                 _logInResult.postValue(Result.success(Unit))
-                Log.d("Token", "Bearer $it")
-                TaveApplication.authPrefs.getTokenValue("accessToken", "Bearer $it")
+                TaveApplication.authPrefs.setTokenValue("accessToken", "Bearer $it")
+            } else {
+                _logInResult.postValue(Result.failure(Exception()))
             }
         }
     }

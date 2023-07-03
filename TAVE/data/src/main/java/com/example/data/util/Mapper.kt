@@ -45,7 +45,27 @@ fun toTeamScoreEntityMapper(
 
 fun toNoticeDetailEntityMapper(
     item: NoticeDetailModel
-): NoticeDetailEntity = NoticeDetailEntity(content = item.content)
+): NoticeDetailEntity = NoticeDetailEntity(
+    id = item.id,
+    content = item.content,
+    images = item.images,
+    adminId = item.adminId,
+    createdTime = item.createdTime,
+    modifiedTime = item.modifiedTime
+)
+
+fun toNoticeDetailEntityListMapper(
+    item: List<NoticeDetailModel>
+): List<NoticeDetailEntity> = item.map {
+    NoticeDetailEntity(
+        id = it.id,
+        content = it.content,
+        images = it.images,
+        adminId = it.adminId,
+        createdTime = it.createdTime,
+        modifiedTime = it.modifiedTime
+    )
+}
 
 fun toScheduleEntityListMapper(
     item: List<ScheduleModel>

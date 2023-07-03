@@ -16,7 +16,7 @@ import com.example.tave.viewmodel.ProfileViewModel
 @Composable
 fun ProfilePage(
     modifier: Modifier,
-    viewModel: ProfileViewModel = hiltViewModel()
+    profileViewModel: ProfileViewModel = hiltViewModel()
 ) {
     Scaffold { contentPadding ->
         Column(
@@ -24,16 +24,16 @@ fun ProfilePage(
             content = {
                 ProfileImage(
                     modifier = modifier,
-                    imageUrl = { /* TODO */ }
+                    imageUrl = { profileViewModel.userProfile.value?.userProfileImage }
                 )
                 ProfileContent(
                     modifier = modifier,
-                    viewModel.userProfile.value?.userRadix.toString(),
-                    viewModel.userProfile.value?.userUniv.toString(),
-                    viewModel.userProfile.value?.userUniv.toString(),
-                    viewModel.userProfile.value?.userEmail.toString(),
-                    viewModel.userProfile.value?.userPhoneNumber.toString(),
-                    viewModel.userProfile.value?.userTech.toString()
+                    profileViewModel.userProfile.value?.userRadix.toString(),
+                    profileViewModel.userProfile.value?.userUniv.toString(),
+                    profileViewModel.userProfile.value?.userUniv.toString(),
+                    profileViewModel.userProfile.value?.userEmail.toString(),
+                    profileViewModel.userProfile.value?.userPhoneNumber.toString(),
+                    profileViewModel.userProfile.value?.userTech.toString()
                 )
             }
         )
@@ -64,31 +64,25 @@ fun ProfileContent(
     dept: String
 ) {
     Column(
-        modifier = modifier.padding(25.dp)
-    ) {
-        Row {
-            ProfileContentTxtSizeLarge(txt = stringResource(id = R.string.radix), answer = radix)
-            Spacer(modifier = modifier.width(16.dp))
-            ProfileContentTxtSizeLarge(txt = stringResource(id = R.string.university), answer = university)
+        modifier = modifier.padding(25.dp),
+        content = {
+            Row {
+                ProfileContentTxtSizeLarge(txt = stringResource(id = R.string.radix), answer = radix)
+                Spacer(modifier = modifier.width(16.dp))
+                ProfileContentTxtSizeLarge(txt = stringResource(id = R.string.university), answer = university)
+            }
+            Spacer(modifier = modifier.height(20.dp))
+            Row {
+                ProfileContentTxtSizeLarge(txt = stringResource(id = R.string.name), answer = name)
+                Spacer(modifier = modifier.width(16.dp))
+                ProfileContentTxtSizeSmall(txt = stringResource(id = R.string.email), answer = email)
+            }
+            Spacer(modifier = modifier.height(20.dp))
+            Row {
+                ProfileContentTxtSizeSmall(txt = stringResource(id = R.string.phoneNumber), answer = phoneNumber)
+                Spacer(modifier = modifier.width(16.dp))
+                ProfileContentTxtSizeSmall(txt = stringResource(id = R.string.dept), answer = dept)
+            }
         }
-        Spacer(modifier = modifier.height(20.dp))
-        Row {
-            ProfileContentTxtSizeLarge(txt = stringResource(id = R.string.name), answer = name)
-            Spacer(modifier = modifier.width(16.dp))
-            ProfileContentTxtSizeSmall(txt = stringResource(id = R.string.email), answer = email)
-        }
-        Spacer(modifier = modifier.height(20.dp))
-        Row {
-            ProfileContentTxtSizeSmall(txt = stringResource(id = R.string.phoneNumber), answer = phoneNumber)
-            Spacer(modifier = modifier.width(16.dp))
-            ProfileContentTxtSizeSmall(txt = stringResource(id = R.string.dept), answer = dept)
-        }
-    }
-
-}
-
-@Composable
-@Preview
-fun PreviewProfile(){
-    ProfileImage(modifier = Modifier, imageUrl = {/*TODO*/})
+    )
 }

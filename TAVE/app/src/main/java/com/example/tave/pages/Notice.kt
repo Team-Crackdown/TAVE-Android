@@ -49,12 +49,7 @@ val techLetters = mutableListOf(
 
 
 @Composable
-fun NoticePage(
-    modifier: Modifier,
-    mainTitle: String,
-    mainWriter: String,
-    mainUploadTime: String,
-) {
+fun NoticePage(modifier: Modifier) {
     Scaffold(modifier = modifier.padding(10.dp)) { contentPadding ->
         Column(
             modifier = modifier.padding(contentPadding),
@@ -71,9 +66,9 @@ fun NoticePage(
                 )
                 MainNoticeCard(
                     modifier = modifier,
-                    titleTxt = mainTitle,
-                    writer = mainWriter,
-                    uploadTime = mainUploadTime,
+                    titleTxt = "후반기 프로젝트 팀 소개 part1 김건우의 팀 단속",
+                    writer = "TAVE 운영진",
+                    uploadTime = "1분 전",
                     imageUrl = { /*TODO*/ }
                 )
                 Divider(
@@ -120,15 +115,4 @@ fun NoticePage(
             }
         )
     }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun PreviewNoticePage() {
-    NoticePage(
-        modifier = Modifier,
-        mainTitle = "후반기 프로젝트 팀 소개 part1 김건우의 팀 단속",
-        mainWriter = "TAVE 운영진",
-        mainUploadTime = "1분 전",
-    )
 }

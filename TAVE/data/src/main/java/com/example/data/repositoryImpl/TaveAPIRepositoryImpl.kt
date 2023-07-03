@@ -8,6 +8,7 @@ import com.example.data.model.profile.UserProfileModel
 import com.example.data.model.schedule.ScheduleModel
 import com.example.data.util.common.Constant
 import com.example.data.util.toLogInModelMapper
+import com.example.data.util.toNoticeDetailEntityListMapper
 import com.example.data.util.toNoticeDetailEntityMapper
 import com.example.data.util.toScheduleEntityListMapper
 import com.example.data.util.toTeamScoreEntityMapper
@@ -31,9 +32,7 @@ import javax.inject.Inject
 class TaveAPIRepositoryImpl @Inject constructor(
     private val taveAPIService: TaveAPIService
 ): TaveAPIRepository {
-    override fun userLogIn(
-        logInBody: LogInBodyEntity
-    ): Flow<String?> = flow {
+    override fun userLogIn(logInBody: LogInBodyEntity): Flow<String?> = flow {
         val logInBodyModel: LogInBodyModel = toLogInModelMapper(logInBody)
         val authToken = taveAPIService.userLogIn(logInBodyModel).headers().get("Authorization")
         emit(authToken)
@@ -149,8 +148,37 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getNoticeAll(): Flow<List<NoticeDetailEntity>?> {
-        TODO("Not yet implemented")
+    override fun getNoticeAll(): Flow<List<NoticeDetailEntity>?> = flow<List<NoticeDetailEntity>?> {
+        val response: Response<List<NoticeDetailModel>> = taveAPIService.getNoticeAll()
+
+        if (response.isSuccessful && response.body() != null) {
+            val result: List<NoticeDetailEntity> = toNoticeDetailEntityListMapper(response.body()!!)
+            emit(result)
+        } else {
+            when {
+                (!response.isSuccessful) -> throw HttpException(response)
+                (response.body() == null) -> throw NullPointerException()
+            }
+        }
+    }.catch { exception ->
+        when (exception) {
+            is IOException -> emit(null)
+            is HttpException -> emit(null)
+            is IllegalStateException -> emit(null)
+            else -> throw exception
+        }
+    }.retryWhen { cause, attempt ->
+        when {
+            (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constant.DELAY_TIME_MILLIS)
+                true
+            }
+            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constant.DELAY_TIME_MILLIS)
+                true
+            }
+            else -> false
+        }
     }
 
     override fun getNoticeDetail(noticeID: Int): Flow<NoticeDetailEntity?> = flow<NoticeDetailEntity?> {

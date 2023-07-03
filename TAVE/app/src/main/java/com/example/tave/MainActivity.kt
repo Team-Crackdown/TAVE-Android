@@ -25,20 +25,14 @@ class MainActivity : ComponentActivity() {
                     composable("login") {
                         LoginPage(modifier = Modifier, navController = navController)
                     }
-                    composable("home"){
-                        HomePage(
-                            modifier = Modifier,
-                            name = "김테비",
-                            radix = "11기",
-                            generation = "OB",
-                            navController =  navController
-                        )
+                    composable("home") {
+                        HomePage(modifier = Modifier, navController =  navController)
                     }
-                    composable("profile"){
+                    composable("profile") {
                         ProfilePage(modifier = Modifier)
                     }
-                    composable("updateProfile"){
-                        UpdateProfilePage(modifier = Modifier, navController = navController)
+                    composable("notice") {
+                        NoticePage(modifier = Modifier)
                     }
                 }
             }

@@ -3,7 +3,6 @@ package com.example.tave.di.module
 import com.example.data.api.TaveAPIService
 import com.example.data.repositoryImpl.TaveAPIRepositoryImpl
 import com.example.domain.repository.TaveAPIRepository
-import com.example.tave.BuildConfig
 import com.example.tave.common.Constants
 import dagger.Module
 import dagger.Provides

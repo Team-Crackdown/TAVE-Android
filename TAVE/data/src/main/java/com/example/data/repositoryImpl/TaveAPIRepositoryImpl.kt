@@ -6,6 +6,7 @@ import com.example.data.model.notice.NoticeDetailModel
 import com.example.data.model.score.TeamScoreModel
 import com.example.data.model.profile.UserProfileModel
 import com.example.data.model.schedule.ScheduleModel
+import com.example.data.model.score.UserScoreModel
 import com.example.data.util.common.Common
 import com.example.data.util.toLogInModelMapper
 import com.example.data.util.toNoticeDetailEntityListMapper
@@ -13,11 +14,13 @@ import com.example.data.util.toNoticeDetailEntityMapper
 import com.example.data.util.toScheduleEntityListMapper
 import com.example.data.util.toTeamScoreEntityMapper
 import com.example.data.util.toUserProfileEntityMapper
+import com.example.data.util.toUserScoreEntityMapper
 import com.example.domain.entity.login.LogInBodyEntity
 import com.example.domain.entity.notice.NoticeDetailEntity
 import com.example.domain.entity.score.TeamScoreEntity
 import com.example.domain.entity.profile.UserProfileEntity
 import com.example.domain.entity.schedule.ScheduleEntity
+import com.example.domain.entity.score.UserScoreEntity
 import com.example.domain.repository.TaveAPIRepository
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -27,6 +30,7 @@ import kotlinx.coroutines.flow.retryWhen
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
+import java.security.InvalidKeyException
 import javax.inject.Inject
 
 class TaveAPIRepositoryImpl @Inject constructor(
@@ -43,22 +47,24 @@ class TaveAPIRepositoryImpl @Inject constructor(
             is IllegalStateException -> emit(null)
             else -> throw exception
         }
-    }. retryWhen { cause, attempt ->
-        when {
-            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
-                true
-            }
-            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
-                true
-            }
-            else -> false
+    }
+
+    override fun sendSMSCode(phoneNumber: String): Flow<Result<Unit>> = flow {
+        try {
+            taveAPIService.sendSMSCode(phoneNumber)
+            emit(Result.success(Unit))
+        } catch (e: Exception) {
+            emit(Result.failure(e))
         }
     }
 
-    override fun sendSMSCode(phoneNumber: String): Flow<String> = flow {
-
+    override fun checkOTPCode(otpCode: String): Flow<Result<Unit>> = flow {
+        try {
+            taveAPIService.checkOTPCode(otpCode)
+            emit(Result.success(Unit))
+        } catch (e: InvalidKeyException) {
+            emit(Result.failure(e))
+        }
     }
 
     override fun getProfileInfo(): Flow<UserProfileEntity?> = flow<UserProfileEntity?> {
@@ -118,6 +124,38 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }
 
+    override fun getPersonalScore(memberId: Int): Flow<UserScoreEntity?> = flow<UserScoreEntity?> {
+        val response: Response<UserScoreModel> = taveAPIService.getPersonalScore(memberId)
+
+        if (response.isSuccessful && response.body() != null) {
+            val result: UserScoreEntity = toUserScoreEntityMapper(response.body()!!)
+            emit(result)
+        } else {
+            when {
+                (!response.isSuccessful) -> throw HttpException(response)
+                (response.body() == null) -> throw NullPointerException()
+            }
+        }
+    }.catch { exception ->
+        when (exception) {
+            is IOException -> emit(null)
+            is HttpException -> emit(null)
+            is IllegalStateException -> emit(null)
+            else -> throw exception
+        }
+    }.retryWhen { cause, attempt ->
+        when {
+            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
+                true
+            }
+            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
+                true
+            }
+            else -> false
+        }
+    }
 
     override fun getTeamScore(teamID: Int): Flow<TeamScoreEntity?> = flow<TeamScoreEntity?> {
         val response: Response<TeamScoreModel> = taveAPIService.getTeamScore(teamID)

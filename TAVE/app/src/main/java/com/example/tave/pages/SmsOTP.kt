@@ -3,9 +3,11 @@ package com.example.tave.pages
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -17,22 +19,25 @@ import com.example.tave.items.smsotp.SMSPhoneNumberInput
 import com.example.tave.ui.theme.TAVETheme
 
 @Composable
-fun SMSOTPPage() {
+fun SMSOTPPage(
+    modifier: Modifier
+) {
     Surface(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         content = {
             Column(
-                modifier = Modifier.padding(10.dp),
+                modifier = modifier.padding(10.dp),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                OtpLogo(modifier = Modifier)
+                OtpLogo(modifier = modifier)
+                Spacer(modifier = modifier.size(10.dp))
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    SMSPhoneNumberInput(modifier = Modifier)
+                    SMSPhoneNumberInput(modifier = modifier)
                 }
             }
         }
@@ -44,6 +49,6 @@ fun SMSOTPPage() {
 @Preview(showBackground = true)
 fun PreviewSMSOTPPage() {
     TAVETheme {
-        SMSOTPPage()
+        SMSOTPPage(modifier = Modifier)
     }
 }

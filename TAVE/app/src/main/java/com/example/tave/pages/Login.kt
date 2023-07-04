@@ -98,18 +98,14 @@ private fun LoginBox(
             onValueChange = { userEmail = it },
             label = { Text(stringResource(id = R.string.Enter_Email)) },
             leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = stringResource(id = R.string.email)) },
-            modifier = modifier
-                .padding(bottom = 10.dp, top = 10.dp)
-                .width(300.dp)
+            modifier = modifier.padding(bottom = 10.dp, top = 10.dp).width(300.dp)
         )
         OutlinedTextField(
             value = userPassword,
             onValueChange = { userPassword = it },
             label = { Text(stringResource(id = R.string.Enter_Pwd)) },
             leadingIcon = { Icon(Icons.Outlined.Lock, contentDescription = stringResource(id = R.string.Password)) },
-            modifier = modifier
-                .padding(bottom = 10.dp, top = 10.dp)
-                .width(300.dp),
+            modifier = modifier.padding(bottom = 10.dp, top = 10.dp).width(300.dp),
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )

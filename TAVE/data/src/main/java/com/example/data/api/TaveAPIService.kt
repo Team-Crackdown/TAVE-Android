@@ -5,6 +5,7 @@ import com.example.data.model.notice.NoticeDetailModel
 import com.example.data.model.score.TeamScoreModel
 import com.example.data.model.profile.UserProfileModel
 import com.example.data.model.schedule.ScheduleModel
+import com.example.data.model.score.UserScoreModel
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -16,14 +17,20 @@ interface TaveAPIService {
     @POST("login")
     suspend fun userLogIn(@Body logInBody: LogInBodyModel): Response<Void>
 
-    @POST("coolSms/get")
-    suspend fun sendSMSCode(@Query("phoneNumber") phoneNumber: String): Response<String>
+    @POST("coolsms/get")
+    suspend fun sendSMSCode(@Query("phoneNumber") phoneNumber: String): Response<Void>
+
+    @POST("coolsms/check")
+    suspend fun checkOTPCode(@Query("inputNumber") OTPCode: String): Response<Void>
 
     @GET("memberRole/member/getMember")
     suspend fun getProfileInfo(): Response<UserProfileModel>
 
     @PATCH("memberRole/member/modifyProfileImage")
     suspend fun updateProfileImage(@Body profileImage: String): Response<Void>
+
+    @GET("memberRole/member/getMemberScore")
+    suspend fun getPersonalScore(@Query("memberId") memberID: Int): Response<UserScoreModel>
 
     @GET("memberRole/team/getTeamScore")
     suspend fun getTeamScore(@Query("teamScoreNoteId") teamID: Int): Response<TeamScoreModel>

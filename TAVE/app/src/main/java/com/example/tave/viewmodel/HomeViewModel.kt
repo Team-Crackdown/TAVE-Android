@@ -7,27 +7,25 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.entity.profile.UserProfileEntity
 import com.example.domain.entity.score.TeamScoreEntity
-import com.example.domain.entity.score.UserScoreEntity
-import com.example.domain.usecases.login.LogInUserUseCase
 import com.example.domain.usecases.profile.GetUserProfileUseCase
-import com.example.domain.usecases.schedule.GetScheduleUseCase
+import com.example.domain.usecases.schedule.GetScheduleAllUseCase
+import com.example.domain.usecases.score.GetPersonalScoreUseCase
 import com.example.domain.usecases.score.GetTeamScoreUseCase
 import com.example.tave.di.coroutineDispatcher.IoDispatcher
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.qrcode.QRCodeWriter
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val userProfileUseCase: GetUserProfileUseCase,
+    private val personalScoreUseCase: GetPersonalScoreUseCase,
     private val teamScoreUseCase: GetTeamScoreUseCase,
-    private val scheduleUseCase: GetScheduleUseCase,
+    private val scheduleUseCase: GetScheduleAllUseCase,
     private val qrCodeFormat: BarcodeFormat,
     private val qrCodeWriter: QRCodeWriter,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher

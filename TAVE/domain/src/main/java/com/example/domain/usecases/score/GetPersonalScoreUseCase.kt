@@ -5,10 +5,10 @@ import com.example.domain.repository.TaveAPIRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetUserScoreUseCase @Inject constructor(
+class GetPersonalScoreUseCase @Inject constructor(
     private val taveAPIRepository: TaveAPIRepository
 ) {
     operator fun invoke(
-        userUID: Int
-    ): Flow<UserScoreEntity?> = taveAPIRepository.getUserScore(userUID)
+        memberId: Int
+    ): Flow<UserScoreEntity?> = taveAPIRepository.getPersonalScore(memberId)
 }

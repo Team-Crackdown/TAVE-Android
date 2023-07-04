@@ -1,29 +1,38 @@
 package com.example.data.util
 
+import com.example.data.model.login.LogInBodyModel
 import com.example.data.model.notice.NoticeDetailModel
 import com.example.data.model.score.TeamScoreModel
 import com.example.data.model.profile.UserProfileModel
 import com.example.data.model.schedule.ScheduleModel
 import com.example.data.model.score.UserScoreModel
+import com.example.domain.entity.login.LogInBodyEntity
 import com.example.domain.entity.notice.NoticeDetailEntity
 import com.example.domain.entity.score.TeamScoreEntity
 import com.example.domain.entity.profile.UserProfileEntity
 import com.example.domain.entity.schedule.ScheduleEntity
 import com.example.domain.entity.score.UserScoreEntity
 
+fun toLogInModelMapper(
+    item: LogInBodyEntity
+): LogInBodyModel = LogInBodyModel(
+    userName = item.userName,
+    password = item.password
+)
+
 fun toUserProfileEntityMapper(
     item: UserProfileModel
 ): UserProfileEntity = UserProfileEntity(
     userUID = item.id,
-    userEmail = item.email,
-    userName = item.name,
+    userEmail = item.userEmail,
+    userName = item.userName,
     userProfileImage = item.profileImage,
-    userRadix = item.rad,
+    userRadix = item.userRadix,
     userPhoneNumber = item.phoneNumber,
-    userTech = item.techField,
-    userTeamID = item.teamID,
-    userUniv = item.university,
-    userType = item.memberType
+    userTech = item.userTech,
+    userTeamID = item.teamId,
+    userUniv = item.userUniversity,
+    userType = item.userType
 )
 
 fun toUserScoreEntityMapper(
@@ -36,12 +45,34 @@ fun toTeamScoreEntityMapper(
 
 fun toNoticeDetailEntityMapper(
     item: NoticeDetailModel
-): NoticeDetailEntity = NoticeDetailEntity(content = item.content)
-
-fun toScheduleEntityMapper(
-    item: ScheduleModel
-): ScheduleEntity = ScheduleEntity(
-    place = item.place,
-    title = item.title,
-    date = item.date
+): NoticeDetailEntity = NoticeDetailEntity(
+    id = item.id,
+    content = item.content,
+    images = item.images,
+    adminId = item.adminId,
+    createdTime = item.createdTime,
+    modifiedTime = item.modifiedTime
 )
+
+fun toNoticeDetailEntityListMapper(
+    item: List<NoticeDetailModel>
+): List<NoticeDetailEntity> = item.map {
+    NoticeDetailEntity(
+        id = it.id,
+        content = it.content,
+        images = it.images,
+        adminId = it.adminId,
+        createdTime = it.createdTime,
+        modifiedTime = it.modifiedTime
+    )
+}
+
+fun toScheduleEntityListMapper(
+    item: List<ScheduleModel>
+): List<ScheduleEntity> = item.map {
+    ScheduleEntity(
+        it.place,
+        it.title,
+        it.date
+    )
+}

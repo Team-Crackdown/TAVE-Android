@@ -16,18 +16,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import com.example.tave.R
 import com.example.tave.items.login.LoginBtn
 import com.example.tave.ui.font.NotoSansKr
 
 @Composable
-fun LoginPage(
-    modifier: Modifier,
-    navController: NavController
-) {
+fun LoginPage(modifier: Modifier) {
     Surface(modifier = modifier.fillMaxSize()) {
         Column(
             modifier = modifier
@@ -68,15 +65,12 @@ fun LoginPage(
                 )
             }
         )
-        LoginBox(modifier, navController = navController)
+        LoginBox(modifier)
     }
 }
 
 @Composable
-private fun LoginBox(
-    modifier: Modifier,
-    navController: NavController
-) {
+private fun LoginBox(modifier: Modifier) {
     var userEmail by remember { mutableStateOf("") }
     var userPassword by remember { mutableStateOf("") }
 
@@ -90,7 +84,6 @@ private fun LoginBox(
         OutlinedTextField(
             value = userEmail,
             onValueChange = { userEmail = it },
-            singleLine = true,
             label = { Text(stringResource(id = R.string.Enter_Email)) },
             leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = stringResource(id = R.string.email)) },
             modifier = modifier
@@ -100,7 +93,6 @@ private fun LoginBox(
         OutlinedTextField(
             value = userPassword,
             onValueChange = { userPassword = it },
-            singleLine = true,
             label = { Text(stringResource(id = R.string.Enter_Pwd)) },
             leadingIcon = { Icon(Icons.Outlined.Lock, contentDescription = stringResource(id = R.string.Password)) },
             modifier = modifier
@@ -110,8 +102,12 @@ private fun LoginBox(
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
         Spacer(modifier = modifier.height(50.dp))
-        LoginBtn(onClicked = {
-          navController.navigate("home")
-        })
+        LoginBtn(onClicked = {})
     }
+}
+
+@Preview
+@Composable
+fun Preview() {
+    LoginPage(modifier = Modifier)
 }

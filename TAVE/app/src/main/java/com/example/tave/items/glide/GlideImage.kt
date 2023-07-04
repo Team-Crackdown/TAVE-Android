@@ -2,7 +2,9 @@ package com.example.tave.items.glide
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
@@ -22,7 +24,15 @@ fun GlideImageView(
         imageModel = imageUrl,
         modifier = modifier,
         loading = {
-                  AnimatedShimmer(modifier = modifier)
+            Box(
+                modifier = modifier.size(20.dp),
+                contentAlignment = Alignment.Center,
+                content = {
+                    CircularProgressIndicator(
+                        strokeWidth = 4.dp
+                    )
+                }
+            )
         },
         success = { imageState, _ ->
             imageState.imageBitmap?.let {
@@ -34,9 +44,7 @@ fun GlideImageView(
         },
         failure = {
             Image(
-                modifier = modifier
-                    .size(30.dp)
-                    .clip(Shape.large),
+                modifier = modifier.size(30.dp).clip(Shape.large),
                 painter = painterResource(id = painterResource),
                 contentScale = ContentScale.FillWidth,
                 contentDescription = "Failure Image"

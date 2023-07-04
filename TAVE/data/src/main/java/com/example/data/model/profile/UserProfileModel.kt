@@ -1,14 +1,16 @@
 package com.example.data.model.profile
 
+import com.google.gson.annotations.SerializedName
+
 data class UserProfileModel(
-    val id: Int,
-    val email: String,
-    val name: String,
-    val profileImage: String?,
-    val rad: Int,
-    val phoneNumber: String,
-    val techField: String,
-    val teamID: String?,
-    val university: String,
-    val memberType: String
+    @SerializedName("id") val id: Int,
+    @SerializedName("name") val userName: String?,
+    @SerializedName("email") val userEmail: String?,
+    @SerializedName("profileImage") val profileImage: String?,
+    @SerializedName("rad") val userRadix: Int?,
+    @SerializedName("phoneNumber") val phoneNumber: String?,
+    @SerializedName("techField") val userTech: String?,
+    @SerializedName("teamId") val teamId: String?,
+    @SerializedName("university") val userUniversity: String?,
+    @SerializedName("memberType") val userType: String?
 )

@@ -4,6 +4,7 @@ import com.example.data.api.TaveAPIService
 import com.example.data.repositoryImpl.TaveAPIRepositoryImpl
 import com.example.domain.repository.TaveAPIRepository
 import com.example.tave.common.Constants
+import com.example.tave.common.util.OkHttpInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,6 +32,7 @@ import javax.net.ssl.X509TrustManager
  *  - provideTaveApiRepoImpl(taveAPIService: TaveAPIService)
  *    : TaveApiRepoImpl에 TaveAPIService 의존성을 제공합니다.
  */
+
 @Module
 @InstallIn(SingletonComponent::class)
 object TaveAPIModule {
@@ -42,14 +44,18 @@ object TaveAPIModule {
     @Singleton
     fun provideOKHttpClient(
         sslSocketFactory: SSLSocketFactory,
-        trustManagerFactory: TrustManagerFactory
+        trustManagerFactory: TrustManagerFactory,
     ): OkHttpClient = OkHttpClient()
         .newBuilder()
         .connectTimeout(10, TimeUnit.SECONDS)
         .writeTimeout(10, TimeUnit.SECONDS)
         .readTimeout(10, TimeUnit.SECONDS)
         .callTimeout(10, TimeUnit.SECONDS)
-        .sslSocketFactory(sslSocketFactory, trustManagerFactory.trustManagers[0] as X509TrustManager)
+        .sslSocketFactory(
+            sslSocketFactory,
+            trustManagerFactory.trustManagers[0] as X509TrustManager
+        )
+        .addInterceptor(OkHttpInterceptor())
         .build()
 
     @Provides

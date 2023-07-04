@@ -22,7 +22,7 @@ fun ProfilePage(
         Column(modifier = modifier.padding(contentPadding)) {
             ProfileImage(
                 modifier = modifier,
-                imageUrl = { /*TODO*/ }
+                imageUrl = { "https://is4-ssl.mzstatic.com/image/thumb/Purple124/v4/6a/7b/d8/6a7bd847-25e1-c062-db00-5299ba803f69/source/512x512bb.jpg" }
             )
             ProfileContent(
                 modifier = modifier,
@@ -63,7 +63,7 @@ fun ProfileContent(
     dept: String
 ) {
     Column(
-        modifier = modifier.padding(25.dp),
+        modifier = modifier.padding(25.dp)
     ) {
         Row {
             ProfileContentTxtSizeLarge(txt = stringResource(id = R.string.radix), answer = radix)
@@ -89,5 +89,5 @@ fun ProfileContent(
 @Composable
 @Preview
 fun PreviewProfile(){
-    ProfilePage(modifier = Modifier)
+    ProfileImage(modifier = Modifier, imageUrl = {/*TODO*/})
 }

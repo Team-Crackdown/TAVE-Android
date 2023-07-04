@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -24,14 +23,11 @@ class MainActivity : ComponentActivity() {
                     startDestination = "home"
                 ) {
                     composable("login") {
-                        LoginPage(modifier = Modifier, navController = navController)
+                        LoginPage(modifier = Modifier)
                     }
                     composable("home"){
                         HomePage(
                             modifier = Modifier,
-                            name = stringResource(id = R.string.name_tavy),
-                            radix = stringResource(id = R.string.radix_11),
-                            generation = stringResource(id = R.string.generation),
                             navController =  navController
                         )
                     }

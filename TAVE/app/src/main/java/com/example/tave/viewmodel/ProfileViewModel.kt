@@ -23,7 +23,7 @@ class ProfileViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(ioDispatcher) {
-            profileUseCase(1).collect { _userProfile.postValue(it) }
+            profileUseCase().collect { _userProfile.postValue(it) }
         }
     }
 

@@ -3,25 +3,20 @@ package com.example.tave.pages
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Lock
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.tave.R
-import com.example.tave.items.login.InitPasswordBtn
+import com.example.tave.items.login.LoginBtn
 
 @Composable
 private fun InitPasswordPage(
-    modifier: Modifier,
-    navController: NavController
+    modifier: Modifier
 ) {
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -38,9 +33,7 @@ private fun InitPasswordPage(
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                singleLine = true,
-                label = { Text(stringResource(id = R.string.New_Pwd)) },
-                leadingIcon = { Icon(Icons.Outlined.Lock, contentDescription = stringResource(id = R.string.New_Pwd)) },
+                label = { Text("새로운 비밀번호") },
                 modifier = modifier
                     .padding(bottom = 10.dp, top = 10.dp)
                     .width(300.dp),
@@ -50,19 +43,26 @@ private fun InitPasswordPage(
             OutlinedTextField(
                 value = confirmPassword,
                 onValueChange = { confirmPassword = it },
-                singleLine = true,
-                label = { Text(stringResource(id = R.string.Confirm_Pwd)) },
-                leadingIcon = { Icon(Icons.Outlined.Lock, contentDescription = stringResource(id = R.string.Confirm_Pwd)) },
+                label = { Text("새로운 비밀번호 확인") },
                 modifier = modifier
                     .padding(bottom = 10.dp, top = 10.dp)
                     .width(300.dp),
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
-            Spacer(modifier = modifier.height(50.dp))
-            InitPasswordBtn(onClicked = {
-                navController.navigate("home")
-            })
+            Spacer(modifier = modifier.height(70.dp))
+            /** padding 값 확인 부탁드립니다 */
+            Column(
+                modifier = modifier.padding(start = 100.dp)
+            ){
+                LoginBtn(onClicked = {/*TODO*/})
+            }
         }
     }
+}
+
+@Composable
+@Preview(showSystemUi = true)
+fun PreviewInitPassword() {
+    InitPasswordPage(modifier = Modifier)
 }

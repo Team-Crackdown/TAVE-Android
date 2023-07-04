@@ -1,10 +1,7 @@
 <resources>
     <string name="app_name">TAVE</string>
     <string name="radix">기수</string>
-    <string name="radix_11">11기</string>
     <string name="name">이름</string>
-    <string name="name_tavy">김테비</string>
-    <string name="generation">OB</string>
     <string name="university">대학교</string>
     <string name="email">이메일</string>
     <string name="phoneNumber">전화</string>
@@ -13,8 +10,6 @@
     <string name="Password">비밀번호</string>
     <string name="Enter_Email">사용자 이메일을 입력하세요</string>
     <string name="Enter_Pwd">사용자 비밀번호를 입력하세요</string>
-    <string name="New_Pwd">새로운 비밀번호</string>
-    <string name="Confirm_Pwd">새로운 비밀번호 확인</string>
     <string name="intro">자기소개</string>
     <string name="Notice">공지사항</string>
     <string name="Notice_Confirm">공지사항 확인하기</string>
@@ -26,6 +21,13 @@
     <string name="Score_126">126점</string>
     <string name="Team_Score">팀 활동 점수</string>
     <string name="Score_80">80점</string>
-    <string name="D_day">D-day</string>
+    <string name="schedule">일정</string>
     <string name="D_day_Title">후반기 만남의 장까지</string>
+    <string name="D_day">D-day</string>
+
+    <string name="phone_Number">휴대폰 번호</string>
+    <string name="send_SNS_Btn">인증번호 발송</string>
+
+    <string name="otp_Number">인증번호 입력</string>
+    <string name="OTP_Btn">인증번호 확인</string>
 </resources>

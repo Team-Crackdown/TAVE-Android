@@ -13,14 +13,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.tave.R
 import com.example.tave.items.login.InitPasswordBtn
 
 @Composable
 private fun InitPasswordPage(
-    modifier: Modifier
+    modifier: Modifier,
+    navController: NavController
 ) {
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -59,13 +60,9 @@ private fun InitPasswordPage(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
             Spacer(modifier = modifier.height(50.dp))
-            InitPasswordBtn(onClicked = {})
+            InitPasswordBtn(onClicked = {
+                navController.navigate("home")
+            })
         }
     }
-}
-
-@Composable
-@Preview(showSystemUi = true)
-fun PreviewInitPassword() {
-    InitPasswordPage(modifier = Modifier)
 }

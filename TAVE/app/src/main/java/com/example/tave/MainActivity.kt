@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     startDestination = "home"
                 ) {
                     composable("login") {
-                        LoginPage(modifier = Modifier)
+                        LoginPage(modifier = Modifier, navController = navController)
                     }
                     composable("home"){
                         HomePage(

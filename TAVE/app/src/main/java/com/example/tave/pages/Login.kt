@@ -16,15 +16,18 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.tave.R
 import com.example.tave.items.login.LoginBtn
 import com.example.tave.ui.font.NotoSansKr
 
 @Composable
-fun LoginPage(modifier: Modifier) {
+fun LoginPage(
+    modifier: Modifier,
+    navController: NavController
+) {
     Surface(modifier = modifier.fillMaxSize()) {
         Column(
             modifier = modifier
@@ -65,12 +68,15 @@ fun LoginPage(modifier: Modifier) {
                 )
             }
         )
-        LoginBox(modifier)
+        LoginBox(modifier, navController = navController)
     }
 }
 
 @Composable
-private fun LoginBox(modifier: Modifier) {
+private fun LoginBox(
+    modifier: Modifier,
+    navController: NavController
+) {
     var userEmail by remember { mutableStateOf("") }
     var userPassword by remember { mutableStateOf("") }
 
@@ -104,12 +110,8 @@ private fun LoginBox(modifier: Modifier) {
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
         Spacer(modifier = modifier.height(50.dp))
-        LoginBtn(onClicked = {})
+        LoginBtn(onClicked = {
+          navController.navigate("home")
+        })
     }
-}
-
-@Preview
-@Composable
-fun PreviewLogin() {
-    LoginPage(modifier = Modifier)
 }

@@ -1,5 +1,6 @@
 package com.example.tave.items.notice
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -10,7 +11,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tave.R
@@ -24,13 +24,16 @@ fun NoticeSubItems(
     subItemTitle: String,
     subItemWriter: String,
     subItemTimeStamp: String,
-    imageUrl: () -> Unit
+    imageUrl: () -> Unit,
+    onClick: (Int) -> Unit,
+    index: Int
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
             .height(66.dp)
-            .padding(10.dp),
+            .padding(10.dp)
+            .clickable { onClick.invoke(index) },
         horizontalArrangement = Arrangement.Start,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -114,14 +117,14 @@ fun NoticeSubItemTimeStamp(modifier: Modifier, uploadTime: String) {
     )
 }
 
-@Composable
-@Preview(showBackground = true, showSystemUi = true)
-fun PreviewNoticeSubItems() {
-    NoticeSubItems(
-        modifier = Modifier,
-        subItemTitle = "후반기 만남의 장 회원 소개 Part1",
-        subItemWriter = "TAVE 운영진",
-        subItemTimeStamp = "6시간 전",
-        imageUrl = {/*TODO*/ }
-    )
-}
+//@Composable
+//@Preview(showBackground = true, showSystemUi = true)
+//fun PreviewNoticeSubItems() {
+//    NoticeSubItems(
+//        modifier = Modifier,
+//        subItemTitle = "후반기 만남의 장 회원 소개 Part1",
+//        subItemWriter = "TAVE 운영진",
+//        subItemTimeStamp = "6시간 전",
+//        imageUrl = {/*TODO*/ }
+//    )
+//}

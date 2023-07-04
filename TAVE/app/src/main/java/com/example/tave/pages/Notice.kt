@@ -17,6 +17,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.tave.R
 import com.example.tave.items.notice.MainNoticeCard
 import com.example.tave.items.notice.NoticeSubItems
@@ -49,7 +50,10 @@ val techLetters = mutableListOf(
 
 
 @Composable
-fun NoticePage(modifier: Modifier) {
+fun NoticePage(
+    modifier: Modifier,
+    navController: NavController
+) {
     Scaffold(modifier = modifier.padding(10.dp)) { contentPadding ->
         Column(
             modifier = modifier.padding(contentPadding),
@@ -82,7 +86,9 @@ fun NoticePage(modifier: Modifier) {
                             subItemTitle = notices[index].title,
                             subItemWriter = notices[index].writer,
                             subItemTimeStamp = notices[index].timeStamp,
-                            imageUrl = { notices[index].url }
+                            imageUrl = { notices[index].url },
+                            onClick = { index -> navController.navigate("notice_detail")},
+                            index = index
                         )
                         Spacer(modifier = modifier.height(5.dp))
                         Divider(

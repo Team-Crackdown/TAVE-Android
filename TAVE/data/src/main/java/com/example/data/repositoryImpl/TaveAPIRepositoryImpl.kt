@@ -6,7 +6,7 @@ import com.example.data.model.notice.NoticeDetailModel
 import com.example.data.model.score.TeamScoreModel
 import com.example.data.model.profile.UserProfileModel
 import com.example.data.model.schedule.ScheduleModel
-import com.example.data.util.common.Constant
+import com.example.data.util.common.Common
 import com.example.data.util.toLogInModelMapper
 import com.example.data.util.toNoticeDetailEntityListMapper
 import com.example.data.util.toNoticeDetailEntityMapper
@@ -45,16 +45,20 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }. retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
             else -> false
         }
+    }
+
+    override fun sendSMSCode(phoneNumber: String): Flow<String> = flow {
+
     }
 
     override fun getProfileInfo(): Flow<UserProfileEntity?> = flow<UserProfileEntity?> {
@@ -78,12 +82,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }. retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
             else -> false
@@ -102,12 +106,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }.retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
             else -> false
@@ -136,12 +140,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }.retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
             else -> false
@@ -169,12 +173,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }.retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
             else -> false
@@ -202,12 +206,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }.retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
             else -> false
@@ -235,12 +239,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }.retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Constant.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Constant.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Common.DELAY_TIME_MILLIS)
                 true
             }
             else -> false

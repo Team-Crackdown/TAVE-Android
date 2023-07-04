@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.Flow
 interface TaveAPIRepository {
     fun userLogIn(logInBody: LogInBodyEntity): Flow<String?>
 
+    fun sendSMSCode(phoneNumber: String): Flow<String>
+
     fun getProfileInfo(): Flow<UserProfileEntity?>
 
     fun updateProfileImage(profileImage: String): Flow<Result<Unit>>

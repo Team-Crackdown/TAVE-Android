@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -14,27 +13,29 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             TAVETheme {
-                val navController: NavHostController = rememberNavController()
+                val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = "login"
+                    startDestination = "home"
                 ) {
                     composable("login") {
-                        LoginPage(modifier = Modifier, navController = navController)
+                        LoginPage(modifier = Modifier)
                     }
-                    composable("home") {
-                        HomePage(modifier = Modifier, navController =  navController)
+                    composable("home"){
+                        HomePage(
+                            modifier = Modifier,
+                            navController =  navController
+                        )
                     }
-                    composable("profile") {
+                    composable("profile"){
                         ProfilePage(modifier = Modifier)
                     }
-                    composable("notice") {
-                        NoticePage(modifier = Modifier)
+                    composable("updateProfile"){
+                        UpdateProfilePage(modifier = Modifier, navController = navController)
                     }
                 }
             }

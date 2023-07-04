@@ -16,23 +16,15 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
 import com.example.tave.R
 import com.example.tave.items.login.LoginBtn
 import com.example.tave.ui.font.NotoSansKr
-import com.example.tave.viewmodel.LogInViewModel
 
 @Composable
-fun LoginPage(
-    modifier: Modifier,
-    navController: NavController,
-    logInViewModel: LogInViewModel = hiltViewModel()
-) {
-    if (logInViewModel.isTokenExist) { navController.navigate("home") }
-
+fun LoginPage(modifier: Modifier) {
     Surface(modifier = modifier.fillMaxSize()) {
         Column(
             modifier = modifier
@@ -73,16 +65,12 @@ fun LoginPage(
                 )
             }
         )
-        LoginBox(modifier, navController)
+        LoginBox(modifier)
     }
 }
 
 @Composable
-private fun LoginBox(
-    modifier: Modifier,
-    navController: NavController,
-    logInViewModel: LogInViewModel = hiltViewModel()
-) {
+private fun LoginBox(modifier: Modifier) {
     var userEmail by remember { mutableStateOf("") }
     var userPassword by remember { mutableStateOf("") }
 
@@ -98,23 +86,28 @@ private fun LoginBox(
             onValueChange = { userEmail = it },
             label = { Text(stringResource(id = R.string.Enter_Email)) },
             leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = stringResource(id = R.string.email)) },
-            modifier = modifier.padding(bottom = 10.dp, top = 10.dp).width(300.dp)
+            modifier = modifier
+                .padding(bottom = 10.dp, top = 10.dp)
+                .width(300.dp)
         )
         OutlinedTextField(
             value = userPassword,
             onValueChange = { userPassword = it },
             label = { Text(stringResource(id = R.string.Enter_Pwd)) },
             leadingIcon = { Icon(Icons.Outlined.Lock, contentDescription = stringResource(id = R.string.Password)) },
-            modifier = modifier.padding(bottom = 10.dp, top = 10.dp).width(300.dp),
+            modifier = modifier
+                .padding(bottom = 10.dp, top = 10.dp)
+                .width(300.dp),
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
         )
         Spacer(modifier = modifier.height(50.dp))
-        LoginBtn(onClicked = {
-            logInViewModel.userLogInAccount(userEmail, userPassword)
-            if (logInViewModel.logInResult.value == Result.success(Unit)) {
-                navController.navigate("home")
-            }
-        })
+        LoginBtn(onClicked = {})
     }
+}
+
+@Preview
+@Composable
+fun Preview() {
+    LoginPage(modifier = Modifier)
 }

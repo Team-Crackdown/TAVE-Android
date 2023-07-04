@@ -1,12 +1,6 @@
 package com.example.tave.items.noticeDetail
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -21,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tave.R
 import com.example.tave.items.glide.GlideImageView
+import com.example.tave.items.glide.ShimmerEffectItem
 import com.example.tave.ui.font.NotoSansKr
 import com.example.tave.ui.theme.Shape
 
@@ -28,7 +23,8 @@ import com.example.tave.ui.theme.Shape
 fun NoticeDetailPublisherBar(
     modifier: Modifier,
     publisherTxt: String,
-    upDateTime: String
+    upDateTime: String,
+    isLoading: Boolean,
 ) {
     Row(
         modifier = modifier
@@ -38,7 +34,9 @@ fun NoticeDetailPublisherBar(
         verticalAlignment = Alignment.CenterVertically
     ) {
         GlideImageView(
-            modifier = modifier.size(30.dp).clip(shape = Shape.large),
+            modifier = modifier
+                .size(30.dp)
+                .clip(shape = Shape.large),
             imageUrl = { /*TODO*/ },
             contentDescription = "Publisher Profile Image",
             painterResource = R.drawable.tave_profile
@@ -48,8 +46,8 @@ fun NoticeDetailPublisherBar(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Center,
             content = {
-                PublisherTxt(modifier = modifier, publisherTxt = publisherTxt)
-                PublishDateTime(modifier = modifier, upDateTime = upDateTime)
+                PublisherTxt(modifier = modifier, publisherTxt = publisherTxt, isLoading = isLoading)
+                PublishDateTime(modifier = modifier, upDateTime = upDateTime, isLoading = isLoading)
             }
         )
     }
@@ -58,48 +56,74 @@ fun NoticeDetailPublisherBar(
 @Composable
 fun PublisherTxt(
     modifier: Modifier,
-    publisherTxt: String
+    publisherTxt: String,
+    isLoading: Boolean
 ) {
-    Text(
-        text = publisherTxt,
-        modifier = modifier.padding(start = 10.dp),
-        style = TextStyle(
-            fontSize = 12.sp,
-            fontFamily = NotoSansKr,
-            fontWeight = FontWeight.Medium,
-            platformStyle = PlatformTextStyle(includeFontPadding = false)
-        )
+    ShimmerEffectItem(
+        isLoading = isLoading,
+        contentLoading = {
+            Box(
+                modifier = modifier
+                    .padding(start = 10.dp)
+                    .fillMaxWidth()
+            )
+        },
+        contentAfterLoading = {
+            Text(
+                text = publisherTxt,
+                modifier = modifier.padding(start = 10.dp),
+                style = TextStyle(
+                    fontSize = 12.sp,
+                    fontFamily = NotoSansKr,
+                    fontWeight = FontWeight.Medium,
+                    platformStyle = PlatformTextStyle(includeFontPadding = false)
+                )
+            )
+        },
+        modifier = modifier
     )
 }
 
 @Composable
 fun PublishDateTime(
     modifier: Modifier,
-    upDateTime: String
+    upDateTime: String,
+    isLoading: Boolean
 ) {
-    Text(
-        text = upDateTime,
-        modifier = modifier.padding(start = 10.dp),
-        color = Color.DarkGray,
-        style = TextStyle(
-            fontSize = 11.sp,
-            fontFamily = NotoSansKr,
-            fontWeight = FontWeight.Medium,
-            platformStyle = PlatformTextStyle(includeFontPadding = false)
-        )
+    ShimmerEffectItem(
+        isLoading = isLoading,
+        contentLoading = {
+            Box(modifier = modifier
+                .padding(start = 10.dp)
+                .fillMaxWidth())
+        },
+        contentAfterLoading = {
+            Text(
+                text = upDateTime,
+                modifier = modifier.padding(start = 10.dp),
+                color = Color.DarkGray,
+                style = TextStyle(
+                    fontSize = 11.sp,
+                    fontFamily = NotoSansKr,
+                    fontWeight = FontWeight.Medium,
+                    platformStyle = PlatformTextStyle(includeFontPadding = false)
+                )
+            )
+        },
+        modifier = modifier
     )
 }
 
 @Composable
 @Preview(group = "items", showBackground = true)
 fun PreviewPublishDateTime() {
-    PublishDateTime(modifier = Modifier, upDateTime = "6시간 전")
+    PublishDateTime(modifier = Modifier, upDateTime = "6시간 전", isLoading = true)
 }
 
 @Composable
 @Preview(group = "items", showBackground = true)
 fun PreviewPublisherTxt() {
-    PublisherTxt(modifier = Modifier, publisherTxt = "TAVE 운영진")
+    PublisherTxt(modifier = Modifier, publisherTxt = "TAVE 운영진", isLoading = true)
 }
 
 @Composable
@@ -108,6 +132,7 @@ fun PreviewNoticeDetailPublisherBar() {
     NoticeDetailPublisherBar(
         modifier = Modifier,
         publisherTxt = "TAVE 운영진",
-        upDateTime = "6시간 전"
+        upDateTime = "6시간 전",
+        isLoading = true
     )
 }

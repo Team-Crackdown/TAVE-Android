@@ -15,7 +15,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tave.R
@@ -41,6 +40,7 @@ val notices = mutableListOf(
 )
 
 class TechLetter(val url: String)
+
 val techLetters = mutableListOf(
     TechLetter(url = "https://is4-ssl.mzstatic.com/image/thumb/Purple124/v4/6a/7b/d8/6a7bd847-25e1-c062-db00-5299ba803f69/source/512x512bb.jpg"),
     TechLetter(url = "https://t1.daumcdn.net/cfile/tistory/99CEA0485C4947381E"),

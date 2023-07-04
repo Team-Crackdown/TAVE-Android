@@ -74,16 +74,14 @@ fun HomeMenu(
     Column {
         Row {
             MainMenuButtons(
-                modifier = modifier
-                    .width(146.dp)
-                    .height(280.dp),
+                modifier = modifier.size(146.dp, 280.dp),
                 shapes = MaterialTheme.shapes.large,
                 onClicked = { showDialog.value = true },
                 color = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary
                 ),
-                painter = painterResource(R.drawable.check),
+                painter = painterResource(id = R.drawable.check),
                 description = stringResource(id = R.string.Check),
                 title = stringResource(id = R.string.Check),
                 subTitle = stringResource(id = R.string.Check_Confirm),
@@ -92,9 +90,7 @@ fun HomeMenu(
             Spacer(modifier = modifier.size(10.dp))
             Column {
                 MainMenuCards(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .height(130.dp),
+                    modifier = modifier.fillMaxWidth().height(130.dp),
                     painter = painterResource(R.drawable.baseline_scoreboard_24),
                     colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer),
                     iconColor = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -104,11 +100,9 @@ fun HomeMenu(
                     textTitle = stringResource(id = R.string.Personal_Score),
                     textContent = stringResource(id = R.string.Score_126)
                 )
-                Spacer(modifier = modifier.height(20.dp))
+                Spacer(modifier = modifier.size(20.dp))
                 MainMenuCards(
-                    modifier = modifier
-                        .fillMaxWidth()
-                        .height(130.dp),
+                    modifier = modifier.fillMaxWidth().height(130.dp),
                     painter = painterResource(R.drawable.baseline_scoreboard_24),
                     colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
                     iconColor = MaterialTheme.colorScheme.onPrimary,
@@ -124,9 +118,7 @@ fun HomeMenu(
     Spacer(modifier = modifier.height(20.dp))
     Row {
         MainMenuButtons(
-            modifier = modifier
-                .width(109.dp)
-                .height(102.dp),
+            modifier = modifier.size(109.dp, 102.dp),
             shapes = MaterialTheme.shapes.large,
             onClicked = { navController.navigate("profile") },
             color = ButtonDefaults.buttonColors(
@@ -141,24 +133,20 @@ fun HomeMenu(
         )
         Spacer(modifier = modifier.size(10.dp))
         MainMenuCards(
-            modifier = modifier
-                .fillMaxWidth()
-                .height(102.dp),
+            modifier = modifier.fillMaxWidth().height(102.dp),
             painter = painterResource(R.drawable.calendar),
             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondaryContainer),
             iconColor = MaterialTheme.colorScheme.onSecondaryContainer,
             textColor = MaterialTheme.colorScheme.onSecondaryContainer,
             shapes = CustomShape.extraLarge,
-            description = stringResource(id = R.string.D_day),
+            description = stringResource(id = R.string.schedule),
             textTitle = stringResource(id = R.string.D_day_Title),
             textContent = stringResource(id = R.string.D_day)
         )
     }
     Spacer(modifier = modifier.height(20.dp))
     MainMenuButtons(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(130.dp),
+        modifier = modifier.fillMaxWidth().height(130.dp),
         shapes = CustomShape.extraLarge,
         onClicked = { navController.navigate("notice") },
         color = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),

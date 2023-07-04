@@ -14,8 +14,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.tave.items.smsotp.OtpLogo
-import com.example.tave.items.smsotp.SMSPhoneNumberInput
+import com.example.tave.items.sms.SMSLogo
+import com.example.tave.items.sms.SMSPhoneNumberInput
 import com.example.tave.ui.theme.TAVETheme
 
 @Composable
@@ -30,15 +30,16 @@ fun SMSOTPPage(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                OtpLogo(modifier = modifier)
+                SMSLogo(modifier = modifier)
                 Spacer(modifier = modifier.size(10.dp))
                 Row(
                     modifier = modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.Center,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    SMSPhoneNumberInput(modifier = modifier)
-                }
+                    verticalAlignment = Alignment.CenterVertically,
+                    content = {
+                        SMSPhoneNumberInput(modifier = modifier, sendSMSCode = {  })
+                    }
+                )
             }
         }
     )

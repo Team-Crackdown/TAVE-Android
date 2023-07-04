@@ -1,4 +1,4 @@
-package com.example.tave.items.smsotp
+package com.example.tave.items.otp
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -38,7 +38,7 @@ fun OtpLogo(
         )
         Spacer(modifier = modifier.size(20.dp))
         Text(
-            text = "처음 로그인 하셨군요?",
+            text = "발송된 SMS의",
             style = TextStyle(
                 fontSize = 25.sp,
                 fontFamily = NotoSansKr,
@@ -47,20 +47,11 @@ fun OtpLogo(
             )
         )
         Text(
-            text = "사용자 인증을 위해 핸드폰 번호를 입력한 뒤",
+            text = "인증번호를 입력해주세요!",
             style = TextStyle(
-                fontSize = 12.sp,
+                fontSize = 25.sp,
                 fontFamily = NotoSansKr,
-                fontWeight = FontWeight.Medium,
-                platformStyle = PlatformTextStyle(includeFontPadding = false)
-            )
-        )
-        Text(
-            text = "아래 인증 번호를 입력해 주세요.",
-            style = TextStyle(
-                fontSize = 12.sp,
-                fontFamily = NotoSansKr,
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.SemiBold,
                 platformStyle = PlatformTextStyle(includeFontPadding = false)
             )
         )

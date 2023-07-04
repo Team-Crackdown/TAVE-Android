@@ -84,6 +84,7 @@ private fun LoginBox(modifier: Modifier) {
         OutlinedTextField(
             value = userEmail,
             onValueChange = { userEmail = it },
+            singleLine = true,
             label = { Text(stringResource(id = R.string.Enter_Email)) },
             leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = stringResource(id = R.string.email)) },
             modifier = modifier
@@ -93,6 +94,7 @@ private fun LoginBox(modifier: Modifier) {
         OutlinedTextField(
             value = userPassword,
             onValueChange = { userPassword = it },
+            singleLine = true,
             label = { Text(stringResource(id = R.string.Enter_Pwd)) },
             leadingIcon = { Icon(Icons.Outlined.Lock, contentDescription = stringResource(id = R.string.Password)) },
             modifier = modifier
@@ -108,6 +110,6 @@ private fun LoginBox(modifier: Modifier) {
 
 @Preview
 @Composable
-fun Preview() {
+fun PreviewLogin() {
     LoginPage(modifier = Modifier)
 }

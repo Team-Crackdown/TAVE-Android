@@ -13,6 +13,8 @@
     <string name="Password">비밀번호</string>
     <string name="Enter_Email">사용자 이메일을 입력하세요</string>
     <string name="Enter_Pwd">사용자 비밀번호를 입력하세요</string>
+    <string name="New_Pwd">새로운 비밀번호</string>
+    <string name="Confirm_Pwd">새로운 비밀번호 확인</string>
     <string name="intro">자기소개</string>
     <string name="Notice">공지사항</string>
     <string name="Notice_Confirm">공지사항 확인하기</string>

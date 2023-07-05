@@ -10,5 +10,6 @@ data class UserProfileEntity(
     val userTech: String?,
     val userTeamID: Int?,
     val userUniv: String?,
-    val userType: String?
+    val userType: String?,
+    val isCheckSMS: Boolean
 )

@@ -8,6 +8,7 @@ class SendSMSUseCase @Inject constructor(
     private val taveAPIRepository: TaveAPIRepository
 ) {
     operator fun invoke(
+        accessToken: String,
         phoneNumber: String
-    ): Flow<Result<Unit>> = taveAPIRepository.sendSMSCode(phoneNumber)
+    ): Flow<Result<Unit>> = taveAPIRepository.sendSMSCode(accessToken, phoneNumber)
 }

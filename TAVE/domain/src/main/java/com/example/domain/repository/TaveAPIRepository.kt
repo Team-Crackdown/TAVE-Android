@@ -1,6 +1,7 @@
 package com.example.domain.repository
 
 import com.example.domain.entity.login.LogInBodyEntity
+import com.example.domain.entity.login.PasswordModifyEntity
 import com.example.domain.entity.notice.NoticeDetailEntity
 import com.example.domain.entity.score.TeamScoreEntity
 import com.example.domain.entity.profile.UserProfileEntity
@@ -11,21 +12,44 @@ import kotlinx.coroutines.flow.Flow
 interface TaveAPIRepository {
     fun userLogIn(logInBody: LogInBodyEntity): Flow<String?>
 
-    fun sendSMSCode(phoneNumber: String): Flow<Result<Unit>>
+    fun sendSMSCode(
+        accessToken: String,
+        phoneNumber: String
+    ): Flow<Result<Unit>>
 
-    fun checkOTPCode(otpCode: String): Flow<Result<Unit>>
+    fun checkOTPCode(
+        accessToken: String,
+        otpCode: String
+    ): Flow<Result<Unit>>
 
-    fun getProfileInfo(): Flow<UserProfileEntity?>
+    fun getProfileInfo(accessToken: String): Flow<UserProfileEntity?>
 
-    fun updateProfileImage(profileImage: String): Flow<Result<Unit>>
+    fun updateMemberPassword(
+        accessToken: String,
+        passwordModifyEntity: PasswordModifyEntity
+    ): Flow<Result<Unit>>
 
-    fun getPersonalScore(memberId: Int): Flow<UserScoreEntity?>
+    fun updateProfileImage(
+        accessToken: String,
+        profileImage: String
+    ): Flow<Result<Unit>>
 
-    fun getTeamScore(teamID: Int): Flow<TeamScoreEntity?>
+    fun getPersonalScore(
+        accessToken: String,
+        memberId: Int
+    ): Flow<UserScoreEntity?>
 
-    fun getScheduleAll(): Flow<List<ScheduleEntity>?>
+    fun getTeamScore(
+        accessToken: String,
+        teamID: Int
+    ): Flow<TeamScoreEntity?>
 
-    fun getNoticeAll(): Flow<List<NoticeDetailEntity>?>
+    fun getScheduleAll(accessToken: String): Flow<List<ScheduleEntity>?>
 
-    fun getNoticeDetail(noticeID: Int): Flow<NoticeDetailEntity?>
+    fun getNoticeAll(accessToken: String): Flow<List<NoticeDetailEntity>?>
+
+    fun getNoticeDetail(
+        accessToken: String,
+        noticeID: Int
+    ): Flow<NoticeDetailEntity?>
 }

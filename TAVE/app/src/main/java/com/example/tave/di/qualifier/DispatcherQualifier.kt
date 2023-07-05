@@ -1,4 +1,4 @@
-package com.example.tave.di.coroutineDispatcher
+package com.example.tave.di.qualifier
 
 import javax.inject.Qualifier
 

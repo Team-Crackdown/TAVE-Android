@@ -8,5 +8,6 @@ import javax.inject.Inject
 class GetTeamIdUseCase @Inject constructor(
     private val taveAPIRepository: TaveAPIRepository
 ) {
-    operator fun invoke(): Flow<Int> = taveAPIRepository.getProfileInfo().map { it?.userTeamID!! }
+    operator fun invoke(accessToken: String): Flow<Int> =
+        taveAPIRepository.getProfileInfo(accessToken).map { it?.userTeamID!! }
 }

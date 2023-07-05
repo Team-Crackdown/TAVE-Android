@@ -2,6 +2,7 @@ package com.example.data.repositoryImpl
 
 import com.example.data.api.TaveAPIService
 import com.example.data.model.login.LogInBodyModel
+import com.example.data.model.login.PasswordModifyModel
 import com.example.data.model.notice.NoticeDetailModel
 import com.example.data.model.score.TeamScoreModel
 import com.example.data.model.profile.UserProfileModel
@@ -11,11 +12,13 @@ import com.example.data.util.common.Common
 import com.example.data.util.toLogInModelMapper
 import com.example.data.util.toNoticeDetailEntityListMapper
 import com.example.data.util.toNoticeDetailEntityMapper
+import com.example.data.util.toPasswordModifyModelMapper
 import com.example.data.util.toScheduleEntityListMapper
 import com.example.data.util.toTeamScoreEntityMapper
 import com.example.data.util.toUserProfileEntityMapper
 import com.example.data.util.toUserScoreEntityMapper
 import com.example.domain.entity.login.LogInBodyEntity
+import com.example.domain.entity.login.PasswordModifyEntity
 import com.example.domain.entity.notice.NoticeDetailEntity
 import com.example.domain.entity.score.TeamScoreEntity
 import com.example.domain.entity.profile.UserProfileEntity
@@ -49,26 +52,46 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun sendSMSCode(phoneNumber: String): Flow<Result<Unit>> = flow {
-        try {
-            taveAPIService.sendSMSCode(phoneNumber)
+    override fun sendSMSCode(
+        accessToken: String,
+        phoneNumber: String
+    ): Flow<Result<Unit>> = flow {
+        try{
+            taveAPIService.sendSMSCode(accessToken, "NCS9BEJL2IZWWAVL", phoneNumber)
             emit(Result.success(Unit))
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
     }
 
-    override fun checkOTPCode(otpCode: String): Flow<Result<Unit>> = flow {
+    override fun checkOTPCode(
+        accessToken: String,
+        otpCode: String
+    ): Flow<Result<Unit>> = flow {
         try {
-            taveAPIService.checkOTPCode(otpCode)
+            taveAPIService.checkOTPCode(accessToken, "NCS9BEJL2IZWWAVL", otpCode)
             emit(Result.success(Unit))
         } catch (e: InvalidKeyException) {
             emit(Result.failure(e))
         }
     }
 
-    override fun getProfileInfo(): Flow<UserProfileEntity?> = flow<UserProfileEntity?> {
-        val response: Response<UserProfileModel> = taveAPIService.getProfileInfo()
+    override fun updateMemberPassword(
+        accessToken: String,
+        passwordModifyEntity: PasswordModifyEntity
+    ): Flow<Result<Unit>> = flow {
+        val modifyModel: PasswordModifyModel = toPasswordModifyModelMapper(passwordModifyEntity)
+
+        try {
+            taveAPIService.updateMemberPassword(accessToken, modifyModel)
+            emit(Result.success(Unit))
+        } catch (e: InvalidKeyException) {
+            emit(Result.failure(e))
+        }
+    }
+
+    override fun getProfileInfo(accessToken: String): Flow<UserProfileEntity?> = flow<UserProfileEntity?> {
+        val response: Response<UserProfileModel> = taveAPIService.getProfileInfo(accessToken)
 
         if (response.isSuccessful && response.body() != null) {
             val result: UserProfileEntity = toUserProfileEntityMapper(response.body()!!)
@@ -100,8 +123,8 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun updateProfileImage(profileImage: String): Flow<Result<Unit>> = flow {
-        taveAPIService.updateProfileImage(profileImage)
+    override fun updateProfileImage(accessToken: String, profileImage: String): Flow<Result<Unit>> = flow {
+        taveAPIService.updateProfileImage(accessToken, profileImage)
         emit(Result.success(Unit))
     }.catch { exception ->
         when (exception) {
@@ -124,8 +147,8 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getPersonalScore(memberId: Int): Flow<UserScoreEntity?> = flow<UserScoreEntity?> {
-        val response: Response<UserScoreModel> = taveAPIService.getPersonalScore(memberId)
+    override fun getPersonalScore(accessToken: String, memberId: Int): Flow<UserScoreEntity?> = flow<UserScoreEntity?> {
+        val response: Response<UserScoreModel> = taveAPIService.getPersonalScore(accessToken, memberId)
 
         if (response.isSuccessful && response.body() != null) {
             val result: UserScoreEntity = toUserScoreEntityMapper(response.body()!!)
@@ -157,8 +180,8 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getTeamScore(teamID: Int): Flow<TeamScoreEntity?> = flow<TeamScoreEntity?> {
-        val response: Response<TeamScoreModel> = taveAPIService.getTeamScore(teamID)
+    override fun getTeamScore(accessToken: String, teamID: Int): Flow<TeamScoreEntity?> = flow<TeamScoreEntity?> {
+        val response: Response<TeamScoreModel> = taveAPIService.getTeamScore(accessToken, teamID)
 
         if (response.isSuccessful && response.body() != null) {
             val result: TeamScoreEntity = toTeamScoreEntityMapper(response.body()!!)
@@ -190,8 +213,8 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getNoticeAll(): Flow<List<NoticeDetailEntity>?> = flow<List<NoticeDetailEntity>?> {
-        val response: Response<List<NoticeDetailModel>> = taveAPIService.getNoticeAll()
+    override fun getNoticeAll(accessToken: String): Flow<List<NoticeDetailEntity>?> = flow<List<NoticeDetailEntity>?> {
+        val response: Response<List<NoticeDetailModel>> = taveAPIService.getNoticeAll(accessToken)
 
         if (response.isSuccessful && response.body() != null) {
             val result: List<NoticeDetailEntity> = toNoticeDetailEntityListMapper(response.body()!!)
@@ -223,8 +246,8 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getNoticeDetail(noticeID: Int): Flow<NoticeDetailEntity?> = flow<NoticeDetailEntity?> {
-        val response: Response<NoticeDetailModel> = taveAPIService.getNoticeDetail(noticeID)
+    override fun getNoticeDetail(accessToken: String, noticeID: Int): Flow<NoticeDetailEntity?> = flow<NoticeDetailEntity?> {
+        val response: Response<NoticeDetailModel> = taveAPIService.getNoticeDetail(accessToken, noticeID)
 
         if (response.isSuccessful && response.body() != null) {
             val result: NoticeDetailEntity = toNoticeDetailEntityMapper(response.body()!!)
@@ -256,8 +279,8 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getScheduleAll(): Flow<List<ScheduleEntity>?> = flow<List<ScheduleEntity>?> {
-        val response: Response<List<ScheduleModel>> = taveAPIService.getScheduleAll()
+    override fun getScheduleAll(accessToken: String): Flow<List<ScheduleEntity>?> = flow<List<ScheduleEntity>?> {
+        val response: Response<List<ScheduleModel>> = taveAPIService.getScheduleAll(accessToken)
 
         if (response.isSuccessful && response.body() != null) {
             val result: List<ScheduleEntity> = toScheduleEntityListMapper(response.body()!!)

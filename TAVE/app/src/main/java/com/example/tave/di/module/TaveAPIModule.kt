@@ -4,7 +4,6 @@ import com.example.data.api.TaveAPIService
 import com.example.data.repositoryImpl.TaveAPIRepositoryImpl
 import com.example.domain.repository.TaveAPIRepository
 import com.example.tave.common.Constants
-import com.example.tave.common.util.OkHttpInterceptor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,7 +54,6 @@ object TaveAPIModule {
             sslSocketFactory,
             trustManagerFactory.trustManagers[0] as X509TrustManager
         )
-        .addInterceptor(OkHttpInterceptor())
         .build()
 
     @Provides

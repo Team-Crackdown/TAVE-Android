@@ -1,8 +1,8 @@
 package com.example.tave.di.module
 
-import com.example.tave.di.coroutineDispatcher.DefaultDispatcher
-import com.example.tave.di.coroutineDispatcher.IoDispatcher
-import com.example.tave.di.coroutineDispatcher.MainDispatcher
+import com.example.tave.di.qualifier.DefaultDispatcher
+import com.example.tave.di.qualifier.IoDispatcher
+import com.example.tave.di.qualifier.MainDispatcher
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

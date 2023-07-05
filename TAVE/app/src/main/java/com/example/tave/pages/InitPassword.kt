@@ -1,23 +1,36 @@
 package com.example.tave.pages
 
-import androidx.compose.foundation.background
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.tave.items.login.LoginBtn
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.tave.items.initpassword.InitPasswordBtn
+import com.example.tave.items.initpassword.InitPasswordLogo
+import com.example.tave.ui.theme.Shape
+import com.example.tave.ui.theme.TAVETheme
+import com.example.tave.viewmodel.InitPasswordViewModel
 
 @Composable
-private fun InitPasswordPage(
-    modifier: Modifier
+fun InitPasswordPage(
+    modifier: Modifier,
+    navController: NavController,
+    initPasswordViewModel: InitPasswordViewModel = hiltViewModel()
 ) {
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val localContext = LocalContext.current
+
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
 
@@ -25,11 +38,11 @@ private fun InitPasswordPage(
         Column(
             modifier = modifier
                 .fillMaxWidth()
-                .padding(10.dp)
-                .background(Color.White),
+                .padding(10.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            InitPasswordLogo(modifier = modifier)
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -38,7 +51,8 @@ private fun InitPasswordPage(
                     .padding(bottom = 10.dp, top = 10.dp)
                     .width(300.dp),
                 visualTransformation = PasswordVisualTransformation(),
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                shape = Shape.large
             )
             OutlinedTextField(
                 value = confirmPassword,
@@ -47,16 +61,28 @@ private fun InitPasswordPage(
                 modifier = modifier
                     .padding(bottom = 10.dp, top = 10.dp)
                     .width(300.dp),
+                shape = Shape.large,
                 visualTransformation = PasswordVisualTransformation(),
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
             Spacer(modifier = modifier.height(70.dp))
-            /** padding 값 확인 부탁드립니다 */
-            Column(
-                modifier = modifier.padding(start = 100.dp)
-            ){
-                LoginBtn(onClicked = {/*TODO*/})
-            }
+            InitPasswordBtn(onClicked = {
+                initPasswordViewModel.validateConfirmPassword(password, confirmPassword)
+
+                initPasswordViewModel.isNotMatchPassword.observe(lifecycleOwner) {
+                    if (!it) {
+                        Toast.makeText(
+                            localContext,
+                            "비밀번호가 일치하지 않습니다. 다시 작성해 주세요",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        initPasswordViewModel.isChangedComplete.observe(lifecycleOwner) { result ->
+                            if (result.isSuccess) { navController.navigate("LogInPage") }
+                        }
+                    }
+                }
+            })
         }
     }
 }
@@ -64,5 +90,7 @@ private fun InitPasswordPage(
 @Composable
 @Preview(showSystemUi = true)
 fun PreviewInitPassword() {
-    InitPasswordPage(modifier = Modifier)
+    TAVETheme {
+        InitPasswordPage(modifier = Modifier, navController = rememberNavController())
+    }
 }

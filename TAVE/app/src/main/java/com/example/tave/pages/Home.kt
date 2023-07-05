@@ -1,6 +1,5 @@
 package com.example.tave.pages
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -25,7 +24,6 @@ fun HomePage(
     navController: NavController,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
-    Log.d("profile", "${homeViewModel.userProfile.value}")
     Column(
         modifier = modifier.padding(start = 24.dp, top = 24.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.Center,
@@ -34,7 +32,7 @@ fun HomePage(
         TopTitle(modifier = modifier, name = homeViewModel.userProfile.value?.userName.toString())
         Row {
             UserBadge(
-                text = homeViewModel.userProfile.value?.userRadix.toString(),
+                text = "${homeViewModel.userProfile.value?.userRadix.toString()}기",
                 textColor = MaterialTheme.colorScheme.onPrimary,
                 backgroundColor = MaterialTheme.colorScheme.primary
             )

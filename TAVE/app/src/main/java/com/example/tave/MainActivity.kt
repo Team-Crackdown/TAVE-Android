@@ -5,10 +5,12 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.tave.pages.*
+import com.example.tave.service.SSEService
 import com.example.tave.ui.theme.TAVETheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -19,25 +21,35 @@ class MainActivity : ComponentActivity() {
         startService(Intent(this, SSEService::class.java))
 
         setContent {
+            val navController: NavHostController = rememberNavController()
+
             TAVETheme {
-                val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = "login"
+                    startDestination = "LoginPage"
                 ) {
-                    composable("login") {
-                        LoginPage(modifier = Modifier)
+                    composable("LoginPage") {
+                        LoginPage(modifier = Modifier, navController = navController)
                     }
-                    composable("home"){
+                    composable("SendSMSCodePage") {
+                        SendSMSCodePage(modifier = Modifier, navController = navController)
+                    }
+                    composable("InputOTPCodePage") {
+                        OTPCodePage(modifier = Modifier, navController = navController)
+                    }
+                    composable("InitPasswordPage") {
+                        InitPasswordPage(modifier = Modifier, navController = navController)
+                    }
+                    composable("HomePage"){
                         HomePage(modifier = Modifier, navController =  navController)
                     }
-                    composable("profile"){
+                    composable("ProfilePage"){
                         ProfilePage(modifier = Modifier)
                     }
                     composable("updateProfile"){
                         UpdateProfilePage(modifier = Modifier, navController = navController)
                     }
-                    composable("notice"){
+                    /*composable("notice"){
                         NoticePage(modifier = Modifier, navController = navController)
                     }
                     composable("notice_detail"){
@@ -48,7 +60,7 @@ class MainActivity : ComponentActivity() {
                             upDateTime = "1시간 전",
                             itemCount = 3
                         )
-                    }
+                    }*/
                 }
             }
         }

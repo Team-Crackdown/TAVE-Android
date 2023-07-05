@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.entity.login.LogInBodyEntity
 import com.example.domain.usecases.login.LogInUserUseCase
+import com.example.domain.usecases.profile.GetCheckedSMSUseCase
 import com.example.tave.TaveApplication
-import com.example.tave.di.coroutineDispatcher.IoDispatcher
+import com.example.tave.di.qualifier.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
@@ -18,13 +19,13 @@ import javax.inject.Inject
 @HiltViewModel
 class LogInViewModel @Inject constructor(
     private val logInUserUseCase: LogInUserUseCase,
+    private val getCheckedSMSUseCase: GetCheckedSMSUseCase,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ): ViewModel() {
     private val _logInResult = MutableLiveData<Result<Unit>>()
+    private val _isCheckedSMS = MutableLiveData<Boolean>()
     val logInResult: LiveData<Result<Unit>> get() = _logInResult
-    val isTokenExist: Boolean = TaveApplication.authPrefs
-        .getTokenValue("accessToken", "").isEmpty()
-
+    val isCheckedSMS: LiveData<Boolean> get() = _isCheckedSMS
 
     fun userLogInAccount(
         userEmail: String,
@@ -32,12 +33,17 @@ class LogInViewModel @Inject constructor(
     ): Job = viewModelScope.launch(ioDispatcher) {
         logInUserUseCase(LogInBodyEntity(userEmail, userPassword)).collect {
             if (it != null) {
-                _logInResult.postValue(Result.success(Unit))
                 TaveApplication.authPrefs.setTokenValue("accessToken", "Bearer $it")
+                getCheckSMSField("Bearer $it")
+                _logInResult.postValue(Result.success(Unit))
             } else {
                 _logInResult.postValue(Result.failure(Exception()))
             }
         }
+    }
+
+    private fun getCheckSMSField(accessToken: String): Job = viewModelScope.launch(ioDispatcher) {
+        getCheckedSMSUseCase(accessToken).collect { _isCheckedSMS.postValue(it) }
     }
 
     override fun onCleared() {

@@ -30,4 +30,6 @@
 
     <string name="otp_Number">인증번호 입력</string>
     <string name="OTP_Btn">인증번호 확인</string>
+
+    <string name="Init_Password_Btn">패스워드 변경하기</string>
 </resources>

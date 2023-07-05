@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.usecases.sms.CheckOTPUseCase
 import com.example.domain.usecases.sms.SendSMSUseCase
-import com.example.tave.di.coroutineDispatcher.IoDispatcher
+import com.example.tave.TaveApplication
+import com.example.tave.di.qualifier.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
@@ -22,10 +22,11 @@ class SendSMSViewModel @Inject constructor(
     private val _isSendComplete = MutableLiveData<Result<Unit>>()
     val isSendComplete: LiveData<Result<Unit>> get() = _isSendComplete
 
-    fun sendSMSCode(phoneNumber: String): Job = viewModelScope.launch(ioDispatcher) {
-        sendSMSUseCase(phoneNumber).collect { result -> _isSendComplete.postValue(result) }
-    }
+    private val accessToken: String = TaveApplication.authPrefs.getTokenValue("accessToken", "")
 
+    fun sendSMSCode(phoneNumber: String): Job = viewModelScope.launch(ioDispatcher) {
+        sendSMSUseCase(accessToken, phoneNumber).collect { result -> _isSendComplete.postValue(result) }
+    }
 
     override fun onCleared() {
         super.onCleared()

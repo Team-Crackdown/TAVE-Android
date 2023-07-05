@@ -8,5 +8,7 @@ import javax.inject.Inject
 class GetNoticeAllUseCase @Inject constructor(
     private val taveAPIRepository: TaveAPIRepository
 ) {
-    operator fun invoke(): Flow<List<NoticeDetailEntity>?> = taveAPIRepository.getNoticeAll()
+    operator fun invoke(
+        accessToken: String
+    ): Flow<List<NoticeDetailEntity>?> = taveAPIRepository.getNoticeAll(accessToken)
 }

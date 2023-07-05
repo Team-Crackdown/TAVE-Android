@@ -9,6 +9,7 @@ class GetPersonalScoreUseCase @Inject constructor(
     private val taveAPIRepository: TaveAPIRepository
 ) {
     operator fun invoke(
+        accessToken: String,
         memberId: Int
-    ): Flow<UserScoreEntity?> = taveAPIRepository.getPersonalScore(memberId)
+    ): Flow<UserScoreEntity?> = taveAPIRepository.getPersonalScore(accessToken, memberId)
 }

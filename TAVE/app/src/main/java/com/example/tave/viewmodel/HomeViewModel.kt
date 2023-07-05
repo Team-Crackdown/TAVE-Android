@@ -15,8 +15,9 @@ import com.example.domain.usecases.profile.GetUserProfileUseCase
 import com.example.domain.usecases.schedule.GetScheduleAllUseCase
 import com.example.domain.usecases.score.GetPersonalScoreUseCase
 import com.example.domain.usecases.score.GetTeamScoreUseCase
+import com.example.tave.TaveApplication
 import com.example.tave.common.Constants
-import com.example.tave.di.coroutineDispatcher.IoDispatcher
+import com.example.tave.di.qualifier.IoDispatcher
 import com.google.zxing.BarcodeFormat
 import com.google.zxing.WriterException
 import com.google.zxing.common.BitMatrix
@@ -43,38 +44,41 @@ class HomeViewModel @Inject constructor(
     private val _userProfile = MutableLiveData<UserProfileEntity>()
     private val _personalScore = MutableLiveData<UserScoreEntity>()
     private val _teamScore = MutableLiveData<TeamScoreEntity>()
-    private var userUID: Int = 0
-    private var teamID: Int = 0
 
     val userProfile: LiveData<UserProfileEntity> get() = _userProfile
     val personalScore: LiveData<UserScoreEntity> get() = _personalScore
     val teamScore: LiveData<TeamScoreEntity> get() = _teamScore
+
+    private val accessToken: String = TaveApplication.authPrefs.getTokenValue("accessToken", "")
+    private var userUID: Int? = 0
+    private var teamID: Int = 0
+
 
     init {
         getUserProfile()
     }
 
     private fun getUserProfile(): Job = viewModelScope.launch(ioDispatcher) {
-        getUserProfileUseCase().collect {
-            Log.d("Profile", "${it}")
+        getUserProfileUseCase(accessToken).collect {
+            userUID = it?.userUID
             _userProfile.postValue(it)
         }
     }
 
     private fun getMemberID(): Job = viewModelScope.launch(ioDispatcher) {
-        getMemberIdUseCase().collect { userUID = it }
+        getMemberIdUseCase(accessToken).collect { userUID = it }
     }
 
     private fun getTeamID(): Job = viewModelScope.launch(ioDispatcher) {
-        getTeamIdUseCase().collect { teamID = it }
+        getTeamIdUseCase(accessToken).collect { teamID = it }
     }
 
     private fun getPersonalScore(): Job = viewModelScope.launch(ioDispatcher) {
-        getPersonalScoreUseCase(userUID).collect { _personalScore.postValue(it) }
+        getPersonalScoreUseCase(accessToken, userUID!!).collect { _personalScore.postValue(it) }
     }
 
     private fun getTeamScore(): Job = viewModelScope.launch(ioDispatcher) {
-        getTeamScoreUseCase(teamID).collect { _teamScore.postValue(it) }
+        getTeamScoreUseCase(accessToken, teamID).collect { _teamScore.postValue(it) }
     }
 
     fun generateQRCode(content: String?): Bitmap? {

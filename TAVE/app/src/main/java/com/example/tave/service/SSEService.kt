@@ -1,4 +1,4 @@
-package com.example.tave
+package com.example.tave.service
 
 import android.app.Service
 import android.content.Intent

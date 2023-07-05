@@ -12,5 +12,6 @@ data class UserProfileModel(
     @SerializedName("techField") val userTech: String?,
     @SerializedName("teamId") val teamId: Int?,
     @SerializedName("university") val userUniversity: String?,
-    @SerializedName("memberType") val userType: String?
+    @SerializedName("memberType") val userType: String?,
+    @SerializedName("checkSms") val checkSMS: Boolean
 )

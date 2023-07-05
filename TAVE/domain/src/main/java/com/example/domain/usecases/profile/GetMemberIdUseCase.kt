@@ -8,5 +8,6 @@ import javax.inject.Inject
 class GetMemberIdUseCase @Inject constructor(
     private val taveAPIRepository: TaveAPIRepository
 ) {
-    operator fun invoke(): Flow<Int> = taveAPIRepository.getProfileInfo().map { it?.userUID!! }
+    operator fun invoke(accessToken: String): Flow<Int> =
+        taveAPIRepository.getProfileInfo(accessToken).map { it?.userUID!! }
 }

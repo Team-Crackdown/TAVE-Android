@@ -1,12 +1,14 @@
 package com.example.data.util
 
 import com.example.data.model.login.LogInBodyModel
+import com.example.data.model.login.PasswordModifyModel
 import com.example.data.model.notice.NoticeDetailModel
 import com.example.data.model.score.TeamScoreModel
 import com.example.data.model.profile.UserProfileModel
 import com.example.data.model.schedule.ScheduleModel
 import com.example.data.model.score.UserScoreModel
 import com.example.domain.entity.login.LogInBodyEntity
+import com.example.domain.entity.login.PasswordModifyEntity
 import com.example.domain.entity.notice.NoticeDetailEntity
 import com.example.domain.entity.score.TeamScoreEntity
 import com.example.domain.entity.profile.UserProfileEntity
@@ -18,6 +20,13 @@ fun toLogInModelMapper(
 ): LogInBodyModel = LogInBodyModel(
     userName = item.userName,
     password = item.password
+)
+
+fun toPasswordModifyModelMapper(
+    item: PasswordModifyEntity
+): PasswordModifyModel = PasswordModifyModel(
+    password = item.password,
+    checkSMS = item.checkSMS
 )
 
 fun toUserProfileEntityMapper(
@@ -32,7 +41,8 @@ fun toUserProfileEntityMapper(
     userTech = item.userTech,
     userTeamID = item.teamId,
     userUniv = item.userUniversity,
-    userType = item.userType
+    userType = item.userType,
+    isCheckSMS = item.checkSMS
 )
 
 fun toUserScoreEntityMapper(

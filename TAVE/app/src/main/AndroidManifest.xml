@@ -9,6 +9,7 @@
         android:fullBackupContent="@xml/backup_rules"
         android:supportsRtl="true"
         android:theme="@style/Theme.TAVE">
+        <service android:name=".SSEService" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

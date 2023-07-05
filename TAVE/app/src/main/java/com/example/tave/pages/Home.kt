@@ -1,5 +1,6 @@
 package com.example.tave.pages
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -24,6 +25,7 @@ fun HomePage(
     navController: NavController,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
+    Log.d("profile", "${homeViewModel.userProfile.value}")
     Column(
         modifier = modifier.padding(start = 24.dp, top = 24.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.Center,
@@ -44,7 +46,12 @@ fun HomePage(
             )
         }
         Spacer(modifier = modifier.height(33.dp))
-        HomeMenu(modifier = modifier, navController= navController)
+        HomeMenu(
+            modifier = modifier,
+            navController= navController,
+            personalScore = homeViewModel.personalScore.value?.personalScore,
+            teamScore = homeViewModel.teamScore.value?.teamScore
+        )
     }
 }
 
@@ -65,7 +72,9 @@ fun TopTitle(modifier: Modifier, name: String) {
 @Composable
 fun HomeMenu(
     modifier: Modifier,
-    navController: NavController
+    navController: NavController,
+    personalScore: Int?,
+    teamScore: Int?
 ) {
     val showDialog = remember { mutableStateOf(false) }
     if (showDialog.value) {
@@ -98,7 +107,7 @@ fun HomeMenu(
                     shapes = CustomShape.extraLarge,
                     description = stringResource(id = R.string.Personal_Score),
                     textTitle = stringResource(id = R.string.Personal_Score),
-                    textContent = stringResource(id = R.string.Score_126)
+                    textContent = "$personalScore 점"
                 )
                 Spacer(modifier = modifier.size(20.dp))
                 MainMenuCards(
@@ -110,7 +119,7 @@ fun HomeMenu(
                     shapes = CustomShape.extraLarge,
                     description = stringResource(id = R.string.Team_Score),
                     textTitle = stringResource(id = R.string.Team_Score),
-                    textContent = stringResource(id = R.string.Score_80)
+                    textContent = "$teamScore 점"
                 )
             }
         }

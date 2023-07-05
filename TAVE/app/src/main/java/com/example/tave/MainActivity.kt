@@ -1,5 +1,6 @@
 package com.example.tave
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,21 +16,20 @@ import dagger.hilt.android.AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        startService(Intent(this, SSEService::class.java))
+
         setContent {
             TAVETheme {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = "home"
+                    startDestination = "login"
                 ) {
                     composable("login") {
                         LoginPage(modifier = Modifier)
                     }
                     composable("home"){
-                        HomePage(
-                            modifier = Modifier,
-                            navController =  navController
-                        )
+                        HomePage(modifier = Modifier, navController =  navController)
                     }
                     composable("profile"){
                         ProfilePage(modifier = Modifier)
@@ -54,4 +54,8 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        stopService(Intent(this, SSEService::class.java))
+    }
 }

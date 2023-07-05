@@ -8,7 +8,7 @@ data class UserProfileEntity(
     val userRadix: Int?,
     val userPhoneNumber: String?,
     val userTech: String?,
-    val userTeamID: String?,
+    val userTeamID: Int?,
     val userUniv: String?,
     val userType: String?
 )

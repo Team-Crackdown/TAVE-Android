@@ -10,7 +10,7 @@ data class UserProfileModel(
     @SerializedName("rad") val userRadix: Int?,
     @SerializedName("phoneNumber") val phoneNumber: String?,
     @SerializedName("techField") val userTech: String?,
-    @SerializedName("teamId") val teamId: String?,
+    @SerializedName("teamId") val teamId: Int?,
     @SerializedName("university") val userUniversity: String?,
     @SerializedName("memberType") val userType: String?
 )

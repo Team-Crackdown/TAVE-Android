@@ -101,11 +101,11 @@ fun PublishDateTime(
             Text(
                 text = upDateTime,
                 modifier = modifier.padding(start = 10.dp),
-                color = Color.DarkGray,
                 style = TextStyle(
                     fontSize = 11.sp,
                     fontFamily = NotoSansKr,
                     fontWeight = FontWeight.Medium,
+                    color = Color.DarkGray,
                     platformStyle = PlatformTextStyle(includeFontPadding = false)
                 )
             )

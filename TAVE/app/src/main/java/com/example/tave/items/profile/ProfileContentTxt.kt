@@ -26,10 +26,10 @@ fun ProfileContentTxtSizeLarge(txt: String, answer: String) {
         Text(
             text = txt,
             modifier = Modifier.layoutId("txt"),
-            fontSize = 20.sp,
-            fontFamily = NotoSansKr,
-            fontWeight = FontWeight.Bold,
             style = TextStyle(
+                fontSize = 20.sp,
+                fontFamily = NotoSansKr,
+                fontWeight = FontWeight.Bold,
                 platformStyle = PlatformTextStyle(includeFontPadding = false),
                 lineHeight = 2.5.em
             )
@@ -37,10 +37,10 @@ fun ProfileContentTxtSizeLarge(txt: String, answer: String) {
         Text(
             text = answer,
             modifier = Modifier.layoutId("answer"),
-            fontSize = 20.sp,
-            fontFamily = NotoSansKr,
-            fontWeight = FontWeight.Bold,
             style = TextStyle(
+                fontSize = 20.sp,
+                fontFamily = NotoSansKr,
+                fontWeight = FontWeight.Bold,
                 platformStyle = PlatformTextStyle(includeFontPadding = false),
                 lineHeight = 2.5.em
             )
@@ -59,10 +59,10 @@ fun ProfileContentTxtSizeSmall(txt: String, answer: String) {
         Text(
             text = txt,
             modifier = Modifier.layoutId("txt"),
-            fontSize = 20.sp,
-            fontFamily = NotoSansKr,
-            fontWeight = FontWeight.Bold,
             style = TextStyle(
+                fontSize = 20.sp,
+                fontFamily = NotoSansKr,
+                fontWeight = FontWeight.Bold,
                 platformStyle = PlatformTextStyle(includeFontPadding = false),
                 lineHeight = 2.5.em
             )
@@ -70,10 +70,10 @@ fun ProfileContentTxtSizeSmall(txt: String, answer: String) {
         Text(
             text = answer,
             modifier = Modifier.layoutId("answer"),
-            fontSize = 10.sp,
-            fontFamily = NotoSansKr,
-            fontWeight = FontWeight.Bold,
             style = TextStyle(
+                fontSize = 10.sp,
+                fontFamily = NotoSansKr,
+                fontWeight = FontWeight.Bold,
                 platformStyle = PlatformTextStyle(includeFontPadding = false),
                 lineHeight = 2.5.em
             )

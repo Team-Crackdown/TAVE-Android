@@ -7,12 +7,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.tave.items.login.LogInInputField
 import com.example.tave.items.login.LoginBtn
 import com.example.tave.items.login.LoginIntro
 
 @Composable
-fun LoginPage(modifier: Modifier) {
+fun LoginPage(modifier: Modifier, navController: NavController) {
     var userEmail by remember { mutableStateOf("") }
     var userPassword by remember { mutableStateOf("") }
 
@@ -38,14 +39,10 @@ fun LoginPage(modifier: Modifier) {
                     passwordInput = userPassword
                 )
                 Spacer(modifier = modifier.height(50.dp))
-                LoginBtn(onClicked = {})
+                LoginBtn(onClicked = {
+                    navController.navigate("home")
+                })
             }
         )
     }
-}
-
-@Preview
-@Composable
-fun Preview() {
-    LoginPage(modifier = Modifier)
 }

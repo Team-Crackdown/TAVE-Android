@@ -16,27 +16,23 @@ fun WelcomeTitleTxt(name: String) {
     Column {
         Text(
             text = name + "님",
-            textAlign = TextAlign.Left,
-            fontSize = 24.sp,
-            fontFamily = NotoSansKr,
-            fontWeight = FontWeight.SemiBold,
             style = TextStyle(
-                platformStyle = PlatformTextStyle(
-                    includeFontPadding = false
-                ),
+                textAlign = TextAlign.Left,
+                fontSize = 24.sp,
+                fontFamily = NotoSansKr,
+                fontWeight = FontWeight.SemiBold,
+                platformStyle = PlatformTextStyle(includeFontPadding = false),
                 lineHeight = 2.5.em
             )
         )
         Text(
             text = "환영합니다",
-            textAlign = TextAlign.Left,
-            fontSize = 20.sp,
-            fontFamily = NotoSansKr,
-            fontWeight = FontWeight.SemiBold,
             style = TextStyle(
-                platformStyle = PlatformTextStyle(
-                    includeFontPadding = false
-                ),
+                textAlign = TextAlign.Left,
+                fontSize = 20.sp,
+                fontFamily = NotoSansKr,
+                fontWeight = FontWeight.SemiBold,
+                platformStyle = PlatformTextStyle(includeFontPadding = false),
                 lineHeight = 2.5.em
             )
         )

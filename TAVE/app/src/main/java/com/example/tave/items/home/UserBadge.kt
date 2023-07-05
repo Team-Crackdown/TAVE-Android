@@ -29,7 +29,8 @@ fun UserBadge(
     backgroundColor: Color
 ) {
     Box(
-        modifier = Modifier.size(50.dp, 25.dp)
+        modifier = Modifier
+            .size(50.dp, 25.dp)
             .clip(Shape.large)
             .background(color = backgroundColor)
             .shadow(10.dp),
@@ -42,12 +43,14 @@ fun UserBadge(
             ) {
                 Text(
                     text = text,
-                    textAlign = TextAlign.Center,
-                    fontSize = 14.sp,
-                    fontFamily = NotoSansKr,
-                    fontWeight = FontWeight.Medium,
-                    style = TextStyle(platformStyle = PlatformTextStyle(false)),
-                    color = textColor
+                    style = TextStyle(
+                        fontSize = 14.sp,
+                        fontFamily = NotoSansKr,
+                        fontWeight = FontWeight.Medium,
+                        textAlign = TextAlign.Center,
+                        color = textColor,
+                        platformStyle = PlatformTextStyle(false)
+                    ),
                 )
             }
         }

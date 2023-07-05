@@ -57,7 +57,7 @@ class TaveAPIRepositoryImpl @Inject constructor(
         phoneNumber: String
     ): Flow<Result<Unit>> = flow {
         try{
-            taveAPIService.sendSMSCode(accessToken, "NCS9BEJL2IZWWAVL", phoneNumber)
+            taveAPIService.sendSMSCode(accessToken, "", phoneNumber)
             emit(Result.success(Unit))
         } catch (e: Exception) {
             emit(Result.failure(e))
@@ -69,7 +69,7 @@ class TaveAPIRepositoryImpl @Inject constructor(
         otpCode: String
     ): Flow<Result<Unit>> = flow {
         try {
-            taveAPIService.checkOTPCode(accessToken, "NCS9BEJL2IZWWAVL", otpCode)
+            taveAPIService.checkOTPCode(accessToken, "", otpCode)
             emit(Result.success(Unit))
         } catch (e: InvalidKeyException) {
             emit(Result.failure(e))

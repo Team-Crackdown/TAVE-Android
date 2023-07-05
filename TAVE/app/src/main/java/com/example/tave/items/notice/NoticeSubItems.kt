@@ -116,15 +116,3 @@ fun NoticeSubItemTimeStamp(modifier: Modifier, uploadTime: String) {
         )
     )
 }
-
-//@Composable
-//@Preview(showBackground = true, showSystemUi = true)
-//fun PreviewNoticeSubItems() {
-//    NoticeSubItems(
-//        modifier = Modifier,
-//        subItemTitle = "후반기 만남의 장 회원 소개 Part1",
-//        subItemWriter = "TAVE 운영진",
-//        subItemTimeStamp = "6시간 전",
-//        imageUrl = {/*TODO*/ }
-//    )
-//}

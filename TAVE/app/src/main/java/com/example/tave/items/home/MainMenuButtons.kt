@@ -56,25 +56,21 @@ fun MainMenuButtons(
             ) {
                 Text(
                     text = title,
-                    fontSize = fontSize,
-                    fontFamily = NotoSansKr,
-                    fontWeight = FontWeight.SemiBold,
                     style = TextStyle(
-                        platformStyle = PlatformTextStyle(
-                            includeFontPadding = false
-                        ),
+                        fontSize = fontSize,
+                        fontFamily = NotoSansKr,
+                        fontWeight = FontWeight.SemiBold,
+                        platformStyle = PlatformTextStyle(includeFontPadding = false),
                         lineHeight = 2.5.em
                     )
                 )
                 Text(
                     text = subTitle,
-                    fontSize = if(subTitle == "") 0.sp else 15.sp,
-                    fontFamily = NotoSansKr,
-                    fontWeight = FontWeight.SemiBold,
                     style = TextStyle(
-                        platformStyle = PlatformTextStyle(
-                            includeFontPadding = false
-                        ),
+                        fontSize = if(subTitle == "") 0.sp else 15.sp,
+                        fontFamily = NotoSansKr,
+                        fontWeight = FontWeight.SemiBold,
+                        platformStyle = PlatformTextStyle(includeFontPadding = false),
                         lineHeight = 2.5.em
                     )
                 )

@@ -38,11 +38,11 @@ fun MainNoticeCard(
             modifier = Modifier
         )
         Spacer(modifier = modifier.size(5.dp))
-        MainNoticeTitle(titleTxt = titleTxt)
+        MainNoticeTitle(modifier = modifier, titleTxt = titleTxt,)
         Spacer(modifier = modifier.size(5.dp))
-        MainNoticeWriter(writer = writer)
+        MainNoticeWriter(modifier = modifier, writer = writer)
         Spacer(modifier = modifier.size(5.dp))
-        MainNoticeTimeStamp(uploadTime = uploadTime)
+        MainNoticeTimeStamp(modifier = modifier, uploadTime = uploadTime)
     }
 }
 
@@ -64,11 +64,12 @@ fun MainNoticeImage(
 
 @Composable
 fun MainNoticeTitle(
+    modifier: Modifier,
     titleTxt: String
 ) {
     Text(
         text = titleTxt,
-        modifier = Modifier.padding(start = 10.dp, end = 10.dp),
+        modifier = modifier.padding(start = 10.dp, end = 10.dp),
         style = TextStyle(
             fontSize = 20.sp,
             fontFamily = NotoSansKr,
@@ -79,10 +80,13 @@ fun MainNoticeTitle(
 }
 
 @Composable
-fun MainNoticeWriter(writer: String) {
+fun MainNoticeWriter(
+    modifier: Modifier,
+    writer: String
+) {
     Text(
         text = writer,
-        modifier = Modifier.padding(start = 10.dp, end = 10.dp),
+        modifier = modifier.padding(start = 10.dp, end = 10.dp),
         style = TextStyle(
             fontSize = 15.sp,
             fontFamily = NotoSansKr,
@@ -93,10 +97,13 @@ fun MainNoticeWriter(writer: String) {
 }
 
 @Composable
-fun MainNoticeTimeStamp(uploadTime: String) {
+fun MainNoticeTimeStamp(
+    modifier: Modifier,
+    uploadTime: String
+) {
     Text(
         text = uploadTime,
-        modifier = Modifier.padding(start = 10.dp, end = 10.dp),
+        modifier = modifier.padding(start = 10.dp, end = 10.dp),
         style = TextStyle(
             color = Color.DarkGray,
             fontSize = 15.sp,

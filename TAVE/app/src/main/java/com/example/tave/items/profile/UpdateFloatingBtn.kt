@@ -29,8 +29,8 @@ fun UpdateFloatingBtn(txt: String, onClicked: () -> Unit) {
     ) {
         Text(
             text = txt,
-            textAlign = TextAlign.Center,
             style = TextStyle(
+                textAlign = TextAlign.Center,
                 color = Color.White,
                 fontSize = 10.sp,
                 fontFamily = NotoSansKr,

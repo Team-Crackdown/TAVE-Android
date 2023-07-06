@@ -18,13 +18,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -41,9 +41,8 @@ fun OTPCodePage(
     navController: NavController,
     inputOTPViewModel: InputOTPViewModel = hiltViewModel()
 ) {
-    val lifecycleOwner = LocalLifecycleOwner.current
     val localContext = LocalContext.current
-
+    val sendOTPComplete = inputOTPViewModel.isOTPSuccess.observeAsState()
     var otpCode by remember { mutableStateOf("") }
 
     Surface(
@@ -86,16 +85,14 @@ fun OTPCodePage(
                                 checkOTPCode = {
                                     inputOTPViewModel.checkOTPCode(otpCode)
 
-                                    inputOTPViewModel.isOTPSuccess.observe(lifecycleOwner) {
-                                        if (it.isSuccess) {
-                                            navController.navigate("InitPasswordPage")
-                                        } else {
-                                            Toast.makeText(
-                                                localContext,
-                                                "코드가 일치하지 않습니다.",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        }
+                                    if (sendOTPComplete.value!!.isSuccess) {
+                                        navController.navigate("InitPasswordPage")
+                                    } else {
+                                        Toast.makeText(
+                                            localContext,
+                                            "코드가 일치하지 않습니다.",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
                                 }
                             )

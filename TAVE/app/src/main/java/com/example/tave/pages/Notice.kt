@@ -15,9 +15,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.tave.R
 import com.example.tave.items.notice.MainNoticeCard
 import com.example.tave.items.notice.NoticeSubItems
@@ -87,7 +89,7 @@ fun NoticePage(
                             subItemWriter = notices[index].writer,
                             subItemTimeStamp = notices[index].timeStamp,
                             imageUrl = { notices[index].url },
-                            onClick = { index -> navController.navigate("notice_detail")},
+                            onClick = { index -> navController.navigate("notice_detail") },
                             index = index
                         )
                         Spacer(modifier = modifier.height(5.dp))
@@ -112,7 +114,9 @@ fun NoticePage(
                 LazyRow {
                     items(count = techLetters.size) { index ->
                         NoticeTechLetterItems(
-                            modifier = modifier.size(150.dp).clip(shape = Shape.large),
+                            modifier = modifier
+                                .size(150.dp)
+                                .clip(shape = Shape.large),
                             imageUrl = { techLetters[index].url }
                         )
                         Spacer(modifier = modifier.width(5.dp))
@@ -121,4 +125,10 @@ fun NoticePage(
             }
         )
     }
+}
+
+@Preview
+@Composable
+fun PreviewNoticePage() {
+    NoticePage(modifier = Modifier, navController = rememberNavController())
 }

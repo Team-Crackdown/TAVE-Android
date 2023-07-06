@@ -3,10 +3,8 @@ package com.example.domain.repository
 import com.example.domain.entity.login.LogInBodyEntity
 import com.example.domain.entity.login.PasswordModifyEntity
 import com.example.domain.entity.notice.NoticeDetailEntity
-import com.example.domain.entity.score.TeamScoreEntity
 import com.example.domain.entity.profile.UserProfileEntity
 import com.example.domain.entity.schedule.ScheduleEntity
-import com.example.domain.entity.score.UserScoreEntity
 import kotlinx.coroutines.flow.Flow
 
 interface TaveAPIRepository {
@@ -37,12 +35,12 @@ interface TaveAPIRepository {
     fun getPersonalScore(
         accessToken: String,
         memberId: Int
-    ): Flow<UserScoreEntity?>
+    ): Flow<Int>
 
     fun getTeamScore(
         accessToken: String,
         teamID: Int
-    ): Flow<TeamScoreEntity?>
+    ): Flow<Int>
 
     fun getScheduleAll(accessToken: String): Flow<List<ScheduleEntity>?>
 

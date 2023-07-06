@@ -46,10 +46,7 @@ class MainActivity : ComponentActivity() {
                     composable("ProfilePage"){
                         ProfilePage(modifier = Modifier)
                     }
-                    composable("updateProfile"){
-                        UpdateProfilePage(modifier = Modifier, navController = navController)
-                    }
-                    /*composable("notice"){
+                    composable("NoticePage"){
                         NoticePage(modifier = Modifier, navController = navController)
                     }
                     composable("notice_detail"){
@@ -60,7 +57,7 @@ class MainActivity : ComponentActivity() {
                             upDateTime = "1시간 전",
                             itemCount = 3
                         )
-                    }*/
+                    }
                 }
             }
         }

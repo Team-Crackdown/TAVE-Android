@@ -18,13 +18,13 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -44,8 +44,8 @@ fun SendSMSCodePage(
     navController: NavController,
     sendSMSViewModel: SendSMSViewModel = hiltViewModel()
 ) {
-    val lifecycleOwner = LocalLifecycleOwner.current
     val localContext = LocalContext.current
+    val sendSMSComplete = sendSMSViewModel.isSendComplete.observeAsState()
     var phoneNumber by remember { mutableStateOf("") }
 
     Surface(
@@ -87,17 +87,14 @@ fun SendSMSCodePage(
                                 modifier = modifier,
                                 sendSMSCode = {
                                     sendSMSViewModel.sendSMSCode(phoneNumber)
-
-                                    sendSMSViewModel.isSendComplete.observe(lifecycleOwner) {
-                                        if (it.isSuccess) {
-                                            navController.navigate("InputOTPCodePage")
-                                        } else {
-                                            Toast.makeText(
-                                                localContext,
-                                                "발송에 실패했습니다! 번호를 다시 확인해 주세요",
-                                                Toast.LENGTH_SHORT
-                                            ).show()
-                                        }
+                                    if (sendSMSComplete.value!!.isSuccess) {
+                                        navController.navigate("InputOTPCodePage")
+                                    } else {
+                                        Toast.makeText(
+                                            localContext,
+                                            "발송에 실패했습니다! 번호를 다시 확인해 주세요",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                     }
                                 }
                             )

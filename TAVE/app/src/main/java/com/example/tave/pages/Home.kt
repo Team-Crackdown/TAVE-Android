@@ -3,6 +3,7 @@ package com.example.tave.pages
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -24,6 +25,10 @@ fun HomePage(
     navController: NavController,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
+    val homeProfile = homeViewModel.userProfile.observeAsState()
+    val personalScore = homeViewModel.personalScore.observeAsState()
+    val teamScore = homeViewModel.teamScore.observeAsState()
+
     Column(
         modifier = modifier.padding(start = 24.dp, top = 24.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.Center,
@@ -32,13 +37,13 @@ fun HomePage(
         TopTitle(modifier = modifier, name = homeViewModel.userProfile.value?.userName.toString())
         Row {
             UserBadge(
-                text = "${homeViewModel.userProfile.value?.userRadix.toString()}기",
+                text = "${homeProfile.value?.userRadix}기",
                 textColor = MaterialTheme.colorScheme.onPrimary,
                 backgroundColor = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = modifier.width(10.dp))
             UserBadge(
-                text = homeViewModel.userProfile.value?.userType.toString(),
+                text = homeProfile.value?.userType.toString(),
                 textColor = MaterialTheme.colorScheme.onSecondary,
                 backgroundColor = MaterialTheme.colorScheme.secondary
             )
@@ -47,8 +52,8 @@ fun HomePage(
         HomeMenu(
             modifier = modifier,
             navController= navController,
-            personalScore = homeViewModel.personalScore.value?.personalScore,
-            teamScore = homeViewModel.teamScore.value?.teamScore
+            personalScore = personalScore.value,
+            teamScore = teamScore.value
         )
     }
 }
@@ -78,6 +83,7 @@ fun HomeMenu(
     if (showDialog.value) {
         CheckQrcode(onDismiss = { showDialog.value = false })
     }
+
     Column {
         Row {
             MainMenuButtons(
@@ -97,7 +103,9 @@ fun HomeMenu(
             Spacer(modifier = modifier.size(10.dp))
             Column {
                 MainMenuCards(
-                    modifier = modifier.fillMaxWidth().height(130.dp),
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .height(130.dp),
                     painter = painterResource(R.drawable.baseline_scoreboard_24),
                     colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer),
                     iconColor = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -109,7 +117,9 @@ fun HomeMenu(
                 )
                 Spacer(modifier = modifier.size(20.dp))
                 MainMenuCards(
-                    modifier = modifier.fillMaxWidth().height(130.dp),
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .height(130.dp),
                     painter = painterResource(R.drawable.baseline_scoreboard_24),
                     colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
                     iconColor = MaterialTheme.colorScheme.onPrimary,
@@ -127,7 +137,7 @@ fun HomeMenu(
         MainMenuButtons(
             modifier = modifier.size(109.dp, 102.dp),
             shapes = MaterialTheme.shapes.large,
-            onClicked = { navController.navigate("profile") },
+            onClicked = { navController.navigate("ProfilePage") },
             color = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer
@@ -140,7 +150,9 @@ fun HomeMenu(
         )
         Spacer(modifier = modifier.size(10.dp))
         MainMenuCards(
-            modifier = modifier.fillMaxWidth().height(102.dp),
+            modifier = modifier
+                .fillMaxWidth()
+                .height(102.dp),
             painter = painterResource(R.drawable.calendar),
             colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondaryContainer),
             iconColor = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -153,9 +165,11 @@ fun HomeMenu(
     }
     Spacer(modifier = modifier.height(20.dp))
     MainMenuButtons(
-        modifier = modifier.fillMaxWidth().height(130.dp),
+        modifier = modifier
+            .fillMaxWidth()
+            .height(130.dp),
         shapes = CustomShape.extraLarge,
-        onClicked = { navController.navigate("notice") },
+        onClicked = { navController.navigate("NoticePage") },
         color = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
         painter = painterResource(R.drawable.notice),
         description = stringResource(id = R.string.Notice),

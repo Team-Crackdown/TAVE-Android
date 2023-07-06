@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.unit.dp
 import com.example.tave.ui.theme.Shape
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -40,10 +39,10 @@ fun GlideImageView(
         failure = {
             Image(
                 modifier = modifier
-                    .size(30.dp)
+                    .fillMaxSize()
                     .clip(Shape.large),
                 painter = painterResource(id = painterResource),
-                contentScale = ContentScale.FillWidth,
+                contentScale = ContentScale.FillBounds,
                 contentDescription = "Failure Image"
             )
         }

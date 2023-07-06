@@ -1,6 +1,5 @@
 package com.example.tave.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +10,7 @@ import com.example.tave.TaveApplication
 import com.example.tave.di.qualifier.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,15 +23,13 @@ class ProfileViewModel @Inject constructor(
     private val _userProfile = MutableLiveData<UserProfileEntity>()
     val userProfile: LiveData<UserProfileEntity> get() = _userProfile
 
-    private val accessToken: String = TaveApplication.authPrefs.getTokenValue("accessToken", "")
+    private val accessToken: String =
+        TaveApplication.authPrefs.getTokenValue("accessToken", "")
 
-    init {
-        viewModelScope.launch(ioDispatcher) {
-            profileUseCase(accessToken).collect {
-                Log.d("Profile", "$it")
-                _userProfile.postValue(it)
-            }
-        }
+    init { loadUserProfile() }
+
+    private fun loadUserProfile(): Job = viewModelScope.launch(ioDispatcher) {
+        profileUseCase(accessToken).collect { _userProfile.postValue(it) }
     }
 
     override fun onCleared() {

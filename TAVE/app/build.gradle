@@ -6,8 +6,6 @@ plugins {
 
 apply plugin: 'com.google.dagger.hilt.android'
 
-
-
 android {
     namespace 'com.example.tave'
     compileSdk 33
@@ -50,12 +48,15 @@ android {
 
 dependencies {
     implementation 'androidx.core:core-ktx:1.10.1'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     implementation 'androidx.activity:activity-compose:1.7.2'
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
     implementation 'androidx.compose.material3:material3:1.2.0-alpha02'
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
+
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
 
     // Project Dependency
     implementation project(path: ':data')

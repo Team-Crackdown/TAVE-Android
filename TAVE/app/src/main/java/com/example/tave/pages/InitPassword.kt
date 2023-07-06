@@ -5,10 +5,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,8 +28,9 @@ fun InitPasswordPage(
     navController: NavController,
     initPasswordViewModel: InitPasswordViewModel = hiltViewModel()
 ) {
-    val lifecycleOwner = LocalLifecycleOwner.current
     val localContext = LocalContext.current
+    val isPasswordMatch = initPasswordViewModel.isNotMatchPassword.observeAsState()
+    val isChangedComplete = initPasswordViewModel.isChangedComplete.observeAsState()
 
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -68,18 +69,15 @@ fun InitPasswordPage(
             Spacer(modifier = modifier.height(70.dp))
             InitPasswordBtn(onClicked = {
                 initPasswordViewModel.validateConfirmPassword(password, confirmPassword)
-
-                initPasswordViewModel.isNotMatchPassword.observe(lifecycleOwner) {
-                    if (!it) {
-                        Toast.makeText(
-                            localContext,
-                            "비밀번호가 일치하지 않습니다. 다시 작성해 주세요",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    } else {
-                        initPasswordViewModel.isChangedComplete.observe(lifecycleOwner) { result ->
-                            if (result.isSuccess) { navController.navigate("LogInPage") }
-                        }
+                if (isPasswordMatch.value == false) {
+                    Toast.makeText(
+                        localContext,
+                        "비밀번호가 일치하지 않습니다. 다시 작성해 주세요",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    if (isChangedComplete.value!!.isSuccess) {
+                        navController.navigate("LogInPage")
                     }
                 }
             })

@@ -3,10 +3,8 @@ package com.example.data.api
 import com.example.data.model.login.LogInBodyModel
 import com.example.data.model.login.PasswordModifyModel
 import com.example.data.model.notice.NoticeDetailModel
-import com.example.data.model.score.TeamScoreModel
 import com.example.data.model.profile.UserProfileModel
 import com.example.data.model.schedule.ScheduleModel
-import com.example.data.model.score.UserScoreModel
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -52,13 +50,13 @@ interface TaveAPIService {
     suspend fun getPersonalScore(
         @Header("Authorization") accessToken: String,
         @Query("memberId") memberID: Int
-    ): Response<UserScoreModel>
+    ): Response<Int>
 
     @GET("memberRole/team/getTeamScore")
     suspend fun getTeamScore(
         @Header("Authorization") accessToken: String,
-        @Query("teamScoreNoteId") teamID: Int
-    ): Response<TeamScoreModel>
+        @Query("teamId") teamID: Int
+    ): Response<Int>
 
     @GET("memberRole/schedule/getAllSchedule")
     suspend fun getScheduleAll(

@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import com.example.tave.R
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -17,20 +18,27 @@ fun ProfilePage(
     modifier: Modifier,
     profileViewModel: ProfileViewModel = hiltViewModel()
 ) {
+    val profileInfo = profileViewModel.userProfile.observeAsState()
+
     Scaffold { contentPadding ->
         Column(modifier = modifier.padding(contentPadding)) {
             ProfileImage(
                 modifier = modifier,
-                imageUrl = { profileViewModel.userProfile.value?.userProfileImage }
+                imageUrl = { profileInfo.value?.userProfileImage }
             )
-            ProfileContent(
-                modifier = modifier,
-                profileViewModel.userProfile.value?.userRadix,
-                profileViewModel.userProfile.value?.userUniv,
-                profileViewModel.userProfile.value?.userUniv,
-                profileViewModel.userProfile.value?.userEmail,
-                profileViewModel.userProfile.value?.userPhoneNumber,
-                profileViewModel.userProfile.value?.userTech
+            Column(
+                modifier = modifier.padding(25.dp),
+                content = {
+                    ProfileContent(
+                        modifier = modifier,
+                        userRadix = profileInfo.value?.userRadix,
+                        userUniversity = profileInfo.value?.userUniv,
+                        userName = profileInfo.value?.userName,
+                        userEmail = profileInfo.value?.userEmail,
+                        userPhoneNumber = profileInfo.value?.userPhoneNumber,
+                        userTechDept = profileInfo.value?.userTech
+                    )
+                }
             )
         }
     }
@@ -42,9 +50,7 @@ fun ProfileImage(
     imageUrl: () -> Unit
 ) {
     GlideImageView(
-        modifier = modifier
-            .fillMaxWidth()
-            .height(300.dp),
+        modifier = modifier.fillMaxWidth().height(300.dp),
         imageUrl = imageUrl,
         contentDescription = "Profile Image",
         painterResource = R.drawable.profile_default
@@ -54,51 +60,51 @@ fun ProfileImage(
 @Composable
 fun ProfileContent(
     modifier: Modifier,
-    radix: Int?,
-    university: String?,
-    name: String?,
-    email: String?,
-    phoneNumber: String?,
-    dept: String?
+    userRadix: Int?,
+    userUniversity: String?,
+    userName: String?,
+    userEmail: String?,
+    userPhoneNumber: String?,
+    userTechDept: String?
 ) {
     Column(
-        modifier = modifier.padding(25.dp)
-    ) {
-        Row {
-            ProfileContentTxtSizeLarge(
-                txt = stringResource(id = R.string.radix),
-                answer = "$radix 기"
-            )
-            Spacer(modifier = modifier.width(16.dp))
-            ProfileContentTxtSizeLarge(
-                txt = stringResource(id = R.string.university),
-                answer = "$university"
-            )
+        modifier = modifier.padding(25.dp),
+        content = {
+            Row {
+                ProfileContentTxtSizeLarge(
+                    txt = stringResource(id = R.string.radix),
+                    answer = "$userRadix 기"
+                )
+                Spacer(modifier = modifier.width(16.dp))
+                ProfileContentTxtSizeLarge(
+                    txt = stringResource(id = R.string.university),
+                    answer = userUniversity ?: "null"
+                )
+            }
+            Spacer(modifier = modifier.height(20.dp))
+            Row {
+                ProfileContentTxtSizeLarge(
+                    txt = stringResource(id = R.string.name),
+                    answer = userName ?: "null"
+                )
+                Spacer(modifier = modifier.width(16.dp))
+                ProfileContentTxtSizeSmall(
+                    txt = stringResource(id = R.string.email),
+                    answer = userEmail ?: "null"
+                )
+            }
+            Spacer(modifier = modifier.height(20.dp))
+            Row {
+                ProfileContentTxtSizeSmall(
+                    txt = stringResource(id = R.string.phoneNumber),
+                    answer = userPhoneNumber ?: "null"
+                )
+                Spacer(modifier = modifier.width(16.dp))
+                ProfileContentTxtSizeSmall(
+                    txt = stringResource(id = R.string.dept),
+                    answer = userTechDept ?: "null"
+                )
+            }
         }
-        Spacer(modifier = modifier.height(20.dp))
-        Row {
-            ProfileContentTxtSizeLarge(
-                txt = stringResource(id = R.string.name),
-                answer = "$name"
-            )
-            Spacer(modifier = modifier.width(16.dp))
-            ProfileContentTxtSizeSmall(
-                txt = stringResource(id = R.string.email),
-                answer = "$email"
-            )
-        }
-        Spacer(modifier = modifier.height(20.dp))
-        Row {
-            ProfileContentTxtSizeSmall(
-                txt = stringResource(id = R.string.phoneNumber),
-                answer = "$phoneNumber"
-            )
-            Spacer(modifier = modifier.width(16.dp))
-            ProfileContentTxtSizeSmall(
-                txt = stringResource(id = R.string.dept),
-                answer = "$dept"
-            )
-        }
-    }
-
+    )
 }

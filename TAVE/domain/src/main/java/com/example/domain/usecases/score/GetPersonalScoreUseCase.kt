@@ -1,6 +1,5 @@
 package com.example.domain.usecases.score
 
-import com.example.domain.entity.score.UserScoreEntity
 import com.example.domain.repository.TaveAPIRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -11,5 +10,5 @@ class GetPersonalScoreUseCase @Inject constructor(
     operator fun invoke(
         accessToken: String,
         memberId: Int
-    ): Flow<UserScoreEntity?> = taveAPIRepository.getPersonalScore(accessToken, memberId)
+    ): Flow<Int> = taveAPIRepository.getPersonalScore(accessToken, memberId)
 }

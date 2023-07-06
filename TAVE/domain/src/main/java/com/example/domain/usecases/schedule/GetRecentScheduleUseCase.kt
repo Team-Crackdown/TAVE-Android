@@ -5,7 +5,7 @@ import com.example.domain.repository.TaveAPIRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class GetScheduleAllUseCase @Inject constructor(
+class GetRecentScheduleUseCase @Inject constructor(
     private val taveAPIRepository: TaveAPIRepository
 ) {
     operator fun invoke(accessToken: String): Flow<List<ScheduleEntity>?> =

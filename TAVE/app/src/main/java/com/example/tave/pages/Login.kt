@@ -21,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.tave.R
+import com.example.tave.TaveApplication
 import com.example.tave.items.login.LoginBtn
 import com.example.tave.items.login.LoginIntro
 import com.example.tave.ui.theme.Shape
@@ -33,6 +34,10 @@ fun LoginPage(
     navController: NavController,
     logInViewModel: LogInViewModel = hiltViewModel()
 ) {
+    if (TaveApplication.authPrefs.getTokenValue("accessToken", "").isNotEmpty()) {
+        navController.navigate("HomePage")
+    }
+
     val lifecycleOwner = LocalLifecycleOwner.current
     val localContext = LocalContext.current
 

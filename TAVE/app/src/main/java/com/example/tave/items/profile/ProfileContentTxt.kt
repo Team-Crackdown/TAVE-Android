@@ -30,8 +30,7 @@ fun ProfileContentTxtSizeLarge(txt: String, answer: String) {
                 fontSize = 20.sp,
                 fontFamily = NotoSansKr,
                 fontWeight = FontWeight.Bold,
-                platformStyle = PlatformTextStyle(includeFontPadding = false),
-                lineHeight = 2.5.em
+                platformStyle = PlatformTextStyle(includeFontPadding = false)
             )
         )
         Text(
@@ -41,8 +40,7 @@ fun ProfileContentTxtSizeLarge(txt: String, answer: String) {
                 fontSize = 20.sp,
                 fontFamily = NotoSansKr,
                 fontWeight = FontWeight.Bold,
-                platformStyle = PlatformTextStyle(includeFontPadding = false),
-                lineHeight = 2.5.em
+                platformStyle = PlatformTextStyle(includeFontPadding = false)
             )
         )
     }
@@ -63,8 +61,7 @@ fun ProfileContentTxtSizeSmall(txt: String, answer: String) {
                 fontSize = 20.sp,
                 fontFamily = NotoSansKr,
                 fontWeight = FontWeight.Bold,
-                platformStyle = PlatformTextStyle(includeFontPadding = false),
-                lineHeight = 2.5.em
+                platformStyle = PlatformTextStyle(includeFontPadding = false)
             )
         )
         Text(
@@ -74,8 +71,7 @@ fun ProfileContentTxtSizeSmall(txt: String, answer: String) {
                 fontSize = 10.sp,
                 fontFamily = NotoSansKr,
                 fontWeight = FontWeight.Bold,
-                platformStyle = PlatformTextStyle(includeFontPadding = false),
-                lineHeight = 2.5.em
+                platformStyle = PlatformTextStyle(includeFontPadding = false)
             )
         )
     }

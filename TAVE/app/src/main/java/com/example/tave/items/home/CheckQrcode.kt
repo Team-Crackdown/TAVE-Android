@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -14,19 +15,31 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.tave.common.Constants
 import com.example.tave.common.Constants.BLACK
 import com.example.tave.common.Constants.WHITE
 import com.example.tave.ui.theme.Shape
+import com.example.tave.viewmodel.HomeViewModel
 import com.google.zxing.*
 import com.google.zxing.common.BitMatrix
 import com.google.zxing.qrcode.QRCodeWriter
 
 @Composable
-fun CheckQrcode(onDismiss: ()-> Unit){
+fun CheckQrcode(
+    onDismiss: ()-> Unit,
+    homeViewModel: HomeViewModel = hiltViewModel()
+) {
+    val userUID = homeViewModel.userProfile.observeAsState()
+
     Dialog(
         onDismissRequest = onDismiss,
-        content = { QRDialogView(modifier = Modifier, baseURL = Constants.TEST_QR_URL) }
+        content = {
+            QRDialogView(
+                modifier = Modifier,
+                baseURL = userUID.value?.userUID.toString()
+            )
+        }
     )
 }
 
@@ -67,7 +80,7 @@ fun QRDialogView(
  * generateQRCode
  *  - QR Code의 생성을 담당하는 함수
  */
-fun generateQRCode(content: String?): Bitmap? {
+private fun generateQRCode(content: String?): Bitmap? {
     var bitmap: Bitmap? = null
     try {
         bitmap = qrCodeToBitmap(

@@ -40,27 +40,28 @@ class MainActivity : ComponentActivity() {
                     composable("InitPasswordPage") {
                         InitPasswordPage(modifier = Modifier, navController = navController)
                     }
-                    composable("HomePage"){
-                        HomePage(modifier = Modifier, navController =  navController)
+                    composable("HomePage") {
+                        HomePage(modifier = Modifier, navController = navController)
                     }
-                    composable("ProfilePage"){
+                    composable("ProfilePage") {
                         ProfilePage(modifier = Modifier)
                     }
-                    composable("updateProfile"){
+                    composable("updateProfile") {
                         UpdateProfilePage(modifier = Modifier, navController = navController)
                     }
-                    /*composable("notice"){
+                    composable("NoticePage") {
                         NoticePage(modifier = Modifier, navController = navController)
                     }
-                    composable("notice_detail"){
-                        NoticeDetailPage(
+                    composable("NoticeDetailPage") {
+                        NoticeDetailPage2(
                             modifier = Modifier,
                             mainTitle = "테런데이",
                             publisherText = "음하하",
                             upDateTime = "1시간 전",
-                            itemCount = 3
+                            itemCount = 3,
+                            navController = navController
                         )
-                    }*/
+                    }
                 }
             }
         }

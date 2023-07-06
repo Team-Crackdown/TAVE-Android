@@ -13,6 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.tave.items.glide.ShimmerEffectItem
 import com.example.tave.items.noticeDetail.NoticeDetailCard
 import com.example.tave.items.noticeDetail.NoticeDetailLazyGridsPics
@@ -28,6 +29,7 @@ fun NoticeDetailPage(
     publisherText: String,
     upDateTime: String,
     itemCount: Int,
+    navController: NavController
 ) {
     var isLoading by remember {
         mutableStateOf(true)
@@ -42,7 +44,7 @@ fun NoticeDetailPage(
             NoticeDetailTopBar(
                 modifier = modifier,
                 publisher = publisherText,
-                iconButtonOnClick = { /* TODO */ }
+                iconButtonOnClick = { navController.popBackStack() }
             )
         }
     ) { contentPadding ->
@@ -95,16 +97,4 @@ fun NoticeDetailPage(
             )
         }
     }
-}
-
-@Composable
-@Preview("Notice Detail Page", showBackground = true)
-fun PreviewNoticeDetailPage() {
-    NoticeDetailPage(
-        modifier = Modifier,
-        mainTitle = "후반기 프로젝트 팀 소개 Part1. 김건우의 팀 단속",
-        publisherText = "TAVE 운영진",
-        upDateTime = "6시간 전",
-        itemCount = 12,
-    )
 }

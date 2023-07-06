@@ -49,13 +49,14 @@ class MainActivity : ComponentActivity() {
                     composable("NoticePage"){
                         NoticePage(modifier = Modifier, navController = navController)
                     }
-                    composable("notice_detail"){
+                    composable("NoticeDetailPage"){
                         NoticeDetailPage(
                             modifier = Modifier,
                             mainTitle = "테런데이",
                             publisherText = "음하하",
                             upDateTime = "1시간 전",
-                            itemCount = 3
+                            itemCount = 3,
+                            navController = navController
                         )
                     }
                 }

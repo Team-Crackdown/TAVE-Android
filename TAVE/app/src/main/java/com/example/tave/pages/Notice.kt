@@ -89,7 +89,10 @@ fun NoticePage(
                             subItemWriter = notices[index].writer,
                             subItemTimeStamp = notices[index].timeStamp,
                             imageUrl = { notices[index].url },
-                            onClick = { index -> navController.navigate("notice_detail") },
+                            onClick = { index ->
+                                print("$index")
+                                navController.navigate("NoticeDetailPage")
+                            },
                             index = index
                         )
                         Spacer(modifier = modifier.height(5.dp))

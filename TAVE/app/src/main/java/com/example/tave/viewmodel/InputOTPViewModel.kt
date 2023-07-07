@@ -19,6 +19,7 @@ class InputOTPViewModel @Inject constructor(
     private val checkOTPUseCase: CheckOTPUseCase,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ): ViewModel() {
+
     private val _isOTPSuccess = MutableLiveData<Result<Unit>>()
     val isOTPSuccess: LiveData<Result<Unit>> get() = _isOTPSuccess
 

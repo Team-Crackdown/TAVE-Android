@@ -32,8 +32,6 @@ fun CheckQrcode(
 ) {
     val userUID = homeViewModel.userProfile.observeAsState()
 
-
-
     Dialog(
         onDismissRequest = onDismiss,
         content = {

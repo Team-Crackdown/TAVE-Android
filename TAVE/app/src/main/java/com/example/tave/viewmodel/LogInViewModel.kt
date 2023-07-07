@@ -26,6 +26,8 @@ class LogInViewModel @Inject constructor(
     private val _isCheckedSMS = MutableLiveData<Boolean>()
     val logInResult: LiveData<Result<Unit>> get() = _logInResult
     val isCheckedSMS: LiveData<Boolean> get() = _isCheckedSMS
+    val isExistToken: Boolean =
+        TaveApplication.authPrefs.getTokenValue("accessToken", "").isNotEmpty()
 
     fun userLogInAccount(
         userEmail: String,

@@ -7,14 +7,13 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.tave.pages.techLetters
 
 @Composable
 fun NoticeTechLetterRow(
     modifier: Modifier
 ) {
     LazyRow {
-        items(count = techLetters.size) {
+        items(count = 0) {
             NoticeTechLetterItems(modifier = modifier)
             Spacer(modifier = modifier.width(5.dp))
         }

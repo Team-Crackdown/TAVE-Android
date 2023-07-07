@@ -23,7 +23,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.tave.HomePage
 import com.example.tave.R
 import com.example.tave.SendSMSCodePage
-import com.example.tave.TaveApplication
 import com.example.tave.items.login.LoginBtn
 import com.example.tave.items.login.LoginIntro
 import com.example.tave.ui.theme.Shape
@@ -36,15 +35,12 @@ fun LoginPage(
     navController: NavController,
     logInViewModel: LogInViewModel = hiltViewModel()
 ) {
-    if (TaveApplication.authPrefs.getTokenValue("accessToken", "").isNotEmpty()) {
-        navController.navigate(route = HomePage.route)
-    }
-
     val lifecycleOwner = LocalLifecycleOwner.current
     val localContext = LocalContext.current
-
     var userEmail by remember { mutableStateOf("") }
     var userPassword by remember { mutableStateOf("") }
+
+    if (logInViewModel.isExistToken) { navController.navigate(route = HomePage.route) }
 
     Surface(modifier = modifier.fillMaxSize()) {
         Column(
@@ -89,13 +85,14 @@ fun LoginPage(
                 Spacer(modifier = modifier.height(50.dp))
                 LoginBtn(onClicked = {
                     logInViewModel.userLogInAccount(userEmail, userPassword)
+
                     logInViewModel.logInResult.observe(lifecycleOwner) {
                         if (it.isSuccess) {
                             logInViewModel.isCheckedSMS.observe(lifecycleOwner) { result ->
                                 if (result) {
-                                    navController.navigate(route = HomePage.route)
+                                    navController.navigate(HomePage.route)
                                 } else {
-                                    navController.navigate(route = SendSMSCodePage.route)
+                                    navController.navigate(SendSMSCodePage.route)
                                 }
                             }
                         } else {

@@ -33,7 +33,6 @@ fun HomePage(
     val scheduleTitle = homeViewModel.scheduleTitle.observeAsState()
     val scheduledDay = homeViewModel.scheduleRemainDay.observeAsState()
 
-
     Column(
         modifier = modifier.padding(start = 24.dp, top = 24.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.Center,

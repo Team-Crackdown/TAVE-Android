@@ -78,31 +78,31 @@ fun ProfileContent(
                 Spacer(modifier = modifier.width(16.dp))
                 ProfileContentTxtSizeLarge(
                     txt = stringResource(id = R.string.university),
-                    answer = userUniversity ?: "null"
+                    answer = userUniversity ?: ""
                 )
             }
             Spacer(modifier = modifier.height(20.dp))
             Row {
                 ProfileContentTxtSizeLarge(
                     txt = stringResource(id = R.string.name),
-                    answer = userName ?: "null"
+                    answer = userName ?: ""
                 )
                 Spacer(modifier = modifier.width(16.dp))
                 ProfileContentTxtSizeSmall(
                     txt = stringResource(id = R.string.email),
-                    answer = userEmail ?: "null"
+                    answer = userEmail ?: ""
                 )
             }
             Spacer(modifier = modifier.height(20.dp))
             Row {
                 ProfileContentTxtSizeSmall(
                     txt = stringResource(id = R.string.phoneNumber),
-                    answer = userPhoneNumber ?: "null"
+                    answer = userPhoneNumber ?: ""
                 )
                 Spacer(modifier = modifier.width(16.dp))
                 ProfileContentTxtSizeSmall(
                     txt = stringResource(id = R.string.dept),
-                    answer = userTechDept ?: "null"
+                    answer = userTechDept ?: ""
                 )
             }
         }

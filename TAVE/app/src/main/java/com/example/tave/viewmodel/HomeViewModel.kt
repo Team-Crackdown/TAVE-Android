@@ -12,6 +12,7 @@ import com.example.domain.usecases.schedule.GetRecentScheduleUseCase
 import com.example.domain.usecases.score.GetPersonalScoreUseCase
 import com.example.domain.usecases.score.GetTeamScoreUseCase
 import com.example.tave.TaveApplication
+import com.example.tave.common.Constants
 import com.example.tave.di.qualifier.DefaultDispatcher
 import com.example.tave.di.qualifier.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,6 +21,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.Request
+import okhttp3.sse.EventSource
+import okhttp3.sse.EventSourceListener
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
@@ -31,6 +35,8 @@ class HomeViewModel @Inject constructor(
     private val getPersonalScoreUseCase: GetPersonalScoreUseCase,
     private val getTeamScoreUseCase: GetTeamScoreUseCase,
     private val getScheduleAllUseCase: GetRecentScheduleUseCase,
+    private val sseEventListener: EventSource.Factory,
+    private val sseEventSourceListener: EventSourceListener,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
     @DefaultDispatcher private val defaultDispatcher: CoroutineDispatcher
 ): ViewModel() {
@@ -56,7 +62,18 @@ class HomeViewModel @Inject constructor(
         getPersonalScore()
         getTeamScore()
         getScheduleAll()
+        sseConnect().request()
     }
+
+    private fun setRequestSSE(): Request = Request.Builder()
+        .url(Constants.TAVE_SSE_URL)
+        .addHeader("authorization", accessToken)
+        .addHeader("accept", "text/event-stream")
+        .build()
+
+    private fun sseConnect() =
+        sseEventListener.newEventSource(setRequestSSE(), sseEventSourceListener)
+
 
     private fun getUserProfile(): Job = viewModelScope.launch(ioDispatcher) {
         getUserProfileUseCase(accessToken).collect { _userProfile.postValue(it) }
@@ -107,5 +124,6 @@ class HomeViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         viewModelScope.cancel()
+        sseConnect().cancel()
     }
 }

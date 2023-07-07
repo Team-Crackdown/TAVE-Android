@@ -37,6 +37,7 @@ class NoticeDetailViewModel @Inject constructor(
                 "GENERAL" -> { item.title = "[공지] ${item.title}" }
                 "SCHEDULE" -> { item.title = "[일정] ${item.title}" }
                 "REVIEW" -> { item.title = "[리뷰] ${item.title}" }
+                "TECH" -> { item.title = "[기술레터] ${item.title}" }
             }
 
             item?.createdTime = convertTimeFormat(item?.createdTime)

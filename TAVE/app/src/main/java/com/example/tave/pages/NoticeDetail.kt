@@ -39,6 +39,7 @@ fun NoticeDetailPage(
     val noticeDetailData = noticeDetailViewModel.noticeData.observeAsState()
 
     val admin: String = if (noticeDetailData.value != null) { "테이브 운영진" } else { "" }
+    val imageSize = if (noticeDetailData.value?.images == null) { 0 } else { noticeDetailData.value?.images!!.size }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -82,9 +83,8 @@ fun NoticeDetailPage(
             Spacer(modifier = modifier.size(5.dp))
             Divider(modifier = modifier.fillMaxWidth(), thickness = 0.5.dp, Color.Gray)
             Spacer(modifier = modifier.size(5.dp))
-            /* TODO: Image Grid View : n*5 Grid */
             NoticeDetailLazyGridsPics(
-                itemCount = 3,
+                itemCount = imageSize ,
                 imageUrl = { /*TODO*/ },
                 modifier = modifier
             )

@@ -82,11 +82,6 @@ object SSEConnectModule {
 
     @Provides
     @Singleton
-    fun provideEventSource(
-        request: Request,
-        okHttpClient: OkHttpClient,
-        eventSourceListener: EventSourceListener
-    ): EventSource = EventSources
-        .createFactory(okHttpClient)
-        .newEventSource(request, eventSourceListener)
+    fun provideEventSource(okHttpClient: OkHttpClient): EventSource.Factory =
+        EventSources.createFactory(okHttpClient)
 }

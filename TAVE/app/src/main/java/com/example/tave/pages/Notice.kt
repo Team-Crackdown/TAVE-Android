@@ -36,7 +36,8 @@ val techLetters = mutableListOf(
 @Composable
 fun NoticePage(
     modifier: Modifier,
-    navController: NavController,
+    onMainItemClick: (Int) -> Unit,
+    onSubItemClick: (Int) -> Unit,
     noticeViewModel: NoticeViewModel = hiltViewModel()
 ) {
     val noticeMainCard = noticeViewModel.noticeMainData.observeAsState()
@@ -58,7 +59,7 @@ fun NoticePage(
                 )
                 MainNoticeCard(
                     modifier = modifier,
-                    navController = navController,
+                    onItemClick = onMainItemClick,
                     noticeMainCard = noticeMainCard.value
                 )
                 Divider(
@@ -67,7 +68,7 @@ fun NoticePage(
                 )
                 NoticeSubItemsColumns(
                     modifier = modifier,
-                    navController = navController,
+                    onItemClick = onSubItemClick,
                     noticeSubItems = noticeSubItems.value
                 )
                 Spacer(modifier = modifier.height(10.dp))
@@ -86,10 +87,4 @@ fun NoticePage(
             }
         )
     }
-}
-
-@Preview
-@Composable
-fun PreviewNoticePage() {
-    NoticePage(modifier = Modifier, navController = rememberNavController())
 }

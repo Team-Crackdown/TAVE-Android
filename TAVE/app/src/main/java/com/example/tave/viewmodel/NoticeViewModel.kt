@@ -52,8 +52,6 @@ class NoticeViewModel @Inject constructor(
             item?.createdTime = convertTimeFormat(item?.createdTime)
             item?.modifiedTime = convertTimeFormat(item?.modifiedTime)
 
-
-
             _noticeMainData.postValue(item)
         }
     }

@@ -9,13 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.domain.entity.notice.NoticeDetailEntity
 
 @Composable
 fun NoticeSubItemsColumns(
     modifier: Modifier,
-    navController: NavController,
+    onItemClick: (Int) -> Unit,
     noticeSubItems: List<NoticeDetailEntity>?
 ) {
     val admin: String = if (noticeSubItems != null) { "테이브 운영진" } else { "" }
@@ -29,9 +28,7 @@ fun NoticeSubItemsColumns(
                     subItemWriter = admin,
                     subItemTimeStamp = "${noticeSubItems[index].createdTime}분 경 업로드",
                     imageUrl = {  },
-                    onClick = { _ ->
-                        navController.navigate("NoticeDetailPage")
-                    },
+                    onClick = { onItemClick(noticeSubItems[index].id) },
                     index = index
                 )
                 Spacer(modifier = modifier.height(5.dp))

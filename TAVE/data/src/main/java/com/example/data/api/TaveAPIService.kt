@@ -68,7 +68,7 @@ interface TaveAPIService {
         @Header("Authorization") accessToken: String
     ): Response<List<NoticeDetailModel>>
 
-    @GET("notice/getnotice")
+    @GET("/memberRole/notice/getNotice")
     suspend fun getNoticeDetail(
         @Header("Authorization") accessToken: String,
         @Query("noticeId") noticeID: Int

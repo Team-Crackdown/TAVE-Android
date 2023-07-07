@@ -5,6 +5,7 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.PlatformTextStyle
@@ -12,32 +13,36 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.tave.items.glide.ShimmerEffectItem
 import com.example.tave.items.noticeDetail.NoticeDetailCard
 import com.example.tave.items.noticeDetail.NoticeDetailLazyGridsPics
 import com.example.tave.items.noticeDetail.NoticeDetailPublisherBar
 import com.example.tave.items.noticeDetail.NoticeDetailTopBar
 import com.example.tave.ui.font.NotoSansKr
+import com.example.tave.viewmodel.NoticeDetailViewModel
 import kotlinx.coroutines.delay
 
 @Composable
 fun NoticeDetailPage(
     modifier: Modifier,
-    mainTitle: String,
-    publisherText: String,
-    upDateTime: String,
-    itemCount: Int,
+    noticeID: Int?,
+    noticeDetailViewModel: NoticeDetailViewModel = hiltViewModel()
 ) {
-    var isLoading by remember {
-        mutableStateOf(true)
-    }
+    var isLoading by remember { mutableStateOf(true) }
     LaunchedEffect(key1 = true) {
         delay(1000)
         isLoading = false
+        noticeDetailViewModel.getNoticeDetail(noticeID)
     }
+
+    val noticeDetailData = noticeDetailViewModel.noticeData.observeAsState()
+
+    val admin: String = if (noticeDetailData.value != null) { "테이브 운영진" } else { "" }
+
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        topBar = { NoticeDetailTopBar(modifier = modifier, publisher = publisherText) }
+        topBar = { NoticeDetailTopBar(modifier = modifier, publisher = admin) }
     ) { contentPadding ->
         Column(
             modifier
@@ -46,13 +51,13 @@ fun NoticeDetailPage(
         ) {
             NoticeDetailCard(
                 modifier = modifier,
-                cardTitle = mainTitle,
+                cardTitle = "${noticeDetailData.value?.title}",
                 isLoading = isLoading,
             )
             NoticeDetailPublisherBar(
                 modifier = modifier,
-                publisherTxt = publisherText,
-                upDateTime = upDateTime,
+                publisherTxt = admin,
+                upDateTime = "${noticeDetailData.value?.createdTime}",
                 isLoading = isLoading
             )
             ShimmerEffectItem(
@@ -62,10 +67,7 @@ fun NoticeDetailPage(
                 },
                 contentAfterLoading = {
                     Text(
-                        text = "테하~!\n" +
-                                "안녕하세요! 홍보처 000 입니다!\n" +
-                                "후반기 프로젝트 팀 소개 part 1! \n" +
-                                "김건우의 팀 단속 팀을 소개합니다!",
+                        text = "${noticeDetailData.value?.content}",
                         style = TextStyle(
                             fontSize = 16.sp,
                             fontFamily = NotoSansKr,
@@ -82,7 +84,7 @@ fun NoticeDetailPage(
             Spacer(modifier = modifier.size(5.dp))
             /* TODO: Image Grid View : n*5 Grid */
             NoticeDetailLazyGridsPics(
-                itemCount = itemCount,
+                itemCount = 3,
                 imageUrl = { /*TODO*/ },
                 modifier = modifier
             )

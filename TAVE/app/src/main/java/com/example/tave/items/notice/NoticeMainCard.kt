@@ -23,7 +23,7 @@ import com.example.tave.ui.theme.Shape
 @Composable
 fun MainNoticeCard(
     modifier: Modifier,
-    navController: NavController,
+    onItemClick: (Int) -> Unit,
     noticeMainCard: NoticeDetailEntity?
 ) {
     val admin: String = if (noticeMainCard != null) { "테이브 운영진" } else { "" }
@@ -37,7 +37,7 @@ fun MainNoticeCard(
         modifier = modifier
             .fillMaxWidth()
             .height(277.dp)
-            .clickable { navController.navigate("NoticeDetailPage") },
+            .clickable { onItemClick(noticeMainCard?.id!!) },
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top
     ) {

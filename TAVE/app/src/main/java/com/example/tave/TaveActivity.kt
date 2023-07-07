@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class TaveActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        startService(Intent(this, SSEService::class.java))
 
         setContent {
             TAVETheme {

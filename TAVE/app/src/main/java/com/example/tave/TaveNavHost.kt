@@ -39,16 +39,23 @@ fun TaveNavHost(navController: NavHostController) {
             ProfilePage(modifier = Modifier)
         }
         composable(route = NoticePage.route) {
-            NoticePage(modifier = Modifier, navController = navController)
-        }
-        composable(route = NoticeDetailPage.route) {
-            NoticeDetailPage(
+            NoticePage(
                 modifier = Modifier,
-                mainTitle = "테런데이",
-                publisherText = "음하하",
-                upDateTime = "1시간 전",
-                itemCount = 3
+                onMainItemClick = { noticeID -> navController.navigateToNoticeDetail(noticeID) },
+                onSubItemClick = { noticeID -> navController.navigateToNoticeDetail(noticeID) }
             )
         }
+        composable(
+            route = NoticeDetailPage.routeWithNoticeID,
+            arguments = NoticeDetailPage.arguments
+        ) { navBackStackEntry ->
+            val noticeID = navBackStackEntry.arguments?.getInt(NoticeDetailPage.noticeID)
+            NoticeDetailPage(modifier = Modifier, noticeID = noticeID)
+        }
     }
+}
+
+private fun NavHostController.navigateToNoticeDetail(noticeID: Int) {
+    this.navigate("${NoticeDetailPage.route}/$noticeID")
+
 }

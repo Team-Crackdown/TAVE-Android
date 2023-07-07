@@ -55,7 +55,8 @@ class MainActivity : ComponentActivity() {
                             mainTitle = "테런데이",
                             publisherText = "음하하",
                             upDateTime = "1시간 전",
-                            itemCount = 3
+                            itemCount = 3,
+                            navController = navController
                         )
                     }
                 }

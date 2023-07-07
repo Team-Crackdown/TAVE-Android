@@ -15,7 +15,5 @@ class PreferenceUtil(context: Context) {
     fun setTokenValue(
         tokenKey: String,
         tokenValue: String
-    ) {
-        prefs.edit().putString(tokenKey, tokenValue).apply()
-    }
+    ) { prefs.edit().putString(tokenKey, tokenValue).apply() }
 }

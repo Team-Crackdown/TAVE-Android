@@ -1,6 +1,7 @@
 package com.example.tave.viewmodel
 
 import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -55,7 +56,7 @@ class HomeViewModel @Inject constructor(
     private val accessToken: String =
         TaveApplication.authPrefs.getTokenValue("accessToken", "")
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
-    private val todayDate: Date = dateFormat.parse(dateFormat.format(System.currentTimeMillis()))
+    private val todayDate: Date = Calendar.getInstance().time
 
     init {
         getUserProfile()
@@ -71,7 +72,7 @@ class HomeViewModel @Inject constructor(
         .addHeader("accept", "text/event-stream")
         .build()
 
-    private fun sseConnect() =
+    private fun sseConnect(): EventSource =
         sseEventListener.newEventSource(setRequestSSE(), sseEventSourceListener)
 
 
@@ -100,26 +101,29 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getScheduleAll(): Job = viewModelScope.launch(ioDispatcher) {
-        var scheduleTitle = "아직 일정이 없습니다."
-        val scheduleRemainDate = "???"
-        var remainDate: Int
+        getScheduleAllUseCase(accessToken).collect { item ->
+            val scheduleDate: Date = dateFormat.parse(item.date)
+            val remainDate: Int = calculateDDay(scheduleDate.time)
 
-        getScheduleAllUseCase(accessToken).collect {
-            it?.forEach { item ->
-                val scheduleDate: Date = dateFormat.parse(item.date)
-                if (scheduleDate.time <= todayDate.time) {
-                    remainDate = (todayDate.time - scheduleDate.time).toInt()
-
-                    if (remainDate < (todayDate.time - scheduleDate.time)) {
-                        scheduleTitle = item.title
-                        remainDate = (todayDate.time - scheduleDate.time).toInt()
-                    }
+            when {
+                remainDate > 0 -> {
+                    _scheduleTitle.postValue(item.title)
+                    _scheduleRemainDay.postValue(remainDate.toString())
+                }
+                remainDate == 0 -> {
+                    _scheduleTitle.postValue(item.title)
+                    _scheduleRemainDay.postValue("Day")
+                }
+                else -> {
+                    _scheduleTitle.postValue("아직 정해진 일정이 없습니다.")
+                    _scheduleRemainDay.postValue("???")
                 }
             }
-            _scheduleTitle.postValue(scheduleTitle)
-            _scheduleRemainDay.postValue(scheduleRemainDate)
         }
     }
+
+    private fun calculateDDay(scheduleDate: Long): Int =
+        ((scheduleDate - todayDate.time) / (60 * 60 * 24 * 1000)).toInt()
 
     override fun onCleared() {
         super.onCleared()

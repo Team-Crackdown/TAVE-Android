@@ -21,14 +21,14 @@ fun ProfilePage(
     val profileInfo = profileViewModel.userProfile.observeAsState()
 
     Scaffold { contentPadding ->
-        Column(modifier = modifier.padding(contentPadding)) {
-            ProfileImage(
-                modifier = modifier,
-                imageUrl = { profileInfo.value?.userProfileImage }
-            )
-            Column(
-                modifier = modifier.padding(25.dp),
-                content = {
+        Column(
+            modifier = modifier.padding(contentPadding),
+            content = {
+                ProfileImage(
+                    modifier = modifier,
+                    imageUrl = profileInfo.value?.userProfileImage?: ""
+                )
+                Column {
                     ProfileContent(
                         modifier = modifier,
                         userRadix = profileInfo.value?.userRadix,
@@ -39,15 +39,15 @@ fun ProfilePage(
                         userTechDept = profileInfo.value?.userTech
                     )
                 }
-            )
-        }
+            }
+        )
     }
 }
 
 @Composable
 fun ProfileImage(
     modifier: Modifier,
-    imageUrl: () -> Unit
+    imageUrl: String
 ) {
     GlideImageView(
         modifier = modifier.fillMaxWidth().height(300.dp),

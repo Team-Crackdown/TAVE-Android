@@ -4,15 +4,15 @@ import android.graphics.Bitmap
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -31,13 +31,13 @@ fun CheckQrcode(
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
     val userUID = homeViewModel.userProfile.observeAsState()
-
     Dialog(
         onDismissRequest = onDismiss,
         content = {
             QRDialogView(
                 modifier = Modifier,
-                baseURL = userUID.value?.userUID.toString()
+                baseURL = userUID.value?.userUID.toString(),
+                onDismiss = onDismiss
             )
         }
     )
@@ -46,33 +46,40 @@ fun CheckQrcode(
 @Composable
 fun QRDialogView(
     modifier: Modifier,
-    baseURL: String
+    baseURL: String,
+    onDismiss: ()-> Unit
 ) {
-    Box(
+    Surface(
         modifier = modifier
             .width(312.dp)
             .height(310.dp)
-            .clip(Shape.extraLarge),
-        contentAlignment = Alignment.Center,
-        content = {
-            Column(
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
+            .clip(Shape.extraLarge)
+    ) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            content = {
                 generateQRCode(baseURL)?.let { QRCode ->
-                    Image(bitmap = QRCode.asImageBitmap(), contentDescription = "QR Code")
+                    Image(
+                        modifier = modifier.size(200.dp).padding(bottom = 10.dp),
+                        bitmap = QRCode.asImageBitmap(),
+                        contentScale = ContentScale.FillBounds,
+                        contentDescription = "QR Code"
+                    )
                 }
-                Spacer(modifier = modifier.size(10.dp))
                 IconButton(
-                    onClick = { /*TODO*/ },
-                    colors = IconButtonDefaults.filledIconButtonColors(Color.Gray),
+                    onClick = onDismiss,
+                    colors = IconButtonDefaults.filledIconButtonColors(MaterialTheme.colorScheme.tertiary),
                     content = {
-                        Icon(imageVector = Icons.Default.Refresh, contentDescription = "Refresh Button")
+                        Icon(
+                            imageVector = Icons.Default.Close,
+                            contentDescription = "Refresh Button"
+                        )
                     }
                 )
             }
-        }
-    )
+        )
+    }
 }
 
 

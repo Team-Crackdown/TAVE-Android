@@ -41,7 +41,7 @@ fun MainNoticeCard(
         verticalArrangement = Arrangement.Top
     ) {
         MainNoticeImage(
-            imageUrl = noticeCardImage,
+            imageUrl = "",
             modifier = Modifier
         )
         Spacer(modifier = modifier.size(5.dp))
@@ -55,7 +55,7 @@ fun MainNoticeCard(
 
 @Composable
 fun MainNoticeImage(
-    imageUrl: () -> Unit,
+    imageUrl: String,
     modifier: Modifier
 ) {
     GlideImageView(

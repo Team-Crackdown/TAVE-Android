@@ -24,7 +24,7 @@ fun NoticeSubItems(
     subItemTitle: String,
     subItemWriter: String,
     subItemTimeStamp: String,
-    imageUrl: () -> Unit,
+    imageUrl: String,
     onClick: (Int) -> Unit,
     index: Int
 ) {
@@ -61,7 +61,7 @@ fun NoticeSubItems(
 @Composable
 fun NoticeSubItemImage(
     modifier: Modifier,
-    imageUrl: () -> Unit
+    imageUrl: String
 ) {
     GlideImageView(
         modifier = modifier.size(30.dp).clip(Shape.large),

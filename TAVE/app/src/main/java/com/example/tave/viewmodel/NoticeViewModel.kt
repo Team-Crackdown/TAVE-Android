@@ -72,7 +72,7 @@ class NoticeViewModel @Inject constructor(
                 items.modifiedTime = convertTimeFormat(items.modifiedTime)
             }
 
-            _noticeSubDate.postValue(it?.sortedBy { items -> items.id }?.reversed())
+            _noticeSubDate.postValue(it)
         }
     }
 

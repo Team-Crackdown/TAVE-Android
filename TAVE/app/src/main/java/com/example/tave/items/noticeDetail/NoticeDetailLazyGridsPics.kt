@@ -7,7 +7,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.tave.items.glide.GlideImageView
 import com.example.tave.ui.theme.Shape
@@ -16,7 +15,7 @@ import com.example.tave.R
 @Composable
 fun NoticeDetailLazyGridsPics(
     itemCount: Int,
-    imageUrl: () -> Unit,
+    imageUrl: String,
     modifier: Modifier
 ) {
     LazyVerticalGrid(
@@ -39,10 +38,4 @@ fun NoticeDetailLazyGridsPics(
             }
         }
     )
-}
-
-@Composable
-@Preview
-fun PreviewNoticeDetailLazyGridsPics() {
-    NoticeDetailLazyGridsPics(itemCount = 12, imageUrl = {}, modifier = Modifier)
 }

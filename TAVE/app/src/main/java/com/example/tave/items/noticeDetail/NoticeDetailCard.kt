@@ -9,7 +9,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tave.R
@@ -61,7 +60,7 @@ fun NoticeDetailCard(
                         .fillMaxWidth()
                         .height(150.dp)
                         .clip(Shape.extraLarge),
-                    imageUrl = { /*TODO*/ },
+                    imageUrl = "",
                     contentDescription = "Main Card Image",
                     painterResource = R.drawable.tave_cover
                 )
@@ -79,10 +78,4 @@ fun NoticeDetailCard(
         },
         modifier = modifier
     )
-}
-
-@Composable
-@Preview(showBackground = true)
-fun PreviewNoticeDetailCard() {
-    NoticeDetailCard(modifier = Modifier, cardTitle = "후반기 프로젝트 팀 소개 Part1. 김건우의 팀 단속", isLoading = true)
 }

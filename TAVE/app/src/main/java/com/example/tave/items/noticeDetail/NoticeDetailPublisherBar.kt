@@ -37,7 +37,7 @@ fun NoticeDetailPublisherBar(
             modifier = modifier
                 .size(30.dp)
                 .clip(shape = Shape.large),
-            imageUrl = { /*TODO*/ },
+            imageUrl = "",
             contentDescription = "Publisher Profile Image",
             painterResource = R.drawable.tave_profile
         )

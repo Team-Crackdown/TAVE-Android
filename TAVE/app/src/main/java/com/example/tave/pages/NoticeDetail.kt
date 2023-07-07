@@ -85,7 +85,7 @@ fun NoticeDetailPage(
             Spacer(modifier = modifier.size(5.dp))
             NoticeDetailLazyGridsPics(
                 itemCount = imageSize ,
-                imageUrl = { /*TODO*/ },
+                imageUrl = "",
                 modifier = modifier
             )
         }

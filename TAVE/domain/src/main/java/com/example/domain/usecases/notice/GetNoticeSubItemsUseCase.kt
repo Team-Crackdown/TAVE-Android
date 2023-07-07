@@ -12,7 +12,12 @@ class GetNoticeSubItemsUseCase @Inject constructor(
     operator fun invoke(
         accessToken: String
     ): Flow<List<NoticeDetailEntity>?> = taveAPIRepository.getNoticeAll(accessToken).transform {
-        val result = it?.filter { item -> item.id != it.last().id }
+        val result = it?.filter { item ->
+            item.id != it.last().id
+        }?.sortedBy { items ->
+            items.id
+        }?.reversed()
+
         emit(result)
     }
 }

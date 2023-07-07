@@ -207,11 +207,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getNoticeAll(accessToken: String): Flow<List<NoticeDetailEntity>?> = flow<List<NoticeDetailEntity>?> {
+    override fun getNoticeAll(accessToken: String): Flow<MutableList<NoticeDetailEntity>?> = flow<MutableList<NoticeDetailEntity>?> {
         val response: Response<List<NoticeDetailModel>> = taveAPIService.getNoticeAll(accessToken)
 
         if (response.isSuccessful && response.body() != null) {
-            val result: List<NoticeDetailEntity> = toNoticeDetailEntityListMapper(response.body()!!)
+            val result: MutableList<NoticeDetailEntity> =
+                toNoticeDetailEntityListMapper(response.body()!!).toMutableList()
             emit(result)
         } else {
             when {
@@ -273,11 +274,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun getScheduleAll(accessToken: String): Flow<List<ScheduleEntity>?> = flow<List<ScheduleEntity>?> {
+    override fun getScheduleAll(accessToken: String): Flow<MutableList<ScheduleEntity>?> = flow<MutableList<ScheduleEntity>?> {
         val response: Response<List<ScheduleModel>> = taveAPIService.getScheduleAll(accessToken)
 
         if (response.isSuccessful && response.body() != null) {
-            val result: List<ScheduleEntity> = toScheduleEntityListMapper(response.body()!!)
+            val result: MutableList<ScheduleEntity> =
+                toScheduleEntityListMapper(response.body()!!).toMutableList()
             emit(result)
         } else {
             when {

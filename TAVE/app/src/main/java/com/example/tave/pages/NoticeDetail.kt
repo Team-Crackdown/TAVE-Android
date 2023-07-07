@@ -41,8 +41,7 @@ fun NoticeDetailPage(
         topBar = {
             NoticeDetailTopBar(
                 modifier = modifier,
-                publisher = publisherText,
-                iconButtonOnClick = { /* TODO */ }
+                publisher = publisherText
             )
         }
     ) { contentPadding ->

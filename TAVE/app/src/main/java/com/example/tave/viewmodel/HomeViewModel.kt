@@ -1,7 +1,6 @@
 package com.example.tave.viewmodel
 
 import android.icu.text.SimpleDateFormat
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,7 +20,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.sql.Date
+import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
 
@@ -38,15 +37,19 @@ class HomeViewModel @Inject constructor(
     private val _userProfile = MutableLiveData<UserProfileEntity>()
     private val _personalScore = MutableLiveData<Int>()
     private val _teamScore = MutableLiveData<Int>()
+    private val _scheduleTitle = MutableLiveData<String>()
+    private val _scheduleRemainDay = MutableLiveData<String>()
 
     val userProfile: LiveData<UserProfileEntity> get() = _userProfile
     val personalScore: LiveData<Int> get() = _personalScore
     val teamScore: LiveData<Int> get() = _teamScore
+    val scheduleTitle: LiveData<String> get() = _scheduleTitle
+    val scheduleRemainDay: LiveData<String> get() = _scheduleRemainDay
 
     private val accessToken: String =
         TaveApplication.authPrefs.getTokenValue("accessToken", "")
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
-    private val todayDate: String = dateFormat.format(System.currentTimeMillis())
+    private val todayDate: Date = dateFormat.parse(dateFormat.format(System.currentTimeMillis()))
 
     init {
         getUserProfile()
@@ -80,7 +83,25 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun getScheduleAll(): Job = viewModelScope.launch(ioDispatcher) {
-        getScheduleAllUseCase(accessToken).collect {  }
+        var scheduleTitle = "아직 일정이 없습니다."
+        val scheduleRemainDate = "???"
+        var remainDate: Int
+
+        getScheduleAllUseCase(accessToken).collect {
+            it?.forEach { item ->
+                val scheduleDate: Date = dateFormat.parse(item.date)
+                if (scheduleDate.time <= todayDate.time) {
+                    remainDate = (todayDate.time - scheduleDate.time).toInt()
+
+                    if (remainDate < (todayDate.time - scheduleDate.time)) {
+                        scheduleTitle = item.title
+                        remainDate = (todayDate.time - scheduleDate.time).toInt()
+                    }
+                }
+            }
+            _scheduleTitle.postValue(scheduleTitle)
+            _scheduleRemainDay.postValue(scheduleRemainDate)
+        }
     }
 
     override fun onCleared() {

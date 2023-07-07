@@ -5,11 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -31,8 +27,7 @@ import com.example.tave.ui.theme.Shape
 @Composable
 fun NoticeDetailTopBar(
     modifier: Modifier,
-    publisher: String,
-    iconButtonOnClick: () -> Unit
+    publisher: String
 ) {
     TopAppBar(
         title = {
@@ -60,11 +55,6 @@ fun NoticeDetailTopBar(
                     )
                 )
             }
-        },
-        navigationIcon = {
-            IconButton(onClick = iconButtonOnClick) {
-                Icon(imageVector = Icons.Outlined.ArrowBack, contentDescription = "뒤로 가기")
-            }
         }
     )
 }
@@ -74,7 +64,6 @@ fun NoticeDetailTopBar(
 fun PreviewTopBar() {
     NoticeDetailTopBar(
         modifier = Modifier,
-        publisher = "TAVE 운영진",
-        iconButtonOnClick = { /* TODO */}
+        publisher = "TAVE 운영진"
     )
 }

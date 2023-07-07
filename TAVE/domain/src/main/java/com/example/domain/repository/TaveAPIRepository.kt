@@ -42,9 +42,9 @@ interface TaveAPIRepository {
         teamID: Int
     ): Flow<Int>
 
-    fun getScheduleAll(accessToken: String): Flow<List<ScheduleEntity>?>
+    fun getScheduleAll(accessToken: String): Flow<MutableList<ScheduleEntity>?>
 
-    fun getNoticeAll(accessToken: String): Flow<List<NoticeDetailEntity>?>
+    fun getNoticeAll(accessToken: String): Flow<MutableList<NoticeDetailEntity>?>
 
     fun getNoticeDetail(
         accessToken: String,

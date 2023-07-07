@@ -28,6 +28,8 @@ fun HomePage(
     val homeProfile = homeViewModel.userProfile.observeAsState()
     val personalScore = homeViewModel.personalScore.observeAsState()
     val teamScore = homeViewModel.teamScore.observeAsState()
+    val scheduleTitle = homeViewModel.scheduleTitle.observeAsState()
+    val scheduledDay = homeViewModel.scheduleRemainDay.observeAsState()
 
     Column(
         modifier = modifier.padding(start = 24.dp, top = 24.dp, bottom = 24.dp),
@@ -53,7 +55,9 @@ fun HomePage(
             modifier = modifier,
             navController= navController,
             personalScore = personalScore.value,
-            teamScore = teamScore.value
+            teamScore = teamScore.value,
+            scheduleTitle = scheduleTitle.value,
+            scheduledDay = scheduledDay.value
         )
     }
 }
@@ -77,12 +81,12 @@ fun HomeMenu(
     modifier: Modifier,
     navController: NavController,
     personalScore: Int?,
-    teamScore: Int?
+    teamScore: Int?,
+    scheduleTitle: String?,
+    scheduledDay: String?
 ) {
     val showDialog = remember { mutableStateOf(false) }
-    if (showDialog.value) {
-        CheckQrcode(onDismiss = { showDialog.value = false })
-    }
+    if (showDialog.value) { CheckQrcode(onDismiss = { showDialog.value = false }) }
 
     Column {
         Row {
@@ -159,8 +163,8 @@ fun HomeMenu(
             textColor = MaterialTheme.colorScheme.onSecondaryContainer,
             shapes = CustomShape.extraLarge,
             description = stringResource(id = R.string.schedule),
-            textTitle = stringResource(id = R.string.D_day_Title),
-            textContent = stringResource(id = R.string.D_day)
+            textTitle = "$scheduleTitle",
+            textContent = "D-$scheduledDay"
         )
     }
     Spacer(modifier = modifier.height(20.dp))

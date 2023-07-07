@@ -45,7 +45,9 @@ fun toNoticeDetailEntityMapper(
     item: NoticeDetailModel
 ): NoticeDetailEntity = NoticeDetailEntity(
     id = item.id,
+    title = item.title,
     content = item.content,
+    noticeType = item.noticeType,
     images = item.images,
     adminId = item.adminId,
     createdTime = item.createdTime,
@@ -57,6 +59,8 @@ fun toNoticeDetailEntityListMapper(
 ): List<NoticeDetailEntity> = item.map {
     NoticeDetailEntity(
         id = it.id,
+        title = it.title,
+        noticeType = it.noticeType,
         content = it.content,
         images = it.images,
         adminId = it.adminId,

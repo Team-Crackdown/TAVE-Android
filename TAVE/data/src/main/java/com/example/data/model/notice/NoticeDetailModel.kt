@@ -1,12 +1,14 @@
 package com.example.data.model.notice
 
-import java.sql.Timestamp
+import java.util.Date
 
 data class NoticeDetailModel(
     val id: Int,
-    val content: String,
-    val images: List<String>,
+    val title: String?,
+    val content: String?,
+    val noticeType: String,
+    val images: List<String?>,
     val adminId: Int,
-    val createdTime: Timestamp,
-    val modifiedTime: Timestamp
+    val createdTime: Date?,
+    val modifiedTime: Date?
 )

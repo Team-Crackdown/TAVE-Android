@@ -1,5 +1,6 @@
 package com.example.tave.items.notice
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -10,9 +11,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.tave.R
 import com.example.tave.items.glide.GlideImageView
 import com.example.tave.ui.font.NotoSansKr
@@ -24,12 +25,15 @@ fun MainNoticeCard(
     titleTxt: String,
     writer: String,
     uploadTime: String,
+    navController: NavController,
     imageUrl: () -> Unit
 ) {
+
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .height(277.dp),
+            .height(277.dp)
+            .clickable { navController.navigate("NoticeDetailPage") },
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top
     ) {
@@ -111,17 +115,5 @@ fun MainNoticeTimeStamp(
             fontWeight = FontWeight.Medium,
             platformStyle = PlatformTextStyle(includeFontPadding = false)
         )
-    )
-}
-
-@Composable
-@Preview("Main Notice Card", "Main Notice Card", showBackground = true)
-fun PreviewMainNoticeCard() {
-    MainNoticeCard(
-        modifier = Modifier,
-        titleTxt = "후반기 프로젝트 팀 소개 part1 김건우의 팀 단속",
-        writer = "TAVE 운영진",
-        uploadTime = "1분 전",
-        imageUrl = {/*TODO*/}
     )
 }

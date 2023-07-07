@@ -71,10 +71,4 @@ fun toNoticeDetailEntityListMapper(
 
 fun toScheduleEntityListMapper(
     item: List<ScheduleModel>
-): List<ScheduleEntity> = item.map {
-    ScheduleEntity(
-        it.place,
-        it.title,
-        it.date
-    )
-}
+): List<ScheduleEntity> = item.map { ScheduleEntity(it.title, it.date) }

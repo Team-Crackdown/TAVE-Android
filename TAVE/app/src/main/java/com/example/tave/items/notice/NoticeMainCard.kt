@@ -14,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.domain.entity.notice.NoticeDetailEntity
 import com.example.tave.R
 import com.example.tave.items.glide.GlideImageView
 import com.example.tave.ui.font.NotoSansKr
@@ -22,12 +23,15 @@ import com.example.tave.ui.theme.Shape
 @Composable
 fun MainNoticeCard(
     modifier: Modifier,
-    titleTxt: String,
-    writer: String,
-    uploadTime: String,
     navController: NavController,
-    imageUrl: () -> Unit
+    noticeMainCard: NoticeDetailEntity?
 ) {
+    val admin: String = if (noticeMainCard != null) { "테이브 운영진" } else { "" }
+    val noticeCardImage: () -> Unit = if (noticeMainCard?.images == null) {
+        {  }
+    } else {
+        { noticeMainCard.images }
+    }
 
     Column(
         modifier = modifier
@@ -38,15 +42,15 @@ fun MainNoticeCard(
         verticalArrangement = Arrangement.Top
     ) {
         MainNoticeImage(
-            imageUrl = imageUrl,
+            imageUrl = noticeCardImage,
             modifier = Modifier
         )
         Spacer(modifier = modifier.size(5.dp))
-        MainNoticeTitle(modifier = modifier, titleTxt = titleTxt,)
+        MainNoticeTitle(modifier = modifier, titleTxt = "${noticeMainCard?.title}",)
         Spacer(modifier = modifier.size(5.dp))
-        MainNoticeWriter(modifier = modifier, writer = writer)
+        MainNoticeWriter(modifier = modifier, writer = admin)
         Spacer(modifier = modifier.size(5.dp))
-        MainNoticeTimeStamp(modifier = modifier, uploadTime = uploadTime)
+        MainNoticeTimeStamp(modifier = modifier, uploadTime = "${noticeMainCard?.createdTime}")
     }
 }
 
@@ -106,7 +110,7 @@ fun MainNoticeTimeStamp(
     uploadTime: String
 ) {
     Text(
-        text = uploadTime,
+        text = "${uploadTime}분 경 업로드",
         modifier = modifier.padding(start = 10.dp, end = 10.dp),
         style = TextStyle(
             color = Color.DarkGray,

@@ -10,7 +10,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tave.items.glide.ShimmerEffectItem
@@ -38,12 +37,7 @@ fun NoticeDetailPage(
     }
     Scaffold(
         modifier = modifier.fillMaxSize(),
-        topBar = {
-            NoticeDetailTopBar(
-                modifier = modifier,
-                publisher = publisherText
-            )
-        }
+        topBar = { NoticeDetailTopBar(modifier = modifier, publisher = publisherText) }
     ) { contentPadding ->
         Column(
             modifier
@@ -94,16 +88,4 @@ fun NoticeDetailPage(
             )
         }
     }
-}
-
-@Composable
-@Preview("Notice Detail Page", showBackground = true)
-fun PreviewNoticeDetailPage() {
-    NoticeDetailPage(
-        modifier = Modifier,
-        mainTitle = "후반기 프로젝트 팀 소개 Part1. 김건우의 팀 단속",
-        publisherText = "TAVE 운영진",
-        upDateTime = "6시간 전",
-        itemCount = 12,
-    )
 }

@@ -1,7 +1,8 @@
 package com.example.data.model.schedule
 
+import com.google.gson.annotations.SerializedName
+
 data class ScheduleModel(
-    val place: String,
-    val title: String,
-    val date: String
+    @SerializedName("title") val title: String,
+    @SerializedName("date") val date: String
 )

@@ -11,15 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.example.tave.LogInPage
 import com.example.tave.items.initpassword.InitPasswordBtn
 import com.example.tave.items.initpassword.InitPasswordLogo
 import com.example.tave.ui.theme.Shape
-import com.example.tave.ui.theme.TAVETheme
 import com.example.tave.viewmodel.InitPasswordViewModel
 
 @Composable
@@ -77,18 +75,10 @@ fun InitPasswordPage(
                     ).show()
                 } else {
                     if (isChangedComplete.value!!.isSuccess) {
-                        navController.navigate("LogInPage")
+                        navController.navigate(route = LogInPage.route)
                     }
                 }
             })
         }
-    }
-}
-
-@Composable
-@Preview(showSystemUi = true)
-fun PreviewInitPassword() {
-    TAVETheme {
-        InitPasswordPage(modifier = Modifier, navController = rememberNavController())
     }
 }

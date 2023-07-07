@@ -26,16 +26,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.example.tave.InputOTPCodePage
 import com.example.tave.R
 import com.example.tave.items.sms.SMSLogo
 import com.example.tave.items.sms.SMSPhoneNumberBtn
 import com.example.tave.ui.theme.Shape
-import com.example.tave.ui.theme.TAVETheme
 import com.example.tave.viewmodel.SendSMSViewModel
 
 @Composable
@@ -88,7 +86,7 @@ fun SendSMSCodePage(
                                 sendSMSCode = {
                                     sendSMSViewModel.sendSMSCode(phoneNumber)
                                     if (sendSMSComplete.value!!.isSuccess) {
-                                        navController.navigate("InputOTPCodePage")
+                                        navController.navigate(route = InputOTPCodePage.route)
                                     } else {
                                         Toast.makeText(
                                             localContext,
@@ -104,12 +102,4 @@ fun SendSMSCodePage(
             }
         }
     )
-}
-
-@Composable
-@Preview(showBackground = true)
-fun PreviewSMSPage() {
-    TAVETheme {
-        SendSMSCodePage(modifier = Modifier, navController = rememberNavController())
-    }
 }

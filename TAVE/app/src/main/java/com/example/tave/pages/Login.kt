@@ -20,7 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.tave.HomePage
 import com.example.tave.R
+import com.example.tave.SendSMSCodePage
 import com.example.tave.TaveApplication
 import com.example.tave.items.login.LoginBtn
 import com.example.tave.items.login.LoginIntro
@@ -35,7 +37,7 @@ fun LoginPage(
     logInViewModel: LogInViewModel = hiltViewModel()
 ) {
     if (TaveApplication.authPrefs.getTokenValue("accessToken", "").isNotEmpty()) {
-        navController.navigate("HomePage")
+        navController.navigate(route = HomePage.route)
     }
 
     val lifecycleOwner = LocalLifecycleOwner.current
@@ -91,9 +93,9 @@ fun LoginPage(
                         if (it.isSuccess) {
                             logInViewModel.isCheckedSMS.observe(lifecycleOwner) { result ->
                                 if (result) {
-                                    navController.navigate("HomePage")
+                                    navController.navigate(route = HomePage.route)
                                 } else {
-                                    navController.navigate("SendSMSCodePage")
+                                    navController.navigate(route = SendSMSCodePage.route)
                                 }
                             }
                         } else {

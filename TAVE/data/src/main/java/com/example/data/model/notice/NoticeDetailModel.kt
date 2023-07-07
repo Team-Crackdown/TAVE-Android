@@ -1,14 +1,14 @@
 package com.example.data.model.notice
 
-import java.util.Date
+import com.google.gson.annotations.SerializedName
 
 data class NoticeDetailModel(
-    val id: Int,
-    val title: String?,
-    val content: String?,
-    val noticeType: String,
-    val images: List<String?>,
-    val adminId: Int,
-    val createdTime: Date?,
-    val modifiedTime: Date?
+    @SerializedName("id") val id: Int,
+    @SerializedName("title") val title: String?,
+    @SerializedName("content") val content: String?,
+    @SerializedName("noticeType") val noticeType: String,
+    @SerializedName("images") val images: List<String?>,
+    @SerializedName("adminId") val adminId: Int,
+    @SerializedName("createAt") val createdTime: String,
+    @SerializedName("modifiedAt") val modifiedTime: String
 )

@@ -1,7 +1,3 @@
 package com.example.domain.entity.schedule
 
-data class ScheduleEntity(
-    val place: String,
-    val title: String,
-    val date: String
-)
+data class ScheduleEntity(val title: String, val date: String)

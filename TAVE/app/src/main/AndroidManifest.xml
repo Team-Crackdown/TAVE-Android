@@ -11,7 +11,7 @@
         android:theme="@style/Theme.TAVE">
         <service android:name=".service.SSEService" />
         <activity
-            android:name=".MainActivity"
+            android:name=".TaveActivity"
             android:exported="true"
             android:theme="@style/Theme.TAVE">
             <intent-filter>

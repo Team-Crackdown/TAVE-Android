@@ -29,6 +29,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.tave.InitPasswordPage
 import com.example.tave.R
 import com.example.tave.items.otp.OTPCodeInput
 import com.example.tave.items.otp.OtpLogo
@@ -86,7 +87,7 @@ fun OTPCodePage(
                                     inputOTPViewModel.checkOTPCode(otpCode)
 
                                     if (sendOTPComplete.value!!.isSuccess) {
-                                        navController.navigate("InitPasswordPage")
+                                        navController.navigate(route = InitPasswordPage.route)
                                     } else {
                                         Toast.makeText(
                                             localContext,

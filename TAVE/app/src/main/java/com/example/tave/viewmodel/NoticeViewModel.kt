@@ -1,5 +1,6 @@
 package com.example.tave.viewmodel
 
+import android.icu.text.SimpleDateFormat
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,6 +15,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import java.util.Locale
 import javax.inject.Inject
 
 @HiltViewModel
@@ -24,6 +26,8 @@ class NoticeViewModel @Inject constructor(
 ): ViewModel() {
     private val accessToken: String =
         TaveApplication.authPrefs.getTokenValue("accessToken", "")
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm", Locale.KOREAN)
+    private val outputFormat = SimpleDateFormat("yyyy-MM-dd HH:mm", Locale.KOREAN)
 
     private val _noticeMainData = MutableLiveData<NoticeDetailEntity?>()
     private val _noticeSubDate = MutableLiveData<List<NoticeDetailEntity>?>()
@@ -37,14 +41,44 @@ class NoticeViewModel @Inject constructor(
     }
 
     private fun getNoticeMainCard(): Job = viewModelScope.launch(ioDispatcher) {
-        getNoticeMainUseCase(accessToken).collect { _noticeMainData.postValue(it) }
+        getNoticeMainUseCase(accessToken).collect { item ->
+            when(item?.noticeType) {
+                "NEWS" -> { item.title = "[뉴스] ${item.title}" }
+                "GENERAL" -> { item.title = "[공지] ${item.title}" }
+                "SCHEDULE" -> { item.title = "[일정] ${item.title}" }
+                "REVIEW" -> { item.title = "[리뷰] ${item.title}" }
+            }
+
+            item?.createdTime = convertTimeFormat(item?.createdTime)
+            item?.modifiedTime = convertTimeFormat(item?.modifiedTime)
+
+
+
+            _noticeMainData.postValue(item)
+        }
     }
 
     private fun getNoticeSubItems(): Job = viewModelScope.launch(ioDispatcher) {
         getNoticeSubItemsUseCase(accessToken).collect {
-            _noticeSubDate.postValue(it?.sortedBy { items -> items.id })
+            it?.forEach { items ->
+                when(items.noticeType) {
+                    "NEWS" -> { items.title = "[뉴스] ${items.title}" }
+                    "GENERAL" -> { items.title = "[공지] ${items.title}" }
+                    "SCHEDULE" -> { items.title = "[일정] ${items.title}" }
+                    "REVIEW" -> { items.title = "[리뷰] ${items.title}" }
+                }
+
+                items.createdTime = convertTimeFormat(items.createdTime)
+                items.modifiedTime = convertTimeFormat(items.modifiedTime)
+            }
+
+            _noticeSubDate.postValue(it?.sortedBy { items -> items.id }?.reversed())
         }
     }
+
+    private fun convertTimeFormat(
+        time: String?
+    ): String = outputFormat.format(dateFormat.parse(time))
 
     override fun onCleared() {
         super.onCleared()

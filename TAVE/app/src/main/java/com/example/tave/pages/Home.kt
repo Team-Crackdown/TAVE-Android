@@ -14,6 +14,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.tave.NoticePage
+import com.example.tave.ProfilePage
 import com.example.tave.R
 import com.example.tave.items.home.*
 import com.example.tave.ui.theme.CustomShape
@@ -30,6 +32,7 @@ fun HomePage(
     val teamScore = homeViewModel.teamScore.observeAsState()
     val scheduleTitle = homeViewModel.scheduleTitle.observeAsState()
     val scheduledDay = homeViewModel.scheduleRemainDay.observeAsState()
+
 
     Column(
         modifier = modifier.padding(start = 24.dp, top = 24.dp, bottom = 24.dp),
@@ -141,7 +144,7 @@ fun HomeMenu(
         MainMenuButtons(
             modifier = modifier.size(109.dp, 102.dp),
             shapes = MaterialTheme.shapes.large,
-            onClicked = { navController.navigate("ProfilePage") },
+            onClicked = { navController.navigate(route = ProfilePage.route) },
             color = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.secondaryContainer,
                 contentColor = MaterialTheme.colorScheme.onSecondaryContainer
@@ -173,7 +176,7 @@ fun HomeMenu(
             .fillMaxWidth()
             .height(130.dp),
         shapes = CustomShape.extraLarge,
-        onClicked = { navController.navigate("NoticePage") },
+        onClicked = { navController.navigate(route = NoticePage.route) },
         color = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
         painter = painterResource(R.drawable.notice),
         description = stringResource(id = R.string.Notice),

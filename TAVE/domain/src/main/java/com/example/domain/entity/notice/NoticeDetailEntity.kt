@@ -6,7 +6,7 @@ data class NoticeDetailEntity(
     var title: String?,
     val content: String?,
     val noticeType: String,
-    val images: List<String?>,
+    var images: List<String?>,
     val adminId: Int,
     var createdTime: String,
     var modifiedTime: String

@@ -12,7 +12,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tave.R
@@ -111,28 +110,5 @@ fun PublishDateTime(
             )
         },
         modifier = modifier
-    )
-}
-
-@Composable
-@Preview(group = "items", showBackground = true)
-fun PreviewPublishDateTime() {
-    PublishDateTime(modifier = Modifier, upDateTime = "6시간 전", isLoading = true)
-}
-
-@Composable
-@Preview(group = "items", showBackground = true)
-fun PreviewPublisherTxt() {
-    PublisherTxt(modifier = Modifier, publisherTxt = "TAVE 운영진", isLoading = true)
-}
-
-@Composable
-@Preview(showBackground = true)
-fun PreviewNoticeDetailPublisherBar() {
-    NoticeDetailPublisherBar(
-        modifier = Modifier,
-        publisherTxt = "TAVE 운영진",
-        upDateTime = "6시간 전",
-        isLoading = true
     )
 }

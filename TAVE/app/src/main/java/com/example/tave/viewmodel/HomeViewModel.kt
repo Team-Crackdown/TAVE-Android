@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.api.TaveAPIService
 import com.example.domain.entity.profile.UserProfileEntity
+import com.example.domain.entity.schedule.ScheduleEntity
 import com.example.domain.usecases.profile.GetUserProfileUseCase
 import com.example.domain.usecases.schedule.GetRecentScheduleUseCase
 import com.example.domain.usecases.score.GetPersonalScoreUseCase
@@ -63,7 +64,6 @@ class HomeViewModel @Inject constructor(
         getPersonalScore()
         getTeamScore()
         getScheduleAll()
-        sseConnect().request()
     }
 
     private fun setRequestSSE(): Request = Request.Builder()
@@ -102,21 +102,23 @@ class HomeViewModel @Inject constructor(
 
     private fun getScheduleAll(): Job = viewModelScope.launch(ioDispatcher) {
         getScheduleAllUseCase(accessToken).collect { item ->
-            val scheduleDate: Date = dateFormat.parse(item.date)
-            val remainDate: Int = calculateDDay(scheduleDate.time)
+            if (item.isEmpty()) {
+                _scheduleTitle.postValue("아직 정해진 일정이 없습니다.")
+                _scheduleRemainDay.postValue("???")
+            } else {
+                val recentSchedule: ScheduleEntity = item.first()
+                val scheduleDate: Date = dateFormat.parse(recentSchedule.date)
+                val remainDate: Int = calculateDDay(scheduleDate.time)
 
-            when {
-                remainDate > 0 -> {
-                    _scheduleTitle.postValue(item.title)
-                    _scheduleRemainDay.postValue(remainDate.toString())
-                }
-                remainDate == 0 -> {
-                    _scheduleTitle.postValue(item.title)
-                    _scheduleRemainDay.postValue("Day")
-                }
-                else -> {
-                    _scheduleTitle.postValue("아직 정해진 일정이 없습니다.")
-                    _scheduleRemainDay.postValue("???")
+                when {
+                    remainDate > 0 -> {
+                        _scheduleTitle.postValue(recentSchedule.title)
+                        _scheduleRemainDay.postValue(remainDate.toString())
+                    }
+                    remainDate == 0 -> {
+                        _scheduleTitle.postValue(recentSchedule.title)
+                        _scheduleRemainDay.postValue(Constants.D_DAY)
+                    }
                 }
             }
         }
@@ -128,6 +130,5 @@ class HomeViewModel @Inject constructor(
     override fun onCleared() {
         super.onCleared()
         viewModelScope.cancel()
-        sseConnect().cancel()
     }
 }

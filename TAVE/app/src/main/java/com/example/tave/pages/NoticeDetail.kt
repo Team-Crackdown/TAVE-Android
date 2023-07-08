@@ -1,5 +1,6 @@
 package com.example.tave.pages
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
@@ -29,15 +30,19 @@ fun NoticeDetailPage(
     noticeID: Int?,
     noticeDetailViewModel: NoticeDetailViewModel = hiltViewModel()
 ) {
+    noticeDetailViewModel.getNoticeDetail(noticeID)
+
     var isLoading by remember { mutableStateOf(true) }
+
     val noticeDetailData = noticeDetailViewModel.noticeData.observeAsState()
+    val noticeImageList = noticeDetailData.value?.images
     val admin: String = if (noticeDetailData.value != null) { "테이브 운영진" } else { "" }
-    val imageSize: Int = if (noticeDetailData.value?.images == null) { 0 } else { noticeDetailData.value?.images!!.size }
+
+    Log.d("로그 Notice Image List", "$noticeImageList")
 
     LaunchedEffect(key1 = true) {
         delay(1000)
         isLoading = false
-        noticeDetailViewModel.getNoticeDetail(noticeID)
     }
 
     Scaffold(
@@ -62,9 +67,7 @@ fun NoticeDetailPage(
                 )
                 ShimmerEffectItem(
                     isLoading = isLoading,
-                    contentLoading = {
-                        Box(modifier = modifier.fillMaxWidth())
-                    },
+                    contentLoading = { Box(modifier = modifier.fillMaxWidth()) },
                     contentAfterLoading = {
                         Text(
                             text = "${noticeDetailData.value?.content}",
@@ -81,11 +84,7 @@ fun NoticeDetailPage(
                 Spacer(modifier = modifier.size(5.dp))
                 Divider(modifier = modifier.fillMaxWidth(), thickness = 0.5.dp, Color.Gray)
                 Spacer(modifier = modifier.size(5.dp))
-                NoticeDetailLazyGridsPics(
-                    itemCount = imageSize ,
-                    imageUrl = "",
-                    modifier = modifier
-                )
+                NoticeDetailLazyGridsPics(modifier = modifier, imageList = noticeDetailData.value?.images)
             }
         )
     }

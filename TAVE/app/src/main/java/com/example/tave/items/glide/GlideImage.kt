@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.tave.ui.theme.Shape
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -42,13 +41,5 @@ fun GlideImageView(
                 contentDescription = "Failure Image"
             )
         }
-    )
-}
-
-@Composable
-@Preview
-fun PreviewNoticeDetailLazyGridsPics() {
-    GlideImage(
-        imageModel = { "https://tave-bucket.s3.ap-northeast-2.amazonaws.com/96cd7eb5-519f-4716-b0a8-a5e468af5279.jpg" }
     )
 }

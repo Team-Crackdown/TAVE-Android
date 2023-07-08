@@ -14,26 +14,40 @@ import com.example.tave.R
 
 @Composable
 fun NoticeDetailLazyGridsPics(
-    itemCount: Int,
-    imageUrl: String,
-    modifier: Modifier
+    modifier: Modifier,
+    imageList: List<String?>?
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(5),
         content = {
-            items(itemCount) {
-                Box(
-                    modifier = modifier.aspectRatio(1f).clip(shape = Shape.large),
-                    contentAlignment = Alignment.Center
-                ) {
-                    GlideImageView(
-                        modifier = modifier.size(64.dp),
-                        imageUrl = imageUrl,
-                        contentDescription = "tech letter",
-                        painterResource = R.drawable.tave_profile
+            imageList?.size?.let {
+                items(it) { item ->
+                    LazyGridItems(
+                        modifier = modifier,
+                        imageItem = imageList[item]!!
                     )
                 }
             }
         }
     )
+}
+
+@Composable
+fun LazyGridItems(
+    modifier: Modifier,
+    imageItem: String
+) {
+    Box(
+        modifier = modifier
+            .aspectRatio(1f)
+            .clip(shape = Shape.large),
+        contentAlignment = Alignment.Center
+    ) {
+        GlideImageView(
+            modifier = modifier.size(64.dp),
+            imageUrl = imageItem,
+            contentDescription = "tech letter",
+            painterResource = R.drawable.tave_profile
+        )
+    }
 }

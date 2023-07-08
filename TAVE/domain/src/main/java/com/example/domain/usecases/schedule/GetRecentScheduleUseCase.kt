@@ -6,7 +6,6 @@ import com.example.domain.repository.TaveAPIRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.transform
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
@@ -19,16 +18,11 @@ class GetRecentScheduleUseCase @Inject constructor(
 
     operator fun invoke(
         accessToken: String
-    ): Flow<ScheduleEntity> = taveAPIRepository.getScheduleAll(accessToken).filter {
+    ): Flow<List<ScheduleEntity>> = taveAPIRepository.getScheduleAll(accessToken).filter {
         it?.removeAll(it.filter { item ->  filteringSchedule(dateFormat.parse(item.date)) })!!
-    }.map {
-        it?.sortedBy { item -> dateFormat.parse(item.date).time } ?: listOf()
-    }.transform {
-        emit(it.first())
-    }
+    }.map { it?.sortedBy { item -> dateFormat.parse(item.date).time } ?: listOf() }
 
     private fun filteringSchedule(
         scheduleTime: Date
     ): Boolean = (todayDate.time - scheduleTime.time >= 0)
-
 }

@@ -23,11 +23,9 @@ fun NoticeDetailLazyGridsPics(
         content = {
             items(itemCount) {
                 Box(
-                    modifier = modifier
-                        .aspectRatio(1f)
-                        .clip(shape = Shape.large),
+                    modifier = modifier.aspectRatio(1f).clip(shape = Shape.large),
                     contentAlignment = Alignment.Center
-                ){
+                ) {
                     GlideImageView(
                         modifier = modifier.size(64.dp),
                         imageUrl = imageUrl,

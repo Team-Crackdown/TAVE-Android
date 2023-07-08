@@ -30,64 +30,63 @@ fun NoticeDetailPage(
     noticeDetailViewModel: NoticeDetailViewModel = hiltViewModel()
 ) {
     var isLoading by remember { mutableStateOf(true) }
+    val noticeDetailData = noticeDetailViewModel.noticeData.observeAsState()
+    val admin: String = if (noticeDetailData.value != null) { "테이브 운영진" } else { "" }
+    val imageSize: Int = if (noticeDetailData.value?.images == null) { 0 } else { noticeDetailData.value?.images!!.size }
+
     LaunchedEffect(key1 = true) {
         delay(1000)
         isLoading = false
         noticeDetailViewModel.getNoticeDetail(noticeID)
     }
 
-    val noticeDetailData = noticeDetailViewModel.noticeData.observeAsState()
-
-    val admin: String = if (noticeDetailData.value != null) { "테이브 운영진" } else { "" }
-    val imageSize = if (noticeDetailData.value?.images == null) { 0 } else { noticeDetailData.value?.images!!.size }
-
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = { NoticeDetailTopBar(modifier = modifier, publisher = admin) }
     ) { contentPadding ->
         Column(
-            modifier
+            modifier = modifier
                 .padding(contentPadding)
-                .padding(start = 10.dp, end = 10.dp)
-        ) {
-            NoticeDetailCard(
-                modifier = modifier,
-                cardTitle = "${noticeDetailData.value?.title}",
-                isLoading = isLoading,
-            )
-            NoticeDetailPublisherBar(
-                modifier = modifier,
-                publisherTxt = admin,
-                upDateTime = "${noticeDetailData.value?.createdTime}",
-                isLoading = isLoading
-            )
-            ShimmerEffectItem(
-                isLoading = isLoading,
-                contentLoading = {
-                    Box(modifier = modifier.fillMaxWidth())
-                },
-                contentAfterLoading = {
-                    Text(
-                        text = "${noticeDetailData.value?.content}",
-                        style = TextStyle(
-                            fontSize = 16.sp,
-                            fontFamily = NotoSansKr,
-                            fontWeight = FontWeight.Medium,
-                            platformStyle = PlatformTextStyle(includeFontPadding = false)
+                .padding(start = 10.dp, end = 10.dp),
+            content = {
+                NoticeDetailCard(
+                    modifier = modifier,
+                    cardTitle = "${noticeDetailData.value?.title}",
+                    isLoading = isLoading,
+                )
+                NoticeDetailPublisherBar(
+                    modifier = modifier,
+                    publisherTxt = admin,
+                    upDateTime = "${noticeDetailData.value?.createdTime}",
+                    isLoading = isLoading
+                )
+                ShimmerEffectItem(
+                    isLoading = isLoading,
+                    contentLoading = {
+                        Box(modifier = modifier.fillMaxWidth())
+                    },
+                    contentAfterLoading = {
+                        Text(
+                            text = "${noticeDetailData.value?.content}",
+                            style = TextStyle(
+                                fontSize = 16.sp,
+                                fontFamily = NotoSansKr,
+                                fontWeight = FontWeight.Medium,
+                                platformStyle = PlatformTextStyle(includeFontPadding = false)
+                            )
                         )
-                    )
-                },
-                modifier = modifier
-            )
-
-            Spacer(modifier = modifier.size(5.dp))
-            Divider(modifier = modifier.fillMaxWidth(), thickness = 0.5.dp, Color.Gray)
-            Spacer(modifier = modifier.size(5.dp))
-            NoticeDetailLazyGridsPics(
-                itemCount = imageSize ,
-                imageUrl = "",
-                modifier = modifier
-            )
-        }
+                    },
+                    modifier = modifier
+                )
+                Spacer(modifier = modifier.size(5.dp))
+                Divider(modifier = modifier.fillMaxWidth(), thickness = 0.5.dp, Color.Gray)
+                Spacer(modifier = modifier.size(5.dp))
+                NoticeDetailLazyGridsPics(
+                    itemCount = imageSize ,
+                    imageUrl = "",
+                    modifier = modifier
+                )
+            }
+        )
     }
 }

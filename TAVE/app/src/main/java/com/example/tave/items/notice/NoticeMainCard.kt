@@ -26,11 +26,6 @@ fun MainNoticeCard(
     noticeMainCard: NoticeDetailEntity?
 ) {
     val admin: String = if (noticeMainCard != null) { "테이브 운영진" } else { "" }
-    val noticeCardImage: () -> Unit = if (noticeMainCard?.images == null) {
-        {  }
-    } else {
-        { noticeMainCard.images }
-    }
 
     Column(
         modifier = modifier
@@ -45,7 +40,7 @@ fun MainNoticeCard(
             modifier = Modifier
         )
         Spacer(modifier = modifier.size(5.dp))
-        MainNoticeTitle(modifier = modifier, titleTxt = "${noticeMainCard?.title}",)
+        MainNoticeTitle(modifier = modifier, titleTxt = "${noticeMainCard?.title}")
         Spacer(modifier = modifier.size(5.dp))
         MainNoticeWriter(modifier = modifier, writer = admin)
         Spacer(modifier = modifier.size(5.dp))

@@ -28,7 +28,7 @@ fun NoticeSubItemsColumns(
                     subItemTitle = "${noticeSubItems[index].title}",
                     subItemWriter = admin,
                     subItemTimeStamp = "${noticeSubItems[index].createdTime}분 경 업로드",
-                    imageUrl = "",
+                    imageUrl = noticeSubItems[index].images,
                     onClick = { onItemClick(noticeSubItems[index].id) },
                     index = index
                 )

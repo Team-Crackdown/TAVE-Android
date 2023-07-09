@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.domain.entity.notice.NoticeDetailEntity
 import com.example.tave.R
+import com.example.tave.common.Constants
 import com.example.tave.items.glide.GlideImageView
 import com.example.tave.ui.font.NotoSansKr
 import com.example.tave.ui.theme.Shape
@@ -25,7 +26,12 @@ fun MainNoticeCard(
     onItemClick: (Int) -> Unit,
     noticeMainCard: NoticeDetailEntity?
 ) {
-    val admin: String = if (noticeMainCard != null) { "테이브 운영진" } else { "" }
+    val admin: String = if (noticeMainCard != null) { Constants.TAVE_ADMIN } else { "" }
+    val imageUrl: String = if (noticeMainCard?.images?.isEmpty() == true) {
+        ""
+    } else {
+        "${noticeMainCard?.images?.first()}"
+    }
 
     Column(
         modifier = modifier
@@ -36,7 +42,7 @@ fun MainNoticeCard(
         verticalArrangement = Arrangement.Top
     ) {
         MainNoticeImage(
-            imageUrl = "",
+            imageUrl = imageUrl,
             modifier = Modifier
         )
         Spacer(modifier = modifier.size(5.dp))

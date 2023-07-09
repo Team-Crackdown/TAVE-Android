@@ -39,7 +39,7 @@ fun LoginPage(
     val loginState by logInViewModel.logInState.collectAsState()
 
     if (logInViewModel.isExistToken)
-        LaunchedEffect(Unit) {navController.navigate(route = HomePage.route) }
+        LaunchedEffect(Unit) { navController.navigate(route = HomePage.route) }
 
     Surface(modifier = modifier.fillMaxSize()) {
         Column(

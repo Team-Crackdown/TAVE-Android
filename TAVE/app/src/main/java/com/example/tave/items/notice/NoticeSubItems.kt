@@ -24,10 +24,12 @@ fun NoticeSubItems(
     subItemTitle: String,
     subItemWriter: String,
     subItemTimeStamp: String,
-    imageUrl: String,
+    imageUrl: List<String?>,
     onClick: (Int) -> Unit,
     index: Int
 ) {
+    val imageItems: String = if (imageUrl.isEmpty()) { "" } else { "${imageUrl.first()}" }
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -38,7 +40,7 @@ fun NoticeSubItems(
         verticalAlignment = Alignment.CenterVertically
     ) {
         NoticeSubItemImage(
-            imageUrl = imageUrl,
+            imageUrl = imageItems,
             modifier = modifier
         )
         Column(

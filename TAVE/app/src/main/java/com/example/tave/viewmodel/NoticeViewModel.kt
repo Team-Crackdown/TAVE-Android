@@ -61,9 +61,9 @@ class NoticeViewModel @Inject constructor(
                 NoticeTypeEnumClass.TECH.name ->
                     item.title = noticeTypeMap[NoticeTypeEnumClass.TECH.name] + item.title
             }
-            item?.images = if (item?.images != null) { item.images } else { listOf("") }
-            item?.createdTime = convertTimeFormat(item?.createdTime)
-            item?.modifiedTime = convertTimeFormat(item?.modifiedTime)
+            item?.images = if (item?.images?.isEmpty() == true) { item.images } else { item?.images!! }
+            item.createdTime = convertTimeFormat(item.createdTime)
+            item.modifiedTime = convertTimeFormat(item.modifiedTime)
 
             _noticeMainData.postValue(item)
         }
@@ -88,7 +88,7 @@ class NoticeViewModel @Inject constructor(
                     NoticeTypeEnumClass.TECH.name ->
                         items.title = noticeTypeMap[NoticeTypeEnumClass.TECH.name] + items.title
                 }
-                items.images = if (items.images.isEmpty()) { items.images } else { listOf("") }
+                items.images = items.images.ifEmpty { items.images }
                 items.createdTime = convertTimeFormat(items.createdTime)
                 items.modifiedTime = convertTimeFormat(items.modifiedTime)
             }

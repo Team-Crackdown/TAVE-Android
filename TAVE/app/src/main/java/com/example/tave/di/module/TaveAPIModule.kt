@@ -11,11 +11,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
-import javax.net.ssl.SSLSocketFactory
-import javax.net.ssl.TrustManagerFactory
-import javax.net.ssl.X509TrustManager
 
 /***
  * TAVE API Module
@@ -37,23 +33,6 @@ object TaveAPIModule {
     @Provides
     @Singleton
     fun provideBaseURL(): String = Constants.TAVE_URL
-
-    @Provides
-    @Singleton
-    fun provideOKHttpClient(
-        sslSocketFactory: SSLSocketFactory,
-        trustManagerFactory: TrustManagerFactory,
-    ): OkHttpClient = OkHttpClient()
-        .newBuilder()
-        .connectTimeout(10, TimeUnit.SECONDS)
-        .writeTimeout(10, TimeUnit.SECONDS)
-        .readTimeout(10, TimeUnit.SECONDS)
-        .callTimeout(10, TimeUnit.SECONDS)
-        .sslSocketFactory(
-            sslSocketFactory,
-            trustManagerFactory.trustManagers[0] as X509TrustManager
-        )
-        .build()
 
     @Provides
     @Singleton

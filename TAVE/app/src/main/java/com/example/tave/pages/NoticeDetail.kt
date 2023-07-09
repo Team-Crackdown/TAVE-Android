@@ -53,6 +53,7 @@ fun NoticeDetailPage(
                 NoticeDetailCard(
                     modifier = modifier,
                     cardTitle = "${noticeDetailData.value?.title}",
+                    noticeImage = noticeDetailData.value?.images,
                     isLoading = isLoading,
                 )
                 NoticeDetailPublisherBar(

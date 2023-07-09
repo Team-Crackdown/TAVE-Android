@@ -21,8 +21,11 @@ import com.example.tave.ui.theme.Shape
 fun NoticeDetailCard(
     modifier: Modifier,
     cardTitle: String,
+    noticeImage: List<String?>?,
     isLoading: Boolean
 ) {
+    val imageItems: String = if (noticeImage?.isEmpty() == true) { "" } else { "${noticeImage?.first()}" }
+
     ShimmerEffectItem(
         isLoading = isLoading,
         contentLoading = {
@@ -60,7 +63,7 @@ fun NoticeDetailCard(
                         .fillMaxWidth()
                         .height(150.dp)
                         .clip(Shape.extraLarge),
-                    imageUrl = "",
+                    imageUrl = imageItems,
                     painterResource = R.drawable.tave_cover
                 )
                 Spacer(modifier = modifier.size(10.dp))

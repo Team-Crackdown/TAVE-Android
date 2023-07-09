@@ -64,6 +64,7 @@ class HomeViewModel @Inject constructor(
         getPersonalScore()
         getTeamScore()
         getScheduleAll()
+        sseConnect().request()
     }
 
     private fun setRequestSSE(): Request = Request.Builder()

@@ -1,17 +1,19 @@
 package com.example.tave.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.entity.login.PasswordModifyEntity
 import com.example.domain.usecases.login.UpdateMemberPasswordUseCase
 import com.example.tave.TaveApplication
+import com.example.tave.common.util.state.InitPasswordState
 import com.example.tave.di.qualifier.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,30 +22,45 @@ class InitPasswordViewModel @Inject constructor(
     private val updateMemberPasswordUseCase: UpdateMemberPasswordUseCase,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ): ViewModel() {
-    private val _isNotMatchPassword = MutableLiveData<Boolean>()
-    private val _isChangedComplete = MutableLiveData<Result<Unit>>()
-    val isNotMatchPassword: LiveData<Boolean> get() = _isNotMatchPassword
-    val isChangedComplete: LiveData<Result<Unit>> get() = _isChangedComplete
+    private val _isPasswordChanged = MutableStateFlow<InitPasswordState>(InitPasswordState.Idle)
+    val isPasswordChanged: StateFlow<InitPasswordState> = _isPasswordChanged.asStateFlow()
 
-    private val accessToken: String = TaveApplication.authPrefs.getTokenValue("accessToken", "")
+    private val accessToken: String =
+        TaveApplication.authPrefs.getTokenValue("accessToken", "")
 
-    fun validateConfirmPassword(
+    fun validatePassword(
         password: String,
         confirmPassword: String
     ) {
-        if(password != confirmPassword) {
-            _isNotMatchPassword.value = false
-        } else {
-            _isNotMatchPassword.value = true
-            changePassword(password)
+        when {
+            password.length < 8 -> {
+                _isPasswordChanged.value = InitPasswordState.IsFailed(Result.failure(Exception()))
+            }
+            password.length > 15 -> {
+                _isPasswordChanged.value = InitPasswordState.IsFailed(Result.failure(Exception()))
+            }
+            password != confirmPassword -> {
+                _isPasswordChanged.value = InitPasswordState.IsFailed(Result.failure(Exception()))
+            }
+            else -> {
+                changePassword(confirmPassword)
+            }
         }
     }
 
     private fun changePassword(password: String): Job = viewModelScope.launch(ioDispatcher) {
+        _isPasswordChanged.value = InitPasswordState.IsLoading
+
         updateMemberPasswordUseCase(
             accessToken,
             PasswordModifyEntity(password, true)
-        ).collect { _isChangedComplete.postValue(it) }
+        ).collect {
+            if (it.isSuccess) {
+                _isPasswordChanged.value = InitPasswordState.IsComplete(Result.success(Unit))
+            } else {
+                _isPasswordChanged.value = InitPasswordState.IsFailed(Result.failure(Exception()))
+            }
+        }
     }
 
     override fun onCleared() {

@@ -1,5 +1,6 @@
 package com.example.tave.pages
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -11,23 +12,20 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.tave.HomePage
 import com.example.tave.R
-import com.example.tave.SendSMSCodePage
+import com.example.tave.common.util.state.LogInUserState.*
 import com.example.tave.items.login.LoginBtn
 import com.example.tave.items.login.LoginIntro
 import com.example.tave.ui.theme.Shape
-import com.example.tave.ui.theme.TAVETheme
 import com.example.tave.viewmodel.LogInViewModel
+import com.example.tave.HomePage
+import com.example.tave.SendSMSCodePage
 
 @Composable
 fun LoginPage(
@@ -35,12 +33,13 @@ fun LoginPage(
     navController: NavController,
     logInViewModel: LogInViewModel = hiltViewModel()
 ) {
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val localContext = LocalContext.current
     var userEmail by remember { mutableStateOf("") }
     var userPassword by remember { mutableStateOf("") }
+    val localContext: Context = LocalContext.current
+    val loginState by logInViewModel.logInState.collectAsState()
 
-    if (logInViewModel.isExistToken) { navController.navigate(route = HomePage.route) }
+    if (logInViewModel.isExistToken)
+        LaunchedEffect(Unit) {navController.navigate(route = HomePage.route) }
 
     Surface(modifier = modifier.fillMaxSize()) {
         Column(
@@ -83,36 +82,28 @@ fun LoginPage(
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
                 )
                 Spacer(modifier = modifier.height(50.dp))
-                LoginBtn(onClicked = {
-                    logInViewModel.userLogInAccount(userEmail, userPassword)
 
-                    logInViewModel.logInResult.observe(lifecycleOwner) {
-                        if (it.isSuccess) {
-                            logInViewModel.isCheckedSMS.observe(lifecycleOwner) { result ->
-                                if (result) {
-                                    navController.navigate(HomePage.route)
-                                } else {
-                                    navController.navigate(SendSMSCodePage.route)
-                                }
-                            }
-                        } else {
+                when (loginState) {
+                    is Idle -> LoginBtn { logInViewModel.userLogInAccount(userEmail, userPassword) }
+                    is IsLoading -> CircularProgressIndicator()
+                    is IsSuccess -> LaunchedEffect(Unit) {
+                        navController.navigate(HomePage.route)
+                    }
+                    is IsSMSCheckNeeded -> LaunchedEffect(Unit) {
+                        navController.navigate(SendSMSCodePage.route)
+                    }
+                    is IsFailed -> {
+                        LaunchedEffect(Unit) {
                             Toast.makeText(
                                 localContext,
                                 "로그인에 실패했습니다.",
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
+                        LoginBtn { logInViewModel.userLogInAccount(userEmail, userPassword) }
                     }
-                })
+                }
             }
         )
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun PreviewLoginPage() {
-    TAVETheme {
-        LoginPage(modifier = Modifier, navController = rememberNavController())
     }
 }

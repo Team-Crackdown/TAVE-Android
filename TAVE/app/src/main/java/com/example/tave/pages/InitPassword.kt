@@ -1,5 +1,6 @@
 package com.example.tave.pages
 
+import android.content.Context
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardOptions
@@ -8,26 +9,26 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.example.tave.HomePage
+import com.example.tave.common.util.state.InitPasswordState.*
 import com.example.tave.items.initpassword.InitPasswordBtn
 import com.example.tave.items.initpassword.InitPasswordLogo
 import com.example.tave.ui.theme.Shape
 import com.example.tave.viewmodel.InitPasswordViewModel
+import com.example.tave.HomePage
 
 @Composable
 fun InitPasswordPage(
     modifier: Modifier,
     navController: NavController,
-    initPasswordViewModel: InitPasswordViewModel = hiltViewModel()
+    initPWViewModel: InitPasswordViewModel = hiltViewModel()
 ) {
-    val lifecycleOwner = LocalLifecycleOwner.current
-    val localContext = LocalContext.current
+    val localContext: Context = LocalContext.current
+    val isPasswordChange by initPWViewModel.isPasswordChanged.collectAsState()
 
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -64,22 +65,22 @@ fun InitPasswordPage(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
             )
             Spacer(modifier = modifier.height(70.dp))
-            InitPasswordBtn(onClicked = {
-                initPasswordViewModel.validateConfirmPassword(password, confirmPassword)
-                initPasswordViewModel.isNotMatchPassword.observe(lifecycleOwner) {
-                    if (!it) {
+
+            when (isPasswordChange) {
+                is Idle -> InitPasswordBtn { initPWViewModel.validatePassword(password, confirmPassword) }
+                is IsLoading -> CircularProgressIndicator()
+                is IsComplete -> LaunchedEffect(Unit) { navController.navigate(HomePage.route) }
+                is IsFailed -> {
+                    LaunchedEffect(Unit) {
                         Toast.makeText(
                             localContext,
-                            "비밀번호가 일치하지 않습니다. 다시 작성해 주세요",
+                            "변경에 실패 했습니다.",
                             Toast.LENGTH_SHORT
                         ).show()
-                    } else {
-                        initPasswordViewModel.isChangedComplete.observe(lifecycleOwner) { result ->
-                            if (result.isSuccess) { navController.navigate(route = HomePage.route) }
-                        }
                     }
+                    InitPasswordBtn { initPWViewModel.validatePassword(password, confirmPassword) }
                 }
-            })
+            }
         }
     }
 }

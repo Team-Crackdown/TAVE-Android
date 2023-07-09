@@ -1,16 +1,18 @@
 package com.example.tave.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.sms.SendSMSUseCase
 import com.example.tave.TaveApplication
+import com.example.tave.common.util.state.SendSMSCodeState
 import com.example.tave.di.qualifier.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,13 +21,21 @@ class SendSMSViewModel @Inject constructor(
     private val sendSMSUseCase: SendSMSUseCase,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ): ViewModel() {
-    private val _isSendComplete = MutableLiveData<Result<Unit>>()
-    val isSendComplete: LiveData<Result<Unit>> get() = _isSendComplete
+    private val _isSendSMSCode = MutableStateFlow<SendSMSCodeState>(SendSMSCodeState.Idle)
+    val isSendSMSCode: StateFlow<SendSMSCodeState> get() = _isSendSMSCode.asStateFlow()
 
     private val accessToken: String = TaveApplication.authPrefs.getTokenValue("accessToken", "")
 
     fun sendSMSCode(phoneNumber: String): Job = viewModelScope.launch(ioDispatcher) {
-        sendSMSUseCase(accessToken, phoneNumber).collect { result -> _isSendComplete.postValue(result) }
+        _isSendSMSCode.value = SendSMSCodeState.IsLoading
+
+        sendSMSUseCase(accessToken, phoneNumber).collect { result ->
+            if (result.isSuccess) {
+                _isSendSMSCode.value = SendSMSCodeState.IsComplete(Result.success(Unit))
+            } else {
+                _isSendSMSCode.value = SendSMSCodeState.IsFailed(Result.failure(Exception()))
+            }
+        }
     }
 
     override fun onCleared() {

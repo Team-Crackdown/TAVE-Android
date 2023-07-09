@@ -1,6 +1,5 @@
 package com.example.tave.pages
 
-import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Scaffold
@@ -15,6 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.tave.common.Constants
 import com.example.tave.items.glide.ShimmerEffectItem
 import com.example.tave.items.noticeDetail.NoticeDetailCard
 import com.example.tave.items.noticeDetail.NoticeDetailLazyGridsPics
@@ -33,12 +33,8 @@ fun NoticeDetailPage(
     noticeDetailViewModel.getNoticeDetail(noticeID)
 
     var isLoading by remember { mutableStateOf(true) }
-
     val noticeDetailData = noticeDetailViewModel.noticeData.observeAsState()
-    val noticeImageList = noticeDetailData.value?.images
-    val admin: String = if (noticeDetailData.value != null) { "테이브 운영진" } else { "" }
-
-    Log.d("로그 Notice Image List", "$noticeImageList")
+    val admin: String = if (noticeDetailData.value != null) { Constants.TAVE_ADMIN } else { "" }
 
     LaunchedEffect(key1 = true) {
         delay(1000)

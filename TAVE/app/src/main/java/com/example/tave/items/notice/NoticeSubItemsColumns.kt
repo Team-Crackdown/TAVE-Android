@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.domain.entity.notice.NoticeDetailEntity
+import com.example.tave.common.Constants
 
 @Composable
 fun NoticeSubItemsColumns(
@@ -17,7 +18,7 @@ fun NoticeSubItemsColumns(
     onItemClick: (Int) -> Unit,
     noticeSubItems: List<NoticeDetailEntity>?
 ) {
-    val admin: String = if (noticeSubItems != null) { "테이브 운영진" } else { "" }
+    val admin: String = if (noticeSubItems != null) { Constants.TAVE_ADMIN } else { "" }
 
     LazyColumn {
         noticeSubItems?.size?.let {

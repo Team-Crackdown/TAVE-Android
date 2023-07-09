@@ -31,7 +31,6 @@ import javax.net.ssl.X509TrustManager
  *  - provideTaveApiRepoImpl(taveAPIService: TaveAPIService)
  *    : TaveApiRepoImpl에 TaveAPIService 의존성을 제공합니다.
  */
-
 @Module
 @InstallIn(SingletonComponent::class)
 object TaveAPIModule {

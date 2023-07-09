@@ -28,7 +28,7 @@ class NoticeDetailViewModel @Inject constructor(
     private val accessToken: String =
         TaveApplication.authPrefs.getTokenValue("accessToken", "")
     private val dateFormat = SimpleDateFormat(Constants.SERVER_DATE_TIME_FORMAT, Locale.KOREAN)
-    private val outputFormat = SimpleDateFormat(Constants.OUTPUT_TIME_FORMAT, Locale.KOREAN)
+    private val outputFormat = SimpleDateFormat(Constants.OUTPUT_DATE_TIME_FORMAT, Locale.KOREAN)
 
     private val _noticeData = MutableLiveData<NoticeDetailEntity?>()
 

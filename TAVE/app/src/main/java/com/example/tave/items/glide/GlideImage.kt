@@ -7,6 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import com.example.tave.common.Constants
 import com.example.tave.ui.theme.Shape
 import com.skydoves.landscapist.glide.GlideImage
 
@@ -14,7 +15,6 @@ import com.skydoves.landscapist.glide.GlideImage
 fun GlideImageView(
     modifier: Modifier,
     imageUrl: String,
-    contentDescription: String,
     painterResource: Int,
 ) {
     GlideImage(
@@ -29,7 +29,13 @@ fun GlideImageView(
             )
         },
         success = { imageState, _ ->
-            imageState.imageBitmap?.let { Image(bitmap = it, contentDescription = contentDescription) }
+            imageState.imageBitmap?.let { image ->
+                Image(
+                    bitmap = image,
+                    contentScale = ContentScale.Crop,
+                    contentDescription = Constants.IMAGE_LOAD_SUCCESS_CONTENT_DESC
+                )
+            }
         },
         failure = {
             Image(
@@ -38,7 +44,7 @@ fun GlideImageView(
                     .clip(Shape.large),
                 painter = painterResource(id = painterResource),
                 contentScale = ContentScale.FillBounds,
-                contentDescription = "Failure Image"
+                contentDescription = Constants.IMAGE_LOAD_FAILED_CONTENT_DESC
             )
         }
     )

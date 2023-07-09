@@ -2,6 +2,7 @@ package com.example.tave.di.module
 
 import android.content.Context
 import com.example.tave.R
+import com.example.tave.common.Constants
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -38,7 +39,7 @@ object SSLSocketFactoryModule {
     @Provides
     @Singleton
     fun provideCertification(@ApplicationContext context: Context): Certificate? {
-        val certFactory: CertificateFactory = CertificateFactory.getInstance("X.509")
+        val certFactory: CertificateFactory = CertificateFactory.getInstance(Constants.ACCESS_CERT_TYPE)
         val certAuthInputStream: InputStream = context.resources.openRawResource(R.raw.certificate)
         var certificationAuth: Certificate? = null
 
@@ -63,7 +64,7 @@ object SSLSocketFactoryModule {
         if (certification == null) {
             throw Exception()
         }
-        keyStore.setCertificateEntry("TaveCA", certification)
+        keyStore.setCertificateEntry(Constants.ACCESS_CERT_ALIAS, certification)
         return keyStore
     }
 
@@ -81,7 +82,7 @@ object SSLSocketFactoryModule {
     @Singleton
     fun provideSSLSocketFactory(trustManagerFactory: TrustManagerFactory): SSLSocketFactory {
         try {
-            val sslContext = SSLContext.getInstance("TLS")
+            val sslContext: SSLContext = SSLContext.getInstance(Constants.SSL_PROTOCOL)
             sslContext.init(null, trustManagerFactory.trustManagers, null)
 
             return sslContext.socketFactory

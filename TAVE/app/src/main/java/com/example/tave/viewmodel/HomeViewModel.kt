@@ -56,7 +56,7 @@ class HomeViewModel @Inject constructor(
 
     private val accessToken: String =
         TaveApplication.authPrefs.getTokenValue("accessToken", "")
-    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.KOREAN)
+    private val dateFormat = SimpleDateFormat(Constants.SCHEDULE_DATE_TIME_FORMAT, Locale.KOREAN)
     private val todayDate: Date = Calendar.getInstance().time
 
     init {
@@ -103,8 +103,8 @@ class HomeViewModel @Inject constructor(
     private fun getScheduleAll(): Job = viewModelScope.launch(ioDispatcher) {
         getScheduleAllUseCase(accessToken).collect { item ->
             if (item.isEmpty()) {
-                _scheduleTitle.postValue("아직 정해진 일정이 없습니다.")
-                _scheduleRemainDay.postValue("???")
+                _scheduleTitle.postValue(Constants.IS_SCHEDULE_EMPTY_TITLE)
+                _scheduleRemainDay.postValue(Constants.IS_SCHEDULE_EMPTY_DAY)
             } else {
                 val recentSchedule: ScheduleEntity = item.first()
                 val scheduleDate: Date = dateFormat.parse(recentSchedule.date)
@@ -117,7 +117,7 @@ class HomeViewModel @Inject constructor(
                     }
                     remainDate == 0 -> {
                         _scheduleTitle.postValue(recentSchedule.title)
-                        _scheduleRemainDay.postValue(Constants.D_DAY)
+                        _scheduleRemainDay.postValue(Constants.IS_SCHEDULE_D_DAY)
                     }
                 }
             }

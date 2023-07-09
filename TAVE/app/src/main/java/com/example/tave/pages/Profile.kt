@@ -52,7 +52,6 @@ fun ProfileImage(
     GlideImageView(
         modifier = modifier.fillMaxWidth().height(300.dp),
         imageUrl = imageUrl,
-        contentDescription = "Profile Image",
         painterResource = R.drawable.profile_default
     )
 }

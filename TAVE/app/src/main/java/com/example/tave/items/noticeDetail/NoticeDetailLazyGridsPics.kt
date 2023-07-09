@@ -22,10 +22,8 @@ fun NoticeDetailLazyGridsPics(
         content = {
             imageList?.size?.let {
                 items(it) { item ->
-                    LazyGridItems(
-                        modifier = modifier,
-                        imageItem = imageList[item]!!
-                    )
+                    LazyGridItems(modifier = modifier, imageItem = imageList[item]!!)
+                    Spacer(modifier = modifier.width(5.dp))
                 }
             }
         }
@@ -39,15 +37,16 @@ fun LazyGridItems(
 ) {
     Box(
         modifier = modifier
+            .size(64.dp)
             .aspectRatio(1f)
             .clip(shape = Shape.large),
-        contentAlignment = Alignment.Center
-    ) {
-        GlideImageView(
-            modifier = modifier.size(64.dp),
-            imageUrl = imageItem,
-            contentDescription = "tech letter",
-            painterResource = R.drawable.tave_profile
-        )
-    }
+        contentAlignment = Alignment.Center,
+        content = {
+            GlideImageView(
+                modifier = modifier.fillMaxSize(),
+                imageUrl = imageItem,
+                painterResource = R.drawable.tave_profile
+            )
+        }
+    )
 }

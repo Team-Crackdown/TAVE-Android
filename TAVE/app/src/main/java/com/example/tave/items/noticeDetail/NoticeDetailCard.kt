@@ -61,7 +61,6 @@ fun NoticeDetailCard(
                         .height(150.dp)
                         .clip(Shape.extraLarge),
                     imageUrl = "",
-                    contentDescription = "Main Card Image",
                     painterResource = R.drawable.tave_cover
                 )
                 Spacer(modifier = modifier.size(10.dp))

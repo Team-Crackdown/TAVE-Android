@@ -66,7 +66,6 @@ fun NoticeSubItemImage(
     GlideImageView(
         modifier = modifier.size(30.dp).clip(Shape.large),
         imageUrl = imageUrl,
-        contentDescription = "notice sub item Image",
         painterResource = R.drawable.tave_profile
     )
 }

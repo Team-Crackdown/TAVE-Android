@@ -59,7 +59,6 @@ fun MainNoticeImage(
             .height(150.dp)
             .clip(Shape.extraLarge),
         imageUrl = imageUrl,
-        contentDescription = "tech letter",
         painterResource = R.drawable.tave_cover
     )
 }

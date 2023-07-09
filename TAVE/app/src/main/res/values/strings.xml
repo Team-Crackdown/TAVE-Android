@@ -18,12 +18,8 @@
     <string name="Check">출석</string>
     <string name="Check_Confirm">출석 인증하기</string>
     <string name="Personal_Score">개인 활동 점수</string>
-    <string name="Score_126">126점</string>
     <string name="Team_Score">팀 활동 점수</string>
-    <string name="Score_80">80점</string>
     <string name="schedule">일정</string>
-    <string name="D_day_Title">후반기 만남의 장까지</string>
-    <string name="D_day">D-day</string>
 
     <string name="phone_Number">휴대폰 번호</string>
     <string name="send_SNS_Btn">인증번호 발송</string>

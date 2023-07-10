@@ -51,8 +51,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         phoneNumber: String
     ): Flow<Result<Unit>> = flow {
         try{
-            taveAPIService.sendSMSCode(accessToken, "", phoneNumber)
-            emit(Result.success(Unit))
+            val response = taveAPIService.sendSMSCode(accessToken, "", phoneNumber)
+            if (response.code() != 200) {
+                emit(Result.failure(Exception()))
+            } else {
+                emit(Result.success(Unit))
+            }
         } catch (e: Exception) {
             emit(Result.failure(e))
         }
@@ -63,8 +67,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         otpCode: String
     ): Flow<Result<Unit>> = flow {
         try {
-            taveAPIService.checkOTPCode(accessToken, "", otpCode)
-            emit(Result.success(Unit))
+            val response = taveAPIService.checkOTPCode(accessToken, "", otpCode)
+            if (response.code() != 200) {
+                emit(Result.failure(Exception()))
+            } else {
+                emit(Result.success(Unit))
+            }
         } catch (e: InvalidKeyException) {
             emit(Result.failure(e))
         }
@@ -77,8 +85,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         val modifyModel: PasswordModifyModel = toPasswordModifyModelMapper(passwordModifyEntity)
 
         try {
-            taveAPIService.updateMemberPassword(accessToken, modifyModel)
-            emit(Result.success(Unit))
+            val response = taveAPIService.updateMemberPassword(accessToken, modifyModel)
+            if (response.code() != 200) {
+                emit(Result.failure(Exception()))
+            } else {
+                emit(Result.success(Unit))
+            }
         } catch (e: InvalidKeyException) {
             emit(Result.failure(e))
         }

@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -34,6 +35,8 @@ class SendSMSViewModel @Inject constructor(
                 _isSendSMSCode.value = SendSMSCodeState.IsComplete(Result.success(Unit))
             } else {
                 _isSendSMSCode.value = SendSMSCodeState.IsFailed(Result.failure(Exception()))
+                delay(2000)
+                _isSendSMSCode.value = SendSMSCodeState.Idle
             }
         }
     }

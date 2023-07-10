@@ -1,9 +1,6 @@
 package com.example.tave.common
 
 object Constants {
-    //URL TEST
-    const val TAVE_URL: String = "https://tave.kro.kr/"
-    const val TAVE_SSE_URL: String = "https://tave.kro.kr:8080/sse/connect"
     const val TAVE_ADMIN: String = "TAVE 운영진"
 
     //MODULE TEXT

@@ -18,21 +18,21 @@
 ## 출석/QR출석
 <table>
   <tr>
-    <td><img src="/imges/image-4.png" width="300" height="400" /></td><td><img src="/imges/image-5.png" width="300" height="400" /></td>
+    <td><img src="/imges/image-4.png" width="200" height="400" /></td><td><img src="/imges/image-5.png" width="200" height="400" /></td>
   <tr>
 </table>
 
 ## 프로필
 <table>
   <tr>
-    <td><img src="/imges/image-4.png" width="300" height="400" /></td><td><img src="/imges/image-6.png" width="300" height="400" /></td>
+    <td><img src="/imges/image-4.png" width="200" height="400" /></td><td><img src="/imges/image-6.png" width="200" height="400" /></td>
   <tr>
 </table>
 
 ## 공지사항
 <table>
   <tr>
-    <td><img src="/imges/image-4.png" width="300" height="400" /></td><td><img src="/imges/image-7.png" width="300" height="400" /></td><td><img src="/imges/image-8.png" width="300" height="400" /></td>
+    <td><img src="/imges/image-4.png" width="200" height="400" /></td><td><img src="/imges/image-7.png" width="200" height="400" /></td><td><img src="/imges/image-8.png" width="200" height="400" /></td>
   <tr>
 </table>
 

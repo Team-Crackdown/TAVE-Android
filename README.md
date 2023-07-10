@@ -90,7 +90,7 @@
 </br>:heavy_check_mark: 프로젝트가 오래 지속될 수 있도록 기술적 지속성을 고려하고 있습니다.
 </br>:heavy_check_mark: 협업에 용이하도록 GitHub ISSUE 등록을 잘 활용하려고 노력하고 있습니다. 
 
-## Dependencies
+## 의존성
 ```
   // AndroidX Lifecycle, LiveData, ViewModel
   implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
@@ -124,7 +124,7 @@
   implementation 'com.squareup.retrofit2:retrofit:2.9.0'
 ```
 
-## Preferences
+## 참조
 ```
 // LandScapist-Glide - 이미지 로딩 구현
 https://velog.io/@skydoves/landscapist

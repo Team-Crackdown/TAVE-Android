@@ -12,6 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -42,6 +43,8 @@ class LogInViewModel @Inject constructor(
                 getCheckSMSField("Bearer $it")
             } else {
                 _logInState.value = LogInUserState.IsFailed(Result.failure(Exception()))
+                delay(2000L)
+                _logInState.value = LogInUserState.Idle
             }
         }
     }

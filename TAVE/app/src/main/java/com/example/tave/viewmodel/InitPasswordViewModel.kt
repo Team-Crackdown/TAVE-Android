@@ -11,6 +11,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -59,6 +60,8 @@ class InitPasswordViewModel @Inject constructor(
                 _isPasswordChanged.value = InitPasswordState.IsComplete(Result.success(Unit))
             } else {
                 _isPasswordChanged.value = InitPasswordState.IsFailed(Result.failure(Exception()))
+                delay(2000)
+                _isPasswordChanged.value = InitPasswordState.Idle
             }
         }
     }

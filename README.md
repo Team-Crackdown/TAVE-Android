@@ -110,10 +110,10 @@
 
 ## Preferences
 ```
-// LandScapist-Glide
+// LandScapist-Glide - 이미지 로딩 구현
 https://velog.io/@skydoves/landscapist
 
-// Zxing
+// Zxing - QRCode
 https://github.com/zxing/zxing
 
 // JetPack Compose

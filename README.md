@@ -7,16 +7,35 @@
 ---
 
 # APP 뷰 구현 이미지
-![1](image.png)
-![2](image-1.png)
-![3](image-2.png)
-![4](image-3.png)
-![5](image-4.png)
-![6](image-5.png)
-![7](image-6.png)
-![8](image-7.png)
-![9](image-8.png)
- 
+
+## 로그인/SMS/OTP/초기비번설정
+<table>
+  <tr>
+    <td><img src="/imges/image.png" width="300" height="400" /></td><td><img src="/imges/image-1.png" width="300" height="400" /></td><td><img src="/imges/image-2.png" width="300" height="400" /></td><td><img src="/imges/image-3.png" width="300" height="400"/></td>
+  <tr>
+</table>
+
+## 출석/QR출석
+<table>
+  <tr>
+    <td><img src="/imges/image-4.png" width="300" height="400" /></td><td><img src="/imges/image-5.png" width="300" height="400" /></td>
+  <tr>
+</table>
+
+## 프로필
+<table>
+  <tr>
+    <td><img src="/imges/image-4.png" width="300" height="400" /></td><td><img src="/imges/image-6.png" width="300" height="400" /></td>
+  <tr>
+</table>
+
+## 공지사항
+<table>
+  <tr>
+    <td><img src="/imges/image-4.png" width="300" height="400" /></td><td><img src="/imges/image-7.png" width="300" height="400" /></td><td><img src="/imges/image-8.png" width="300" height="400" /></td>
+  <tr>
+</table>
+
 # Spec
 
 * SSE

@@ -123,7 +123,7 @@ https://developer.android.com/courses/android-basics-compose/course?hl=ko
 :heavy_check_mark: [프로필 수정 페이지 기능 수정 및 삭제 고려](https://github.com/Team-Crackdown/TAVE-Android/issues/10)
 </br>:heavy_check_mark: [사용자 프로필의 디자인 구현 문제](https://github.com/Team-Crackdown/TAVE-Android/issues/3)
 </br>:heavy_check_mark: [Application 글꼴(FontFamily) 변경 ROBOTO -> Noto Sans KR 제안](https://github.com/Team-Crackdown/TAVE-Android/issues/5)
-</br>:heavy_check_mark: [NoticePage의 가독성 문제 및 디자인 개선 요](https://github.com/Team-Crackdown/TAVE-Android/issues/7)
+</br>:heavy_check_mark: [NoticePage의 가독성 문제 및 디자인 개선 요청](https://github.com/Team-Crackdown/TAVE-Android/issues/7)
 </br>
 </br>
 

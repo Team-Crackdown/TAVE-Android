@@ -3,7 +3,7 @@ package com.example.tave.di.module
 import com.example.data.api.TaveAPIService
 import com.example.data.repositoryImpl.TaveAPIRepositoryImpl
 import com.example.domain.repository.TaveAPIRepository
-import com.example.tave.common.Constants
+import com.example.tave.BuildConfig
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,7 +21,7 @@ object TaveAPIModule {
     @Singleton
     fun provideRetrofitClient(httpClient: OkHttpClient): Retrofit =
         Retrofit.Builder()
-            .baseUrl(Constants.TAVE_URL)
+            .baseUrl(BuildConfig.TAVE_API_URL)
             .client(httpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()

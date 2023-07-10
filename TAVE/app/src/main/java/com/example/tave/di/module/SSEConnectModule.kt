@@ -3,7 +3,6 @@ package com.example.tave.di.module
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.widget.Toast
 import com.example.tave.common.Constants
 import dagger.Module
@@ -12,7 +11,6 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.Response
 import okhttp3.sse.EventSource
 import okhttp3.sse.EventSourceListener
 import okhttp3.sse.EventSources
@@ -43,17 +41,6 @@ object SSEConnectModule {
                         }, 0
                     )
                 }
-
-                Log.d("로그 SSE onEvent", data)
-            }
-
-            override fun onFailure(
-                eventSource: EventSource,
-                t: Throwable?,
-                response: Response?
-            ) {
-                super.onFailure(eventSource, t, response)
-                Log.d("로그 SSE onFailed", "${t?.message}")
             }
         }
 

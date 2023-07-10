@@ -6,6 +6,9 @@ plugins {
 
 apply plugin: 'com.google.dagger.hilt.android'
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     namespace 'com.example.tave'
     compileSdk 33
@@ -16,6 +19,8 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "TAVE_API_URL", properties["TAVE_API_URL"]
+        buildConfigField "String", "TAVE_SSE_URL", properties["TAVE_SSE_URL"]
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary true }
     }

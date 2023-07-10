@@ -13,6 +13,7 @@ import com.example.domain.usecases.profile.GetUserProfileUseCase
 import com.example.domain.usecases.schedule.GetRecentScheduleUseCase
 import com.example.domain.usecases.score.GetPersonalScoreUseCase
 import com.example.domain.usecases.score.GetTeamScoreUseCase
+import com.example.tave.BuildConfig
 import com.example.tave.TaveApplication
 import com.example.tave.common.Constants
 import com.example.tave.di.qualifier.DefaultDispatcher
@@ -68,7 +69,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun setRequestSSE(): Request = Request.Builder()
-        .url(Constants.TAVE_SSE_URL)
+        .url(BuildConfig.TAVE_SSE_URL)
         .addHeader("authorization", accessToken)
         .addHeader("accept", "text/event-stream")
         .build()

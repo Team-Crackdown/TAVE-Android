@@ -35,7 +35,7 @@ class TaveAPIRepositoryImpl @Inject constructor(
 ): TaveAPIRepository {
     override fun userLogIn(logInBody: LogInBodyEntity): Flow<String?> = flow {
         val logInBodyModel: LogInBodyModel = toLogInModelMapper(logInBody)
-        val authToken = taveAPIService.userLogIn(logInBodyModel).headers().get("Authorization")
+        val authToken = taveAPIService.userLogIn(logInBodyModel).headers()["Authorization"]
         emit(authToken)
     }.catch { exception ->
         when (exception) {

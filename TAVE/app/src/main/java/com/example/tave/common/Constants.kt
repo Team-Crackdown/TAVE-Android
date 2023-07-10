@@ -11,6 +11,7 @@ object Constants {
     const val ACCESS_CERT_ALIAS: String = "TaveCA"
     const val ACCESS_CERT_TYPE: String = "X.509"
     const val SSL_PROTOCOL: String = "TLS"
+    const val SSE_ACK_FLAG: String = "connected!"
 
     //GLIDE IMAGE CONTENT DESCRIPTION
     const val IMAGE_LOAD_SUCCESS_CONTENT_DESC: String = "이미지 로드 성공"

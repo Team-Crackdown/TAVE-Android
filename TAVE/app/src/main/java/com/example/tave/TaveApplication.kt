@@ -6,9 +6,7 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class TaveApplication: Application() {
-    companion object {
-        lateinit var authPrefs: PreferenceUtil
-    }
+    companion object { lateinit var authPrefs: PreferenceUtil }
 
     override fun onCreate() {
         super.onCreate()

@@ -9,7 +9,6 @@
         android:fullBackupContent="@xml/backup_rules"
         android:supportsRtl="true"
         android:theme="@style/Theme.TAVE">
-        <service android:name=".service.SSEService" />
         <activity
             android:name=".TaveActivity"
             android:exported="true"

@@ -54,6 +54,8 @@ dependencies {
     implementation 'androidx.compose.material3:material3:1.2.0-alpha02'
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
 
+
+    // AndroidX Lifecycle, LiveData, ViewModel
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
     implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
@@ -89,11 +91,12 @@ dependencies {
     implementation('com.journeyapps:zxing-android-embedded:4.3.0') { transitive = false }
     implementation 'com.google.zxing:core:3.3.0'
 
+    // Server Sent Events
+    implementation "com.squareup.okhttp3:okhttp-sse:4.11.0"
+    testImplementation "com.squareup.okhttp3:okhttp-sse:4.11.0"
+
     // Retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 
-    // Server Sent Events
-    implementation "com.squareup.okhttp3:okhttp-sse:4.11.0"
-    testImplementation "com.squareup.okhttp3:okhttp-sse:4.11.0"
 }

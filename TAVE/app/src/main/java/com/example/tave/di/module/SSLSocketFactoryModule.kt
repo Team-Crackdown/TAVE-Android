@@ -22,17 +22,6 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.TrustManagerFactory
 
-/**
- * SSL SocketFactory Module
- * - provideCertification(Application Context)
- *   : SSL 인증서을 읽어와 반환합니다.
- * - provideKeyStore(certification: Certification)
- *   : SSL 인증서를 통해 Keystore를 생성하고 반환합니다.
- * - provideTrustManagerFactory(keystore: KeyStore)
- *   : keystore를 통해 TrustManagerFactory 객체를 초기화 하고 반환합니다.
- * - provideSSLSocketFactory(trustManagerFactory: TrustManagerFactory)
- *   : trustManagerFactory를 통해 socketfactory를 생성하고 반환합니다.
- **/
 @Module
 @InstallIn(SingletonComponent::class)
 object SSLSocketFactoryModule {

@@ -1,236 +1,186 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.example.tave.pages
 
-import android.content.Context
-import androidx.annotation.DrawableRes
-import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.graphics.toColorInt
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.tave.NoticePage
+import com.example.tave.ProfilePage
 import com.example.tave.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.tave.items.home.*
+import com.example.tave.ui.theme.CustomShape
+import com.example.tave.viewmodel.HomeViewModel
 
 @Composable
-fun homePage(name: String, context: Context, navController: NavController) {
+fun HomePage(
+    modifier: Modifier,
+    navController: NavController,
+    homeViewModel: HomeViewModel = hiltViewModel()
+) {
+    val homeProfile = homeViewModel.userProfile.observeAsState()
+    val personalScore = homeViewModel.personalScore.observeAsState()
+    val teamScore = homeViewModel.teamScore.observeAsState()
+    val scheduleTitle = homeViewModel.scheduleTitle.observeAsState()
+    val scheduledDay = homeViewModel.scheduleRemainDay.observeAsState()
+
     Column(
-        modifier = Modifier.padding(30.dp),
+        modifier = modifier.padding(start = 24.dp, top = 24.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start,
     ) {
-        topTitle("김테비")
-        Row() {
-            topTitleCard(text = "11기")
-            topTitleCard(text = "YB")
+        TopTitle(modifier = modifier, name = homeViewModel.userProfile.value?.userName.toString())
+        Row {
+            UserBadge(
+                text = "${homeProfile.value?.userRadix}기",
+                textColor = MaterialTheme.colorScheme.onPrimary,
+                backgroundColor = MaterialTheme.colorScheme.primary
+            )
+            Spacer(modifier = modifier.width(10.dp))
+            UserBadge(
+                text = homeProfile.value?.userType.toString(),
+                textColor = MaterialTheme.colorScheme.onSecondary,
+                backgroundColor = MaterialTheme.colorScheme.secondary
+            )
         }
-        Spacer(modifier = Modifier.height(33.dp))
-        homeButtons()
+        Spacer(modifier = modifier.height(33.dp))
+        HomeMenu(
+            modifier = modifier,
+            navController= navController,
+            personalScore = personalScore.value,
+            teamScore = teamScore.value,
+            scheduleTitle = scheduleTitle.value,
+            scheduledDay = scheduledDay.value
+        )
     }
 }
 
 @Composable
-fun topTitle(name: String) {
+fun TopTitle(modifier: Modifier, name: String) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.fillMaxWidth(),
-    ) {
-        Column() {
-            Text(
-                text = "${name}님", fontFamily = FontFamily.Monospace,
-                textAlign = TextAlign.Left,
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold,
-            )
-            Text(
-                text = "환영합니다", fontFamily = FontFamily.Monospace,
-                textAlign = TextAlign.Left,
-                fontSize = 18.sp,
-            )
-            Spacer(modifier = Modifier.size(10.dp))
-        }
-        //Image 프로필 넣기
-        Card(
-            modifier = Modifier.size(50.dp,50.dp),
-            shape = MaterialTheme.shapes.extraSmall,
-            colors = CardDefaults.cardColors(Color.White),
-            elevation = CardDefaults.cardElevation(10.dp)
-        ) {
-            //Image 넣기!!! (여기가 Glide ? )
-            Card(
-                modifier = Modifier.size(44.dp,44.dp).padding(start = 6.dp, top = 6.dp),
-                shape = MaterialTheme.shapes.extraSmall,
-            ) {
-                
+        modifier = modifier.fillMaxWidth(),
+        content = {
+            Column {
+                WelcomeTitleTxt(name)
+                Spacer(modifier = modifier.size(10.dp))
             }
         }
-    }
+    )
 }
 
 @Composable
-fun topTitleCard(text: String) {
-    Card(
-        shape = MaterialTheme.shapes.small,
-        elevation = CardDefaults.cardElevation(10.dp)
-    ) {
-        Text(
-            text = text,
-            textAlign = TextAlign.Center,
-            fontSize = 9.sp,
-            modifier = Modifier.padding(5.dp).size(35.dp, 15.dp)
-        )
-    }
-    Spacer(modifier = Modifier.size(10.dp))
-}
+fun HomeMenu(
+    modifier: Modifier,
+    navController: NavController,
+    personalScore: Int?,
+    teamScore: Int?,
+    scheduleTitle: String?,
+    scheduledDay: String?
+) {
+    val showDialog = remember { mutableStateOf(false) }
+    if (showDialog.value) { CheckQrcode(onDismiss = { showDialog.value = false }) }
 
-@Composable
-fun buttons(
-    width: Dp,
-    height: Dp,
-    onClicked: () -> Unit,
-    color: ButtonColors,
-    painter: Painter,
-    description: String,
-    title: String,
-    subTitle: String,
-    fontSize: TextUnit,
-){
-    ElevatedButton(
-        modifier = Modifier.size(width, height),
-        shape = MaterialTheme.shapes.large,
-        elevation = ButtonDefaults.elevatedButtonElevation(5.dp),
-        colors = color,
-        onClick = onClicked
-    ) {
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.Start,
-        ) {
-            Image(
-                painter = painter,
-                contentDescription = description,
-            )
-            Column(
-                horizontalAlignment = Alignment.Start,
-            ) {
-                Text(
-                    text = title,
-                    fontSize = fontSize,
-                    fontWeight = FontWeight.W600,
-                )
-                Text(
-                    text = subTitle,
-                    fontSize = if(subTitle == "") 0.sp else 15.sp,
-                    fontWeight = FontWeight.W600,
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun homeButtons() {
-    Column(
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        Row() {
-            buttons(
-                width = 146.dp,
-                height = 280.dp,
-                onClicked = {},
-                color = ButtonDefaults.buttonColors(),
-                painter = painterResource(R.drawable.check),
-                description = "check",
-                title = "출석",
-                subTitle = "출석 인증하기",
+    Column {
+        Row {
+            MainMenuButtons(
+                modifier = modifier.size(146.dp, 280.dp),
+                shapes = MaterialTheme.shapes.large,
+                onClicked = { showDialog.value = true },
+                color = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                ),
+                painter = painterResource(id = R.drawable.check),
+                description = stringResource(id = R.string.Check),
+                title = stringResource(id = R.string.Check),
+                subTitle = stringResource(id = R.string.Check_Confirm),
                 fontSize = 30.sp
             )
-            Spacer(modifier = Modifier.size(10.dp))
+            Spacer(modifier = modifier.size(10.dp))
             Column {
-                buttons(
-                    width = 180.dp,
-                    height = 130.dp,
-                    onClicked = {},
-                    color = ButtonDefaults.elevatedButtonColors(),
-                    painter = painterResource(R.drawable.calendar),
-                    description = "calendar",
-                    title = "일정",
-                    subTitle = "일정 확인하기",
-                    fontSize = 20.sp,
+                MainMenuCards(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .height(130.dp),
+                    painter = painterResource(R.drawable.baseline_scoreboard_24),
+                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primaryContainer),
+                    iconColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    textColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    shapes = CustomShape.extraLarge,
+                    description = stringResource(id = R.string.Personal_Score),
+                    textTitle = stringResource(id = R.string.Personal_Score),
+                    textContent = "$personalScore 점"
                 )
-                Spacer(modifier = Modifier.height(20.dp))
-                buttons(
-                    width = 180.dp,
-                    height = 130.dp,
-                    onClicked = {},
-                    color = ButtonDefaults.elevatedButtonColors(),
-                    painter = painterResource(R.drawable.score),
-                    description = "score",
-                    title = "점수",
-                    subTitle = "활동 점수 확인하기",
-                    fontSize = 25.sp
+                Spacer(modifier = modifier.size(20.dp))
+                MainMenuCards(
+                    modifier = modifier
+                        .fillMaxWidth()
+                        .height(130.dp),
+                    painter = painterResource(R.drawable.baseline_scoreboard_24),
+                    colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary),
+                    iconColor = MaterialTheme.colorScheme.onPrimary,
+                    textColor = MaterialTheme.colorScheme.onPrimary,
+                    shapes = CustomShape.extraLarge,
+                    description = stringResource(id = R.string.Team_Score),
+                    textTitle = stringResource(id = R.string.Team_Score),
+                    textContent = "$teamScore 점"
                 )
             }
         }
-        Spacer(modifier = Modifier.height(20.dp))
-        Row {
-            buttons(
-                width = 109.dp,
-                height = 102.dp,
-                onClicked = {},
-                color = ButtonDefaults.elevatedButtonColors(),
-                painter = painterResource(R.drawable.profile),
-                description = "profile",
-                title = "프로필",
-                subTitle = "",
-                fontSize = 15.sp
-            )
-            Spacer(modifier = Modifier.size(12.dp))
-            buttons(
-                width = 215.dp,
-                height = 102.dp,
-                onClicked = {},
-                color = ButtonDefaults.elevatedButtonColors(),
-                painter = painterResource(R.drawable.team),
-                description = "team",
-                title = "팀",
-                subTitle = "",
-                fontSize = 15.sp
-            )
-        }
-        Spacer(modifier = Modifier.height(20.dp))
-        buttons(
-            width = 336.dp,
-            height = 130.dp,
-            onClicked = {},
-            color = ButtonDefaults.buttonColors(),
-            painter = painterResource(R.drawable.notice),
-            description = "notice",
-            title = "공지사항",
-            subTitle = "공지 확인하기",
-            fontSize = 30.sp
+    }
+    Spacer(modifier = modifier.height(20.dp))
+    Row {
+        MainMenuButtons(
+            modifier = modifier.size(109.dp, 102.dp),
+            shapes = MaterialTheme.shapes.large,
+            onClicked = { navController.navigate(route = ProfilePage.route) },
+            color = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                contentColor = MaterialTheme.colorScheme.onSecondaryContainer
+            ),
+            painter = painterResource(R.drawable.profile),
+            description = stringResource(id = R.string.Profile),
+            title = stringResource(id = R.string.Profile),
+            subTitle = "",
+            fontSize = 15.sp
+        )
+        Spacer(modifier = modifier.size(10.dp))
+        MainMenuCards(
+            modifier = modifier
+                .fillMaxWidth()
+                .height(102.dp),
+            painter = painterResource(R.drawable.calendar),
+            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondaryContainer),
+            iconColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            textColor = MaterialTheme.colorScheme.onSecondaryContainer,
+            shapes = CustomShape.extraLarge,
+            description = stringResource(id = R.string.schedule),
+            textTitle = "$scheduleTitle",
+            textContent = "D-$scheduledDay"
         )
     }
+    Spacer(modifier = modifier.height(20.dp))
+    MainMenuButtons(
+        modifier = modifier
+            .fillMaxWidth()
+            .height(130.dp),
+        shapes = CustomShape.extraLarge,
+        onClicked = { navController.navigate(route = NoticePage.route) },
+        color = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.secondary),
+        painter = painterResource(R.drawable.notice),
+        description = stringResource(id = R.string.Notice),
+        title = stringResource(id = R.string.Notice),
+        subTitle = stringResource(id = R.string.Notice_Confirm),
+        fontSize = 30.sp
+    )
 }

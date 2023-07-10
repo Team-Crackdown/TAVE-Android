@@ -1,114 +1,109 @@
 package com.example.tave.pages
 
 import android.content.Context
-import android.graphics.drawable.shapes.Shape
 import android.widget.Toast
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.selection.SelectionContainer
-import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.outlined.Lock
+import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.NavDestinationDsl
-import androidx.navigation.compose.rememberNavController
-import kotlinx.coroutines.launch
+import com.example.tave.R
+import com.example.tave.common.util.state.LogInUserState.*
+import com.example.tave.items.login.LoginBtn
+import com.example.tave.items.login.LoginIntro
+import com.example.tave.ui.theme.Shape
+import com.example.tave.viewmodel.LogInViewModel
+import com.example.tave.HomePage
+import com.example.tave.SendSMSCodePage
 
 @Composable
-fun loginPage(context: Context, navController: NavController) {
-    Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+fun LoginPage(
+    modifier: Modifier,
+    navController: NavController,
+    logInViewModel: LogInViewModel = hiltViewModel()
+) {
+    var userEmail by remember { mutableStateOf("") }
+    var userPassword by remember { mutableStateOf("") }
+    val localContext: Context = LocalContext.current
+    val loginState by logInViewModel.logInState.collectAsState()
+
+    if (logInViewModel.isExistToken)
+        LaunchedEffect(Unit) { navController.navigate(route = HomePage.route) }
+
+    Surface(modifier = modifier.fillMaxSize()) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(20.dp),
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(20.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.Start,
+            content = { LoginIntro(modifier = modifier) }
+        )
+        Column(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(10.dp),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Text(
-                text = "TAVE",
-                fontFamily = FontFamily.Monospace,
-                textAlign = TextAlign.Center,
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.Blue,
-                modifier = Modifier.fillMaxWidth().padding(bottom = 20.dp)
-            )
-            loginBox(context, navController)
-        }
-    }
-}
+            content = {
+                OutlinedTextField(
+                    value = userEmail,
+                    onValueChange = { userEmail = it },
+                    label = { Text(stringResource(id = R.string.Enter_Email)) },
+                    leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = stringResource(id = R.string.email)) },
+                    modifier = modifier
+                        .padding(bottom = 10.dp, top = 10.dp)
+                        .width(300.dp),
+                    shape = Shape.large,
+                    singleLine = true
+                )
+                OutlinedTextField(
+                    value = userPassword,
+                    onValueChange = { userPassword = it },
+                    label = { Text(stringResource(id = R.string.Enter_Pwd)) },
+                    leadingIcon = { Icon(Icons.Outlined.Lock, contentDescription = stringResource(id = R.string.Password)) },
+                    modifier = modifier
+                        .padding(bottom = 10.dp, top = 10.dp)
+                        .width(300.dp),
+                    shape = Shape.large,
+                    singleLine = true,
+                    visualTransformation = PasswordVisualTransformation(),
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+                )
+                Spacer(modifier = modifier.height(50.dp))
 
-
-@Composable
-fun loginBox(context: Context, navController: NavController) {
-
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-
-    Column(
-        modifier = Modifier.fillMaxWidth().padding(10.dp).background(Color.LightGray),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text("Enter your e-mail") },
-            leadingIcon = {
-                Icon(Icons.Default.Person, contentDescription = "person")
-            },
-            modifier = Modifier.padding(bottom = 10.dp, top = 10.dp).width(300.dp)
-        )
-        OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
-            label = { Text("Enter your password") },
-            leadingIcon = {
-                Icon(Icons.Default.Info, contentDescription = "password")
-            },
-            modifier = Modifier.padding(bottom = 10.dp, top = 10.dp).width(300.dp),
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
-        )
-        OutlinedButton(
-            onClick = {
-                if (email == "luna" && password == "1234") {
-                    logged(email, password, context)
-                    navController.navigate("home")
-                } else {
-                    logged(email, password, context)
+                when (loginState) {
+                    is Idle -> LoginBtn { logInViewModel.userLogInAccount(userEmail, userPassword) }
+                    is IsLoading -> CircularProgressIndicator()
+                    is IsSuccess -> LaunchedEffect(Unit) {
+                        navController.navigate(HomePage.route)
+                    }
+                    is IsSMSCheckNeeded -> LaunchedEffect(Unit) {
+                        navController.navigate(SendSMSCodePage.route)
+                    }
+                    is IsFailed -> {
+                        LaunchedEffect(Unit) {
+                            Toast.makeText(
+                                localContext,
+                                "로그인에 실패했습니다.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        LoginBtn { logInViewModel.userLogInAccount(userEmail, userPassword) }
+                    }
                 }
-            },
-            modifier = Modifier
-                .width(300.dp)
-                .padding(bottom = 10.dp, top = 10.dp)
-        ) {
-            Text(
-                text = "Login",
-                textAlign = TextAlign.Center
-            )
-        }
-    }
-}
-
-
-fun logged(email: String, password: String, context: Context) {
-    if (email == "luna" && password == "1234") {
-        Toast.makeText(context, "로그인 성공", Toast.LENGTH_SHORT).show()
-    } else {
-        Toast.makeText(context, "로그인 실패", Toast.LENGTH_SHORT).show()
+            }
+        )
     }
 }

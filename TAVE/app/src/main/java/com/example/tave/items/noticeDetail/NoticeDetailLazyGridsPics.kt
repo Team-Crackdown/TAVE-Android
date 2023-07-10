@@ -1,5 +1,6 @@
 package com.example.tave.items.noticeDetail
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -39,7 +40,8 @@ fun LazyGridItems(
         modifier = modifier
             .size(64.dp)
             .aspectRatio(1f)
-            .clip(shape = Shape.large),
+            .clip(shape = Shape.large)
+            .clickable { },
         contentAlignment = Alignment.Center,
         content = {
             GlideImageView(

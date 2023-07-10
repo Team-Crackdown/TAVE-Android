@@ -15,7 +15,7 @@ import com.example.tave.R
 import com.example.tave.items.glide.GlideImageView
 import com.example.tave.items.glide.ShimmerEffectItem
 import com.example.tave.ui.font.NotoSansKr
-import com.example.tave.ui.theme.Shape
+import com.example.tave.ui.theme.NoticeImageCardCustomShape
 
 @Composable
 fun NoticeDetailCard(
@@ -40,13 +40,13 @@ fun NoticeDetailCard(
                     modifier = modifier
                         .fillMaxWidth()
                         .height(150.dp)
-                        .clip(Shape.extraLarge)
+                        .clip(NoticeImageCardCustomShape.extraLarge)
                 )
                 Spacer(modifier = modifier.size(10.dp))
                 Box(
                     modifier = modifier
                         .height(10.dp)
-                        .clip(Shape.extraLarge)
+                        .clip(NoticeImageCardCustomShape.extraLarge)
                 )
             }
         },
@@ -62,7 +62,7 @@ fun NoticeDetailCard(
                     modifier = modifier
                         .fillMaxWidth()
                         .height(150.dp)
-                        .clip(Shape.extraLarge),
+                        .clip(NoticeImageCardCustomShape.extraLarge),
                     imageUrl = imageItems,
                     painterResource = R.drawable.tave_cover
                 )

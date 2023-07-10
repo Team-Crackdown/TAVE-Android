@@ -15,8 +15,29 @@ val Shape = Shapes(
 val CustomShape = Shapes(
     extraLarge = RoundedCornerShape(
         topStart = 7.dp,
-        topEnd = 0.dp,
         bottomStart = 7.dp,
-        bottomEnd = 0.dp
+    )
+)
+
+val NoticeImageCardCustomShape = Shapes(
+    extraLarge = RoundedCornerShape(
+        bottomStart = 7.dp,
+        bottomEnd = 7.dp
+    )
+)
+
+val ProfileCustomShape = Shapes(
+    extraLarge = RoundedCornerShape(
+        bottomStart = 20.dp,
+        bottomEnd = 20.dp
+    )
+)
+
+val ProfileImageCustomShape = Shapes(
+    extraLarge = RoundedCornerShape(
+        topStart = 25.dp,
+        topEnd = 25.dp,
+        bottomStart = 25.dp,
+        bottomEnd = 25.dp
     )
 )

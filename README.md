@@ -105,7 +105,6 @@
 
   // Retrofit2
   implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-
 ```
 
 ## Preferences
@@ -118,7 +117,6 @@ https://github.com/zxing/zxing
 
 // JetPack Compose
 https://developer.android.com/courses/android-basics-compose/course?hl=ko
-
 ```
 
 ## :question::exclamation: 주요 Issues :question::exclamation:

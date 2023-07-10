@@ -122,7 +122,7 @@ https://developer.android.com/courses/android-basics-compose/course?hl=ko
 ```
 
 ## :question::exclamation: 주요 Issues :question::exclamation:
-</br>:heavy_check_mark: [프로필 수정 페이지 기능 수정 및 삭제 고려](https://github.com/Team-Crackdown/TAVE-Android/issues/10)
+:heavy_check_mark: [프로필 수정 페이지 기능 수정 및 삭제 고려](https://github.com/Team-Crackdown/TAVE-Android/issues/10)
 </br>:heavy_check_mark: [사용자 프로필의 디자인 구현 문제](https://github.com/Team-Crackdown/TAVE-Android/issues/3)
 </br>:heavy_check_mark: [Application 글꼴(FontFamily) 변경 ROBOTO -> Noto Sans KR 제안](https://github.com/Team-Crackdown/TAVE-Android/issues/5)
 </br>:heavy_check_mark: [NoticePage의 가독성 문제 및 디자인 개선 요](https://github.com/Team-Crackdown/TAVE-Android/issues/7)
@@ -132,7 +132,7 @@ https://developer.android.com/courses/android-basics-compose/course?hl=ko
 
 
 ## :fire: 프로젝트 주요 관심사
-</br>:heavy_check_mark: 백앤드와 긴밀한 협업을 통해 앱의 성능 개선을 하도록 노력하고 있습니다.
+:heavy_check_mark: 백앤드와 긴밀한 협업을 통해 앱의 성능 개선을 하도록 노력하고 있습니다.
 </br>:heavy_check_mark: 클린 아키텍처와 MVVM 패턴을 도입하여 재사용이 가능한 컴포넌트를 만들기 위해 노력하고 있습니다. 
 </br>:heavy_check_mark: 사용자들로부터의 피드백을 수집하고 분석하여 개선점을 도출할 작업을 계획하고 있습니다.
 </br>:heavy_check_mark: 꾸준한 코드 리팩토링을 진행중입니다.

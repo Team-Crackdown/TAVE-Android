@@ -1,6 +1,5 @@
-![cover](https://github.com/Team-Crackdown/.github-private/assets/74421057/f903ba3a-b1c3-423e-a196-2f3f293111d5)
-
 # TAVE Android Application
+![cover](https://github.com/Team-Crackdown/.github-private/assets/74421057/f903ba3a-b1c3-423e-a196-2f3f293111d5)
 
 ### 🙌Contributors
 <table>

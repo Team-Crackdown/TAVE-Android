@@ -72,6 +72,15 @@
   <tr>
 </table>
 
+## :hammer: 프로젝트 사용기술
+ - Jetpack compose
+ - Kotlin Flow
+ - Kotlin Coroutine
+ - Dagger-Hilt
+ - Retrofit2
+ - MVVM
+ - Clean Architecture
+
 ## :question::exclamation: 주요 Issues :question::exclamation:
 :heavy_check_mark: [프로필 수정 페이지 기능 수정 및 삭제 고려](https://github.com/Team-Crackdown/TAVE-Android/issues/10)
 </br>:heavy_check_mark: [사용자 프로필의 디자인 구현 문제](https://github.com/Team-Crackdown/TAVE-Android/issues/3)

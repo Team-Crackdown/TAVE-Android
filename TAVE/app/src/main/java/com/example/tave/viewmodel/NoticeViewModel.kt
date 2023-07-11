@@ -28,7 +28,7 @@ class NoticeViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
 ): ViewModel() {
     private val accessToken: String =
-        TaveApplication.authPrefs.getTokenValue("accessToken", "")
+        TaveApplication.authPrefs.getTokenValue(Constants.ACCESS_TOKEN_TITLE, "")
     private val dateFormat = SimpleDateFormat(Constants.SERVER_DATE_TIME_FORMAT, Locale.KOREAN)
     private val outputFormat = SimpleDateFormat(Constants.OUTPUT_DATE_TIME_FORMAT, Locale.KOREAN)
 

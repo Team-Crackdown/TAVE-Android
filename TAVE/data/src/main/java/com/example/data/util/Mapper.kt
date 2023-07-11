@@ -6,7 +6,7 @@ import com.example.data.model.notice.NoticeDetailModel
 import com.example.data.model.profile.UserProfileModel
 import com.example.data.model.schedule.ScheduleModel
 import com.example.domain.entity.login.LogInBodyEntity
-import com.example.domain.entity.login.PasswordModifyEntity
+import com.example.domain.entity.login.ModifyPasswordEntity
 import com.example.domain.entity.notice.NoticeDetailEntity
 import com.example.domain.entity.profile.UserProfileEntity
 import com.example.domain.entity.schedule.ScheduleEntity
@@ -19,7 +19,7 @@ fun toLogInModelMapper(
 )
 
 fun toPasswordModifyModelMapper(
-    item: PasswordModifyEntity
+    item: ModifyPasswordEntity
 ): PasswordModifyModel = PasswordModifyModel(
     password = item.password,
     checkSMS = item.checkSMS

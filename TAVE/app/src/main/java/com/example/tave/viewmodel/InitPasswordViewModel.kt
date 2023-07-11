@@ -2,9 +2,10 @@ package com.example.tave.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.domain.entity.login.PasswordModifyEntity
-import com.example.domain.usecases.login.UpdateMemberPasswordUseCase
+import com.example.domain.entity.login.ModifyPasswordEntity
+import com.example.domain.usecases.login.ModifyPasswordUseCase
 import com.example.tave.TaveApplication
+import com.example.tave.common.Constants
 import com.example.tave.common.util.state.InitPasswordState
 import com.example.tave.di.qualifier.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,14 +21,14 @@ import javax.inject.Inject
 
 @HiltViewModel
 class InitPasswordViewModel @Inject constructor(
-    private val updateMemberPasswordUseCase: UpdateMemberPasswordUseCase,
+    private val updateMemberPasswordUseCase: ModifyPasswordUseCase,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ): ViewModel() {
     private val _isPasswordChanged = MutableStateFlow<InitPasswordState>(InitPasswordState.Idle)
     val isPasswordChanged: StateFlow<InitPasswordState> = _isPasswordChanged.asStateFlow()
 
     private val accessToken: String =
-        TaveApplication.authPrefs.getTokenValue("accessToken", "")
+        TaveApplication.authPrefs.getTokenValue(Constants.ACCESS_TOKEN_TITLE, "")
 
     fun validatePassword(
         password: String,
@@ -54,7 +55,7 @@ class InitPasswordViewModel @Inject constructor(
 
         updateMemberPasswordUseCase(
             accessToken,
-            PasswordModifyEntity(password, true)
+            ModifyPasswordEntity(password, true)
         ).collect {
             if (it.isSuccess) {
                 _isPasswordChanged.value = InitPasswordState.IsComplete(Result.success(Unit))

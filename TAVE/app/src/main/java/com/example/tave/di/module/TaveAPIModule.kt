@@ -16,7 +16,6 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object TaveAPIModule {
-
     @Provides
     @Singleton
     fun provideRetrofitClient(httpClient: OkHttpClient): Retrofit =

@@ -56,7 +56,7 @@ class HomeViewModel @Inject constructor(
     val scheduleRemainDay: LiveData<String> get() = _scheduleRemainDay
 
     private val accessToken: String =
-        TaveApplication.authPrefs.getTokenValue("accessToken", "")
+        TaveApplication.authPrefs.getTokenValue(Constants.ACCESS_TOKEN_TITLE, "")
     private val dateFormat = SimpleDateFormat(Constants.SCHEDULE_DATE_TIME_FORMAT, Locale.KOREAN)
     private val todayDate: Date = Calendar.getInstance().time
 
@@ -65,17 +65,17 @@ class HomeViewModel @Inject constructor(
         getPersonalScore()
         getTeamScore()
         getScheduleAll()
-        sseConnect().request()
+        sseEventSource().request()
     }
 
-    private fun setRequestSSE(): Request = Request.Builder()
+    private fun setSSERequestInstance(): Request = Request.Builder()
         .url(BuildConfig.TAVE_SSE_URL)
-        .addHeader("authorization", accessToken)
-        .addHeader("accept", "text/event-stream")
+        .addHeader(Constants.AUTHORIZATION_HEADER_TITLE, accessToken)
+        .addHeader(Constants.SSE_HEADER_TITLE, Constants.SSE_HEADER_VALUE)
         .build()
 
-    private fun sseConnect(): EventSource =
-        sseEventListener.newEventSource(setRequestSSE(), sseEventSourceListener)
+    private fun sseEventSource(): EventSource =
+        sseEventListener.newEventSource(setSSERequestInstance(), sseEventSourceListener)
 
 
     private fun getUserProfile(): Job = viewModelScope.launch(ioDispatcher) {

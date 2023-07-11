@@ -6,6 +6,7 @@ import com.example.domain.entity.login.LogInBodyEntity
 import com.example.domain.usecases.login.LogInUserUseCase
 import com.example.domain.usecases.profile.GetCheckedSMSUseCase
 import com.example.tave.TaveApplication
+import com.example.tave.common.Constants
 import com.example.tave.common.util.state.LogInUserState
 import com.example.tave.di.qualifier.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -29,7 +30,9 @@ class LogInViewModel @Inject constructor(
     val logInState: StateFlow<LogInUserState> = _logInState.asStateFlow()
 
     val isExistToken: Boolean =
-        TaveApplication.authPrefs.getTokenValue("accessToken", "").isNotEmpty()
+        TaveApplication.authPrefs
+            .getTokenValue(Constants.ACCESS_TOKEN_TITLE, "")
+            .isNotEmpty()
 
     fun userLogInAccount(
         userEmail: String,
@@ -37,10 +40,10 @@ class LogInViewModel @Inject constructor(
     ): Job = viewModelScope.launch(ioDispatcher) {
         _logInState.value = LogInUserState.IsLoading
 
-        logInUserUseCase(LogInBodyEntity(userEmail, userPassword)).collect {
-            if (it != null) {
-                TaveApplication.authPrefs.setTokenValue("accessToken", "Bearer $it")
-                getCheckSMSField("Bearer $it")
+        logInUserUseCase(LogInBodyEntity(userEmail, userPassword)).collect { token ->
+            if (token != null) {
+                TaveApplication.authPrefs.setTokenValue(Constants.ACCESS_TOKEN_TITLE, "Bearer $token")
+                getCheckSMSField("Bearer $token")
             } else {
                 _logInState.value = LogInUserState.IsFailed(Result.failure(Exception()))
                 delay(2000L)

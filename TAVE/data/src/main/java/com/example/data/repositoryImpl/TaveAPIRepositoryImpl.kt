@@ -14,7 +14,7 @@ import com.example.data.util.toPasswordModifyModelMapper
 import com.example.data.util.toScheduleEntityListMapper
 import com.example.data.util.toUserProfileEntityMapper
 import com.example.domain.entity.login.LogInBodyEntity
-import com.example.domain.entity.login.PasswordModifyEntity
+import com.example.domain.entity.login.ModifyPasswordEntity
 import com.example.domain.entity.notice.NoticeDetailEntity
 import com.example.domain.entity.profile.UserProfileEntity
 import com.example.domain.entity.schedule.ScheduleEntity
@@ -72,9 +72,9 @@ class TaveAPIRepositoryImpl @Inject constructor(
 
     override fun updateMemberPassword(
         accessToken: String,
-        passwordModifyEntity: PasswordModifyEntity
+        ModifyPasswordEntity: ModifyPasswordEntity
     ): Flow<Result<Unit>> = flow {
-        val modifyModel: PasswordModifyModel = toPasswordModifyModelMapper(passwordModifyEntity)
+        val modifyModel: PasswordModifyModel = toPasswordModifyModelMapper(ModifyPasswordEntity)
 
         try {
             val response = taveAPIService.updateMemberPassword(accessToken, modifyModel)

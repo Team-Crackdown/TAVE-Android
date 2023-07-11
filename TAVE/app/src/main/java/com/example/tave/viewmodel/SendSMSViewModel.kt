@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.sms.SendSMSUseCase
 import com.example.tave.TaveApplication
+import com.example.tave.common.Constants
 import com.example.tave.common.util.state.SendSMSCodeState
 import com.example.tave.di.qualifier.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,7 +26,8 @@ class SendSMSViewModel @Inject constructor(
     private val _isSendSMSCode = MutableStateFlow<SendSMSCodeState>(SendSMSCodeState.Idle)
     val isSendSMSCode: StateFlow<SendSMSCodeState> get() = _isSendSMSCode.asStateFlow()
 
-    private val accessToken: String = TaveApplication.authPrefs.getTokenValue("accessToken", "")
+    private val accessToken: String =
+        TaveApplication.authPrefs.getTokenValue(Constants.ACCESS_TOKEN_TITLE, "")
 
     fun sendSMSCode(phoneNumber: String): Job = viewModelScope.launch(ioDispatcher) {
         _isSendSMSCode.value = SendSMSCodeState.IsLoading

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.usecases.sms.CheckOTPUseCase
 import com.example.tave.TaveApplication
+import com.example.tave.common.Constants
 import com.example.tave.common.util.state.CheckOTPCodeState
 import com.example.tave.di.qualifier.IoDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -26,7 +27,7 @@ class InputOTPViewModel @Inject constructor(
     val isOTPCodeChecked: StateFlow<CheckOTPCodeState> = _isOTPCodeChecked.asStateFlow()
 
     private val accessToken: String =
-        TaveApplication.authPrefs.getTokenValue("accessToken", "")
+        TaveApplication.authPrefs.getTokenValue(Constants.ACCESS_TOKEN_TITLE, "")
 
     fun checkOTPCode(smsInputCode: String): Job = viewModelScope.launch(ioDispatcher) {
         _isOTPCodeChecked.value = CheckOTPCodeState.IsLoading

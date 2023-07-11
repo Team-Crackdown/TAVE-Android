@@ -26,12 +26,11 @@ class NoticeDetailViewModel @Inject constructor(
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ): ViewModel() {
     private val accessToken: String =
-        TaveApplication.authPrefs.getTokenValue("accessToken", "")
+        TaveApplication.authPrefs.getTokenValue(Constants.ACCESS_TOKEN_TITLE, "")
     private val dateFormat = SimpleDateFormat(Constants.SERVER_DATE_TIME_FORMAT, Locale.KOREAN)
     private val outputFormat = SimpleDateFormat(Constants.OUTPUT_DATE_TIME_FORMAT, Locale.KOREAN)
 
     private val _noticeData = MutableLiveData<NoticeDetailEntity?>()
-
     val noticeData: LiveData<NoticeDetailEntity?> get() = _noticeData
 
     fun getNoticeDetail(noticeID: Int?): Job = viewModelScope.launch(ioDispatcher) {
@@ -60,9 +59,8 @@ class NoticeDetailViewModel @Inject constructor(
         }
     }
 
-    private fun convertTimeFormat(
-        time: String?
-    ): String = outputFormat.format(dateFormat.parse(time))
+    private fun convertTimeFormat(time: String?): String =
+        outputFormat.format(dateFormat.parse(time))
 
     override fun onCleared() {
         super.onCleared()

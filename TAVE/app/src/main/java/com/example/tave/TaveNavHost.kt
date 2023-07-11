@@ -57,5 +57,4 @@ fun TaveNavHost(navController: NavHostController) {
 
 private fun NavHostController.navigateToNoticeDetail(noticeID: Int) {
     this.navigate("${NoticeDetailPage.route}/$noticeID")
-
 }

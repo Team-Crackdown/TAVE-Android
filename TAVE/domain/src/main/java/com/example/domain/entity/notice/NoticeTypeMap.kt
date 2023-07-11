@@ -1,11 +1,10 @@
 package com.example.domain.entity.notice
 
-
-private const val NOTICE_TYPE_SCHEDULE: String = "[뉴스] "
-private const val NOTICE_TYPE_GENERAL: String = "[공지] "
-private const val NOTICE_TYPE_REVIEW: String = "[리뷰] "
-private const val NOTICE_TYPE_NEWS: String = "[뉴스] "
-private const val NOTICE_TYPE_TECH: String = "[기술 레터] "
+import com.example.domain.util.Constants.NOTICE_TYPE_GENERAL
+import com.example.domain.util.Constants.NOTICE_TYPE_NEWS
+import com.example.domain.util.Constants.NOTICE_TYPE_REVIEW
+import com.example.domain.util.Constants.NOTICE_TYPE_SCHEDULE
+import com.example.domain.util.Constants.NOTICE_TYPE_TECH
 
 val noticeTypeMap = mapOf(
     NoticeTypeEnumClass.SCHEDULE.name to NOTICE_TYPE_SCHEDULE,

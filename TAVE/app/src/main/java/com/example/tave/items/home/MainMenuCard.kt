@@ -33,9 +33,7 @@ fun MainMenuCards(
         colors = colors,
         elevation = CardDefaults.cardElevation(5.dp),
     ) {
-        Column(
-            modifier = Modifier.padding(10.dp)
-        ) {
+        Column(modifier = Modifier.padding(10.dp)) {
             Row {
                 Icon(painter, description, tint = iconColor)
                 Spacer(modifier = Modifier.width(10.dp))

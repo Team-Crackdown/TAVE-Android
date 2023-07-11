@@ -1,10 +1,6 @@
 # TAVE Android Application
 ![cover](https://github.com/Team-Crackdown/.github-private/assets/74421057/f903ba3a-b1c3-423e-a196-2f3f293111d5)
 
-## :pushpin: 실행시 유의사항
-- 인증서와 local.properties가 올라와있지 않아 실행이 되지 않습니다!!
-- 실행을 원하시면 별도로 요청주시기 바랍니다!!
-
 ### 🙌Contributors
 <table>
   <tbody>
@@ -76,15 +72,6 @@
   <tr>
 </table>
 
-## :hammer: 프로젝트 사용기술
- - Jetpack compose
- - Kotlin Flow
- - Kotlin Coroutine
- - Dagger-Hilt
- - Retrofit2
- - MVVM
- - Clean Architecture
-
 ## :question::exclamation: 주요 Issues :question::exclamation:
 :heavy_check_mark: [프로필 수정 페이지 기능 수정 및 삭제 고려](https://github.com/Team-Crackdown/TAVE-Android/issues/10)
 </br>:heavy_check_mark: [사용자 프로필의 디자인 구현 문제](https://github.com/Team-Crackdown/TAVE-Android/issues/3)
@@ -92,6 +79,7 @@
 </br>:heavy_check_mark: [NoticePage의 가독성 문제 및 디자인 개선 요청](https://github.com/Team-Crackdown/TAVE-Android/issues/7)
 </br>
 </br>
+
 
 
 ## :fire: 프로젝트 주요 관심사

@@ -74,11 +74,11 @@ fun OTPCodePage(
                             OutlinedTextField(
                                 value = otpCode,
                                 onValueChange = { otpCode = it },
-                                label = { Text(text = stringResource(id = R.string.otp_Number)) },
+                                label = { Text(text = stringResource(id = R.string.OTP_Number)) },
                                 leadingIcon = {
                                     Icon(
                                         Icons.Outlined.Lock,
-                                        contentDescription = stringResource(id = R.string.otp_Number)
+                                        contentDescription = stringResource(id = R.string.OTP_Number)
                                     )
                                 },
                                 modifier = modifier.width(300.dp),

@@ -60,8 +60,8 @@ fun LoginPage(
                 OutlinedTextField(
                     value = userEmail,
                     onValueChange = { userEmail = it },
-                    label = { Text(stringResource(id = R.string.Enter_Email)) },
-                    leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = stringResource(id = R.string.email)) },
+                    label = { Text(stringResource(id = R.string.LogIn_Email_Input)) },
+                    leadingIcon = { Icon(Icons.Outlined.Person, contentDescription = "") },
                     modifier = modifier
                         .padding(bottom = 10.dp, top = 10.dp)
                         .width(300.dp),
@@ -71,8 +71,8 @@ fun LoginPage(
                 OutlinedTextField(
                     value = userPassword,
                     onValueChange = { userPassword = it },
-                    label = { Text(stringResource(id = R.string.Enter_Pwd)) },
-                    leadingIcon = { Icon(Icons.Outlined.Lock, contentDescription = stringResource(id = R.string.Password)) },
+                    label = { Text(stringResource(id = R.string.LogIn_PWD_Input)) },
+                    leadingIcon = { Icon(Icons.Outlined.Lock, contentDescription = "") },
                     modifier = modifier
                         .padding(bottom = 10.dp, top = 10.dp)
                         .width(300.dp),

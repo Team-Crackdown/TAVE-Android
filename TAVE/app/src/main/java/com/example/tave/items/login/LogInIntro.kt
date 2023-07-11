@@ -29,7 +29,7 @@ fun LoginIntro(modifier: Modifier) {
         horizontalAlignment = Alignment.Start,
         content = {
             Text(
-                text = "환영합니다!",
+                text = stringResource(id = R.string.WelcomeTxt),
                 style = TextStyle(
                     fontSize = 35.sp,
                     fontFamily = NotoSansKr,
@@ -49,7 +49,7 @@ fun LoginIntro(modifier: Modifier) {
                 )
             )
             Text(
-                text = "로그인하여 많은 컨텐츠를 즐기세요!",
+                text = stringResource(id = R.string.LogIn_SubTitle),
                 style = TextStyle(
                     fontSize = 13.sp,
                     fontFamily = NotoSansKr,

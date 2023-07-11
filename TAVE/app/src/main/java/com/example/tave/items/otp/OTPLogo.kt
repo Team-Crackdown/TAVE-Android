@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -34,11 +35,11 @@ fun OtpLogo(
             painter = painterResource(id = R.drawable.otp_logo),
             alignment = Alignment.Center,
             contentScale = ContentScale.Fit,
-            contentDescription = "OTP LOGO"
+            contentDescription = ""
         )
         Spacer(modifier = modifier.size(20.dp))
         Text(
-            text = "발송된 SMS의",
+            text = stringResource(id = R.string.OTP_Title),
             style = TextStyle(
                 fontSize = 25.sp,
                 fontFamily = NotoSansKr,
@@ -47,7 +48,7 @@ fun OtpLogo(
             )
         )
         Text(
-            text = "인증번호를 입력해주세요!",
+            text = stringResource(id = R.string.OTP_SubTitle),
             style = TextStyle(
                 fontSize = 25.sp,
                 fontFamily = NotoSansKr,

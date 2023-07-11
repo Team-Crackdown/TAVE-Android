@@ -2,11 +2,11 @@ package com.example.data.repositoryImpl
 
 import com.example.data.api.TaveAPIService
 import com.example.data.model.login.LogInBodyModel
-import com.example.data.model.login.PasswordModifyModel
+import com.example.data.model.login.ModifyPasswordModel
 import com.example.data.model.notice.NoticeDetailModel
 import com.example.data.model.profile.UserProfileModel
 import com.example.data.model.schedule.ScheduleModel
-import com.example.data.util.common.Common
+import com.example.data.util.common.Constants
 import com.example.data.util.toLogInModelMapper
 import com.example.data.util.toNoticeDetailEntityListMapper
 import com.example.data.util.toNoticeDetailEntityMapper
@@ -35,7 +35,7 @@ class TaveAPIRepositoryImpl @Inject constructor(
 ): TaveAPIRepository {
     override fun userLogIn(logInBody: LogInBodyEntity): Flow<String?> = flow {
         val logInBodyModel: LogInBodyModel = toLogInModelMapper(logInBody)
-        val authToken = taveAPIService.userLogIn(logInBodyModel).headers()["Authorization"]
+        val authToken = taveAPIService.userLogIn(logInBodyModel).headers()[Constants.AUTHORIZATION_HEADER]
         emit(authToken)
     }.catch { exception ->
         when (exception) {
@@ -74,7 +74,7 @@ class TaveAPIRepositoryImpl @Inject constructor(
         accessToken: String,
         ModifyPasswordEntity: ModifyPasswordEntity
     ): Flow<Result<Unit>> = flow {
-        val modifyModel: PasswordModifyModel = toPasswordModifyModelMapper(ModifyPasswordEntity)
+        val modifyModel: ModifyPasswordModel = toPasswordModifyModelMapper(ModifyPasswordEntity)
 
         try {
             val response = taveAPIService.updateMemberPassword(accessToken, modifyModel)
@@ -109,12 +109,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }. retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
             else -> false
@@ -133,12 +133,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }.retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
             else -> false
@@ -166,12 +166,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }.retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
             else -> false
@@ -199,12 +199,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }.retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
             else -> false
@@ -233,12 +233,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }.retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
             else -> false
@@ -266,12 +266,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }.retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
             else -> false
@@ -300,12 +300,12 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }.retryWhen { cause, attempt ->
         when {
-            (cause is IOException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is IOException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
-            (cause is HttpException && attempt < Common.FLOW_RETRY_MAX_ATTEMPTS) -> {
-                delay(Common.DELAY_TIME_MILLIS)
+            (cause is HttpException && attempt < Constants.FLOW_RETRY_MAX_ATTEMPTS) -> {
+                delay(Constants.DELAY_TIME_MILLIS)
                 true
             }
             else -> false

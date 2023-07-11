@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import com.example.tave.R
 import com.example.tave.common.Constants
 import dagger.Module
 import dagger.Provides
@@ -35,7 +36,7 @@ object SSEConnectModule {
                         {
                             Toast.makeText(
                                 context,
-                                "새로운 공지가 등록되었습니다!",
+                                context.getText(R.string.New_Notice_Message),
                                 Toast.LENGTH_SHORT
                             ).show()
                         }, 0

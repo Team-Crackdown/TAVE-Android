@@ -1,16 +1,6 @@
 <resources>
     <string name="app_name">TAVE</string>
-    <string name="radix">기수</string>
-    <string name="name">이름</string>
-    <string name="university">대학교</string>
-    <string name="email">이메일</string>
-    <string name="phoneNumber">전화</string>
-    <string name="dept">분야</string>
-    <string name="Login">로그인</string>
-    <string name="Password">비밀번호</string>
-    <string name="Enter_Email">사용자 이메일을 입력하세요</string>
-    <string name="Enter_Pwd">사용자 비밀번호를 입력하세요</string>
-    <string name="intro">자기소개</string>
+
     <string name="Notice">공지사항</string>
     <string name="Notice_Confirm">공지사항 확인하기</string>
     <string name="Tech_Letter">기술레터</string>
@@ -21,11 +11,37 @@
     <string name="Team_Score">팀 활동 점수</string>
     <string name="schedule">일정</string>
 
-    <string name="phone_Number">휴대폰 번호</string>
-    <string name="send_SNS_Btn">인증번호 발송</string>
 
-    <string name="otp_Number">인증번호 입력</string>
+    <!-- SSE Module Toast Message Txt Content -->
+    <string name="New_Notice_Message">"새로운 공지가 등록되었습니다!"</string>
+
+    <!-- Common Composable Item String -->
+    <string name="WelcomeTxt">환영합니다!</string>
+
+    <!-- Login Composable Item String -->
+    <string name="LogIn_SubTitle">로그인하여 많은 컨텐츠를 즐기세요!</string>
+    <string name="LogIn_Email_Input">사용자 이메일을 입력하세요</string>
+    <string name="LogIn_PWD_Input">사용자 비밀번호를 입력하세요</string>
+    <string name="Login">로그인</string>
+
+    <!-- Send SMS Code Composable Item String -->
+    <string name="SMSLOGO_Title">처음 로그인 하셨군요?</string>
+    <string name="SMSLOGO_SubTitle">사용자 인증을 위해 핸드폰 번호를 입력한 뒤</string>
+    <string name="SMSLOGO_SubTitle2">아래 인증 번호를 입력해 주세요.</string>
+    <string name="SMS_Phone_Number">휴대폰 번호</string>
+    <string name="Send_SMSCode_Btn">인증번호 발송</string>
+
+    <!-- OTP Composable Item String -->
+    <string name="OTP_Title">발송된 SMS의</string>
+    <string name="OTP_SubTitle">인증번호를 입력해주세요!</string>
+    <string name="OTP_Number">인증번호 입력</string>
     <string name="OTP_Btn">인증번호 확인</string>
 
+    <!-- Init Password Composable Item String -->
+    <string name="Init_Password_Logo_Title">초기 비밀 번호를 변경해 주세요!</string>
+    <string name="Init_Password_Logo_SubTitle">새로 변경할 패스워드를 입력해 주세요!</string>
+    <string name="Init_New_Password_Input">새로운 비밀번호</string>
+    <string name="Init_New_Password_Confirm">새로운 비밀번호 확인</string>
     <string name="Init_Password_Btn">패스워드 변경하기</string>
+
 </resources>

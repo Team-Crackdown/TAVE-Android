@@ -20,7 +20,7 @@ fun UploadImageBtn() {
     ) {
         Image(
             painter = painterResource(R.drawable.baseline_file_upload_24),
-            contentDescription = "upload",
+            contentDescription = "",
         )
     }
 }

@@ -39,7 +39,7 @@ fun SMSPhoneNumberBtn(
             onClick = sendSMSCode,
             content = {
                 Text(
-                    text = stringResource(id = R.string.send_SNS_Btn),
+                    text = stringResource(id = R.string.Send_SMSCode_Btn),
                     textAlign = TextAlign.Center,
                     style = TextStyle(
                         color = Color.White,

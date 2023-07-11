@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
@@ -20,6 +21,7 @@ import com.example.tave.items.initpassword.InitPasswordLogo
 import com.example.tave.ui.theme.Shape
 import com.example.tave.viewmodel.InitPasswordViewModel
 import com.example.tave.HomePage
+import com.example.tave.R
 
 @Composable
 fun InitPasswordPage(
@@ -45,7 +47,7 @@ fun InitPasswordPage(
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("새로운 비밀번호") },
+                label = { Text(text = stringResource(id = R.string.Init_New_Password_Input)) },
                 modifier = modifier
                     .padding(bottom = 10.dp, top = 10.dp)
                     .width(300.dp),
@@ -56,7 +58,7 @@ fun InitPasswordPage(
             OutlinedTextField(
                 value = confirmPassword,
                 onValueChange = { confirmPassword = it },
-                label = { Text("새로운 비밀번호 확인") },
+                label = { Text(text = stringResource(id = R.string.Init_New_Password_Confirm)) },
                 modifier = modifier
                     .padding(bottom = 10.dp, top = 10.dp)
                     .width(300.dp),

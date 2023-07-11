@@ -18,17 +18,13 @@ fun ShimmerEffectItem(
     modifier: Modifier
 ){
     if(isLoading) {
-        Box(
-            modifier = modifier.shimmerEffect(),
-            content = { contentLoading() }
-        )
+        Box(modifier = modifier.shimmerEffect(), content = { contentLoading() })
     } else {
         contentAfterLoading()
     }
 }
 
 fun Modifier.shimmerEffect(): Modifier = composed {
-
     val shimmerColors = listOf(
         Color.LightGray.copy(alpha = 0.6f),
         Color.LightGray.copy(alpha = 0.2f),
@@ -45,7 +41,6 @@ fun Modifier.shimmerEffect(): Modifier = composed {
             )
         )
     )
-
     background(
         brush = Brush.linearGradient(
             colors = shimmerColors,

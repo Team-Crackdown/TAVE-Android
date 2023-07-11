@@ -50,7 +50,7 @@ fun UserBadge(
                         textAlign = TextAlign.Center,
                         color = textColor,
                         platformStyle = PlatformTextStyle(false)
-                    ),
+                    )
                 )
             }
         }

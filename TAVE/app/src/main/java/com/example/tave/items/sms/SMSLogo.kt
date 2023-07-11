@@ -12,6 +12,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -34,11 +35,11 @@ fun SMSLogo(
             painter = painterResource(id = R.drawable.otp_logo),
             alignment = Alignment.Center,
             contentScale = ContentScale.Fit,
-            contentDescription = "SMS LOGO"
+            contentDescription = ""
         )
         Spacer(modifier = modifier.size(20.dp))
         Text(
-            text = "처음 로그인 하셨군요?",
+            text = stringResource(id = R.string.SMSLOGO_Title),
             style = TextStyle(
                 fontSize = 25.sp,
                 fontFamily = NotoSansKr,
@@ -47,7 +48,7 @@ fun SMSLogo(
             )
         )
         Text(
-            text = "사용자 인증을 위해 핸드폰 번호를 입력한 뒤",
+            text = stringResource(id = R.string.SMSLOGO_SubTitle),
             style = TextStyle(
                 fontSize = 12.sp,
                 fontFamily = NotoSansKr,
@@ -56,7 +57,7 @@ fun SMSLogo(
             )
         )
         Text(
-            text = "아래 인증 번호를 입력해 주세요.",
+            text = stringResource(id = R.string.SMSLOGO_SubTitle2),
             style = TextStyle(
                 fontSize = 12.sp,
                 fontFamily = NotoSansKr,

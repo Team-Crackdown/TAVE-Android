@@ -74,11 +74,11 @@ fun SendSMSCodePage(
                                 OutlinedTextField(
                                     value = phoneNumber,
                                     onValueChange = { phoneNumber = it },
-                                    label = { Text(text = stringResource(id = R.string.phone_Number)) },
+                                    label = { Text(text = stringResource(id = R.string.SMS_Phone_Number)) },
                                     leadingIcon = {
                                         Icon(
                                             Icons.Outlined.Phone,
-                                            contentDescription = stringResource(id = R.string.phone_Number)
+                                            contentDescription = stringResource(id = R.string.SMS_Phone_Number)
                                         )
                                     },
                                     modifier = modifier.width(300.dp),

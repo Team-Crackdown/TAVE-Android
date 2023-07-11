@@ -41,7 +41,7 @@ fun NoticeDetailTopBar(
                         .size(30.dp)
                         .clip(shape = Shape.large),
                     painter = painterResource(id = R.drawable.tave_profile),
-                    contentDescription = "Publisher Profile Image"
+                    contentDescription = ""
                 )
                 Spacer(modifier = modifier.size(10.dp))
                 Text(

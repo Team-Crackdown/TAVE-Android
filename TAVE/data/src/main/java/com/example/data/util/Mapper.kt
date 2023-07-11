@@ -1,7 +1,7 @@
 package com.example.data.util
 
 import com.example.data.model.login.LogInBodyModel
-import com.example.data.model.login.PasswordModifyModel
+import com.example.data.model.login.ModifyPasswordModel
 import com.example.data.model.notice.NoticeDetailModel
 import com.example.data.model.profile.UserProfileModel
 import com.example.data.model.schedule.ScheduleModel
@@ -20,7 +20,7 @@ fun toLogInModelMapper(
 
 fun toPasswordModifyModelMapper(
     item: ModifyPasswordEntity
-): PasswordModifyModel = PasswordModifyModel(
+): ModifyPasswordModel = ModifyPasswordModel(
     password = item.password,
     checkSMS = item.checkSMS
 )

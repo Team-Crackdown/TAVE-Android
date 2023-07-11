@@ -1,7 +1,7 @@
 package com.example.data.api
 
 import com.example.data.model.login.LogInBodyModel
-import com.example.data.model.login.PasswordModifyModel
+import com.example.data.model.login.ModifyPasswordModel
 import com.example.data.model.notice.NoticeDetailModel
 import com.example.data.model.profile.UserProfileModel
 import com.example.data.model.schedule.ScheduleModel
@@ -37,7 +37,7 @@ interface TaveAPIService {
     @PATCH("memberRole/member/modifyMember")
     suspend fun updateMemberPassword(
         @Header("Authorization") accessToken: String,
-        @Body passwordModifyModel: PasswordModifyModel
+        @Body passwordModifyModel: ModifyPasswordModel
     ): Response<Void>
 
     @PATCH("memberRole/member/modifyProfileImage")

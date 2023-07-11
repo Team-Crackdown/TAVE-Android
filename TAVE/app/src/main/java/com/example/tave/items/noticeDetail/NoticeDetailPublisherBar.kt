@@ -38,7 +38,7 @@ fun NoticeDetailPublisherBar(
                 .size(30.dp)
                 .clip(shape = Shape.large),
             painter = painterResource(id = R.drawable.tave_profile),
-            contentDescription = "Publisher Profile Image"
+            contentDescription = ""
         )
         Column(
             modifier = modifier.fillMaxWidth(),

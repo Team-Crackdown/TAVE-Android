@@ -46,35 +46,36 @@ fun MainMenuButtons(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.Start,
-        ) {
-            Image(
-                painter = painter,
-                contentDescription = description,
-            )
-            Column(
-                horizontalAlignment = Alignment.Start,
-            ) {
-                Text(
-                    text = title,
-                    style = TextStyle(
-                        fontSize = fontSize,
-                        fontFamily = NotoSansKr,
-                        fontWeight = FontWeight.SemiBold,
-                        platformStyle = PlatformTextStyle(includeFontPadding = false),
-                        lineHeight = 2.5.em
-                    )
+            content = {
+                Image(
+                    painter = painter,
+                    contentDescription = description,
                 )
-                Text(
-                    text = subTitle,
-                    style = TextStyle(
-                        fontSize = if(subTitle == "") 0.sp else 15.sp,
-                        fontFamily = NotoSansKr,
-                        fontWeight = FontWeight.SemiBold,
-                        platformStyle = PlatformTextStyle(includeFontPadding = false),
-                        lineHeight = 2.5.em
+                Column(
+                    horizontalAlignment = Alignment.Start,
+                ) {
+                    Text(
+                        text = title,
+                        style = TextStyle(
+                            fontSize = fontSize,
+                            fontFamily = NotoSansKr,
+                            fontWeight = FontWeight.SemiBold,
+                            platformStyle = PlatformTextStyle(includeFontPadding = false),
+                            lineHeight = 2.5.em
+                        )
                     )
-                )
+                    Text(
+                        text = subTitle,
+                        style = TextStyle(
+                            fontSize = if(subTitle == "") 0.sp else 15.sp,
+                            fontFamily = NotoSansKr,
+                            fontWeight = FontWeight.SemiBold,
+                            platformStyle = PlatformTextStyle(includeFontPadding = false),
+                            lineHeight = 2.5.em
+                        )
+                    )
+                }
             }
-        }
+        )
     }
 }

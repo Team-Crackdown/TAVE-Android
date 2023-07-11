@@ -31,6 +31,7 @@ fun CheckQrcode(
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
     val userUID = homeViewModel.userProfile.observeAsState()
+
     Dialog(
         onDismissRequest = onDismiss,
         content = {
@@ -58,27 +59,21 @@ fun QRDialogView(
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally,
-            content = {
-                generateQRCode(baseURL)?.let { QRCode ->
-                    Image(
-                        modifier = modifier.size(200.dp).padding(bottom = 10.dp),
-                        bitmap = QRCode.asImageBitmap(),
-                        contentScale = ContentScale.FillBounds,
-                        contentDescription = "QR Code"
-                    )
-                }
-                IconButton(
-                    onClick = onDismiss,
-                    colors = IconButtonDefaults.filledIconButtonColors(MaterialTheme.colorScheme.tertiary),
-                    content = {
-                        Icon(
-                            imageVector = Icons.Default.Close,
-                            contentDescription = "Refresh Button"
-                        )
-                    }
+        ) {
+            generateQRCode(baseURL)?.let { QRCode ->
+                Image(
+                    modifier = modifier.size(200.dp).padding(bottom = 10.dp),
+                    bitmap = QRCode.asImageBitmap(),
+                    contentScale = ContentScale.FillBounds,
+                    contentDescription = ""
                 )
             }
-        )
+            IconButton(
+                onClick = onDismiss,
+                colors = IconButtonDefaults.filledIconButtonColors(MaterialTheme.colorScheme.tertiary),
+                content = { Icon(imageVector = Icons.Default.Close, contentDescription = "") }
+            )
+        }
     }
 }
 

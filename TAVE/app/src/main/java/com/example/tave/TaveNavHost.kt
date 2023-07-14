@@ -24,10 +24,21 @@ fun TaveNavHost(navController: NavHostController) {
             LoginPage(modifier = Modifier, navController = navController)
         }
         composable(route = SendSMSCodePage.route) {
-            SendSMSCodePage(modifier = Modifier, navController = navController)
+            SendSMSCodePage(
+                modifier = Modifier,
+                onNavigateOTP = { phoneNumber -> navController.navigateToOTPPage(phoneNumber) }
+            )
         }
-        composable(route = InputOTPCodePage.route) {
-            OTPCodePage(modifier = Modifier, navController = navController)
+        composable(
+            route = InputOTPCodePage.routeWithPhoneNumber,
+            arguments = InputOTPCodePage.argument
+        ) { navBackStackEntry ->
+            val phoneNumber = navBackStackEntry.arguments?.getString(InputOTPCodePage.phone_Number)
+            OTPCodePage(
+                modifier = Modifier,
+                phoneNumber = phoneNumber,
+                navController = navController
+            )
         }
         composable(route = InitPasswordPage.route) {
             InitPasswordPage(modifier = Modifier, navController = navController)
@@ -53,6 +64,10 @@ fun TaveNavHost(navController: NavHostController) {
             NoticeDetailPage(modifier = Modifier, noticeID = noticeID)
         }
     }
+}
+
+private fun NavHostController.navigateToOTPPage(phoneNumber: String) {
+    this.navigate("${InputOTPCodePage.route}/$phoneNumber")
 }
 
 private fun NavHostController.navigateToNoticeDetail(noticeID: Int) {

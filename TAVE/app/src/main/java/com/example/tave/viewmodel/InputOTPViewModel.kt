@@ -29,10 +29,13 @@ class InputOTPViewModel @Inject constructor(
     private val accessToken: String =
         TaveApplication.authPrefs.getTokenValue(Constants.ACCESS_TOKEN_TITLE, "")
 
-    fun checkOTPCode(smsInputCode: String): Job = viewModelScope.launch(ioDispatcher) {
+    fun checkOTPCode(
+        phoneNumber: String,
+        smsInputCode: String
+    ): Job = viewModelScope.launch(ioDispatcher) {
         _isOTPCodeChecked.value = CheckOTPCodeState.IsLoading
 
-        checkOTPUseCase(accessToken, smsInputCode).collect { result ->
+        checkOTPUseCase(accessToken, phoneNumber, smsInputCode).collect { result ->
             if (result.isSuccess) {
                 _isOTPCodeChecked.value = CheckOTPCodeState.IsComplete(Result.success(Unit))
             } else {

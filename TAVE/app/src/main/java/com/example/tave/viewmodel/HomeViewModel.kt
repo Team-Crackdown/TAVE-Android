@@ -2,6 +2,7 @@ package com.example.tave.viewmodel
 
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -104,6 +105,7 @@ class HomeViewModel @Inject constructor(
 
     private fun getScheduleAll(): Job = viewModelScope.launch(ioDispatcher) {
         getScheduleAllUseCase(accessToken).collect { item ->
+            Log.d("로그", "$item")
             if (item.isEmpty()) {
                 _scheduleTitle.postValue(Constants.IS_SCHEDULE_EMPTY_TITLE)
                 _scheduleRemainDay.postValue(Constants.IS_SCHEDULE_EMPTY_DAY)
@@ -127,7 +129,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun calculateDDay(scheduleDate: Long): Int =
-        ((scheduleDate - todayDate.time) / (60 * 60 * 24 * 1000)).toInt()
+        (((scheduleDate - todayDate.time) / (60 * 60 * 24 * 1000))).toInt()
 
     override fun onCleared() {
         super.onCleared()

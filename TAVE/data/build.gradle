@@ -6,6 +6,9 @@ plugins {
 
 apply plugin: 'com.google.dagger.hilt.android'
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
 android {
     namespace 'com.example.data'
     compileSdk 33
@@ -14,6 +17,7 @@ android {
         minSdk 31
         targetSdk 33
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "COOL_SMS_API_KEY", properties["COOL_SMS_API_KEY"]
         consumerProguardFiles "consumer-rules.pro"
     }
 

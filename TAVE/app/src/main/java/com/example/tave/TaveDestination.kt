@@ -10,7 +10,12 @@ object LogInPage: TaveDestination { override val route: String = "LoginPage" }
 
 object SendSMSCodePage: TaveDestination { override val route: String = "SendSMSCodePage" }
 
-object InputOTPCodePage: TaveDestination { override val route: String = "InputOTPCodePage" }
+object InputOTPCodePage: TaveDestination {
+    override val route: String = "InputOTPCodePage"
+    const val phone_Number = "phone_number"
+    val routeWithPhoneNumber: String = "$route/{$phone_Number}"
+    val argument: List<NamedNavArgument> = listOf(navArgument(phone_Number) { type = NavType.StringType })
+}
 
 object InitPasswordPage: TaveDestination { override val route: String = "InitPasswordPage" }
 

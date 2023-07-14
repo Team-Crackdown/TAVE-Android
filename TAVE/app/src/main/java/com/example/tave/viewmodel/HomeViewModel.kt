@@ -2,7 +2,6 @@ package com.example.tave.viewmodel
 
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -114,8 +113,6 @@ class HomeViewModel @Inject constructor(
                 val recentSchedule: ScheduleEntity = item.first()
                 val scheduleDate: Date = dateFormat.parse(recentSchedule.date)
                 val remainDate: Int = calculateDDay(scheduleDate.time)
-
-                Log.d("로그", "$recentSchedule + $remainDate")
 
                 when {
                     remainDate > 0 -> {

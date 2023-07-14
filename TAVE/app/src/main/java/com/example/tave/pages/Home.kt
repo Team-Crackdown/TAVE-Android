@@ -27,6 +27,10 @@ fun HomePage(
     navController: NavController,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
+    homeViewModel.getPersonalScore()
+    homeViewModel.getTeamScore()
+    homeViewModel.getScheduleAll()
+
     val homeProfile = homeViewModel.userProfile.observeAsState()
     val personalScore = homeViewModel.personalScore.observeAsState()
     val teamScore = homeViewModel.teamScore.observeAsState()
@@ -36,7 +40,7 @@ fun HomePage(
     Column(
         modifier = modifier.padding(start = 24.dp, top = 24.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.Start,
+        horizontalAlignment = Alignment.Start
     ) {
         TopTitle(modifier = modifier, name = homeViewModel.userProfile.value?.userName.toString())
         Row {

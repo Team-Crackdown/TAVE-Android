@@ -43,6 +43,7 @@ import com.example.tave.viewmodel.InputOTPViewModel
 @Composable
 fun OTPCodePage(
     modifier: Modifier,
+    phoneNumber: String?,
     navController: NavController,
     inputOTPViewModel: InputOTPViewModel = hiltViewModel()
 ) {
@@ -91,7 +92,9 @@ fun OTPCodePage(
                                 is Idle -> {
                                     OTPCodeInput(
                                         modifier = modifier,
-                                        checkOTPCode = { inputOTPViewModel.checkOTPCode(otpCode) }
+                                        checkOTPCode = {
+                                            inputOTPViewModel.checkOTPCode("$phoneNumber", otpCode)
+                                        }
                                     )
                                 }
                                 is IsLoading -> CircularProgressIndicator()
@@ -108,7 +111,9 @@ fun OTPCodePage(
                                     }
                                     OTPCodeInput(
                                         modifier = modifier,
-                                        checkOTPCode = { inputOTPViewModel.checkOTPCode(otpCode) }
+                                        checkOTPCode = {
+                                            inputOTPViewModel.checkOTPCode("$phoneNumber", otpCode)
+                                        }
                                     )
                                 }
                             }

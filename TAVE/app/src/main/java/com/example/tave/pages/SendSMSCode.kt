@@ -31,8 +31,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import com.example.tave.InputOTPCodePage
 import com.example.tave.R
 import com.example.tave.common.util.state.SendSMSCodeState
 import com.example.tave.items.sms.SMSLogo
@@ -43,7 +41,7 @@ import com.example.tave.viewmodel.SendSMSViewModel
 @Composable
 fun SendSMSCodePage(
     modifier: Modifier,
-    navController: NavController,
+    onNavigateOTP: (String) -> Unit,
     sendSMSViewModel: SendSMSViewModel = hiltViewModel()
 ) {
     val localContext: Context = LocalContext.current
@@ -83,13 +81,9 @@ fun SendSMSCodePage(
                                     },
                                     modifier = modifier.width(300.dp),
                                     shape = Shape.medium,
-                                    singleLine = true
+                                    singleLine = true,
                                 )
                                 Spacer(modifier = modifier.size(10.dp))
-
-                                LaunchedEffect(Unit) {
-
-                                }
                                 when (isSendSMSCodeState) {
                                     is SendSMSCodeState.Idle -> {
                                         SMSPhoneNumberBtn(
@@ -99,7 +93,7 @@ fun SendSMSCodePage(
                                     }
                                     is SendSMSCodeState.IsLoading -> CircularProgressIndicator()
                                     is SendSMSCodeState.IsComplete -> LaunchedEffect(Unit) {
-                                        navController.navigate(InputOTPCodePage.route)
+                                        onNavigateOTP(phoneNumber)
                                     }
                                     is SendSMSCodeState.IsFailed -> {
                                         SMSPhoneNumberBtn(

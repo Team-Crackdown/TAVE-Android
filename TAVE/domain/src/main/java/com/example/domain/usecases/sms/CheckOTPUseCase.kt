@@ -9,6 +9,7 @@ class CheckOTPUseCase @Inject constructor(
 ) {
     operator fun invoke(
         accessToken: String,
+        phoneNumber: String,
         otpCode: String
-    ): Flow<Result<Unit>> = taveAPIRepository.checkOTPCode(accessToken, otpCode)
+    ): Flow<Result<Unit>> = taveAPIRepository.checkOTPCode(accessToken, phoneNumber, otpCode)
 }

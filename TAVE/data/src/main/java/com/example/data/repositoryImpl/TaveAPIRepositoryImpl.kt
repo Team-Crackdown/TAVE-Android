@@ -1,5 +1,6 @@
 package com.example.data.repositoryImpl
 
+import com.example.data.BuildConfig
 import com.example.data.api.TaveAPIService
 import com.example.data.model.login.LogInBodyModel
 import com.example.data.model.login.ModifyPasswordModel
@@ -24,6 +25,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.retryWhen
+import okhttp3.MultipartBody
 import retrofit2.HttpException
 import retrofit2.Response
 import java.io.IOException
@@ -50,23 +52,36 @@ class TaveAPIRepositoryImpl @Inject constructor(
         accessToken: String,
         phoneNumber: String
     ): Flow<Result<Unit>> = flow {
-        try{
-            taveAPIService.sendSMSCode(accessToken, "", phoneNumber)
+        val response = taveAPIService.sendSMSCode(accessToken, BuildConfig.COOL_SMS_API_KEY, phoneNumber)
+
+        if (response.isSuccessful) {
             emit(Result.success(Unit))
-        } catch (e: Exception) {
-            emit(Result.failure(e))
+        } else {
+            throw HttpException(response)
+        }
+    }.catch { exception ->
+        when (exception) {
+            is HttpException -> emit(Result.failure(exception))
+            is Exception -> emit(Result.failure(exception))
         }
     }
 
     override fun checkOTPCode(
         accessToken: String,
-        otpCode: String
+        phoneNumber: String,
+        OTPCode: String
     ): Flow<Result<Unit>> = flow {
-        try {
-            taveAPIService.checkOTPCode(accessToken, "", otpCode)
+        val response = taveAPIService
+            .checkOTPCode(accessToken, BuildConfig.COOL_SMS_API_KEY, phoneNumber, OTPCode)
+
+        if (response.isSuccessful && response.body() == true) {
             emit(Result.success(Unit))
-        } catch (e: InvalidKeyException) {
-            emit(Result.failure(e))
+        } else {
+            throw InvalidKeyException()
+        }
+    }.catch { exception ->
+        if (exception is InvalidKeyException) {
+            emit(Result.failure(exception))
         }
     }
 
@@ -121,9 +136,17 @@ class TaveAPIRepositoryImpl @Inject constructor(
         }
     }
 
-    override fun updateProfileImage(accessToken: String, profileImage: String): Flow<Result<Unit>> = flow {
-        taveAPIService.updateProfileImage(accessToken, profileImage)
-        emit(Result.success(Unit))
+    override fun updateProfileImage(
+        accessToken: String,
+        profileImage: MultipartBody.Part
+    ): Flow<Result<Unit>> = flow {
+        val response = taveAPIService.updateProfileImage(accessToken, profileImage)
+
+        if (response.isSuccessful) {
+            emit(Result.success(Unit))
+        } else {
+            throw HttpException(response)
+        }
     }.catch { exception ->
         when (exception) {
             is IOException -> emit(Result.failure(exception))

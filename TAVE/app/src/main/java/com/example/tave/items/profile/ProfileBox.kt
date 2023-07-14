@@ -1,11 +1,13 @@
 package com.example.tave.items.profile
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
@@ -17,26 +19,31 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.tave.R
+import com.example.tave.common.Constants
 import com.example.tave.common.util.standardQuadFromTo
-import com.example.tave.items.glide.GlideImageView
+import com.example.tave.items.glide.ShimmerEffectItem
 import com.example.tave.ui.font.NotoSansKr
 import com.example.tave.ui.theme.DarkBlue
 import com.example.tave.ui.theme.MidBlue
 import com.example.tave.ui.theme.ProfileCustomShape
 import com.example.tave.ui.theme.ProfileImageCustomShape
 import com.example.tave.ui.theme.SeaBlue
+import com.example.tave.ui.theme.Shape
+import com.skydoves.landscapist.glide.GlideImage
 
 @Composable
 fun ProfileBox(
     modifier: Modifier,
     userName: String?,
-    userProfileImage: String
+    userProfileImage: String,
 ) {
     BoxWithConstraints(
         modifier = modifier
@@ -100,12 +107,38 @@ fun ProfileBox(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                GlideImageView(
-                    modifier = Modifier
+                GlideImage(
+                    imageModel = { userProfileImage } ,
+                    modifier = modifier
                         .size(140.dp)
                         .clip(ProfileImageCustomShape.extraLarge),
-                    imageUrl = userProfileImage,
-                    painterResource = R.drawable.profile_default
+                    loading = {
+                        ShimmerEffectItem(
+                            isLoading = true,
+                            contentLoading = {  },
+                            contentAfterLoading = { },
+                            modifier = modifier
+                        )
+                    },
+                    success = { imageState, _ ->
+                        imageState.imageBitmap?.let { image ->
+                            Image(
+                                bitmap = image,
+                                contentScale = ContentScale.Crop,
+                                contentDescription = Constants.IMAGE_LOAD_SUCCESS_CONTENT_DESC
+                            )
+                        }
+                    },
+                    failure = {
+                        Image(
+                            modifier = modifier
+                                .fillMaxSize()
+                                .clip(Shape.large),
+                            painter = painterResource(id = R.drawable.profile_default),
+                            contentScale = ContentScale.Crop,
+                            contentDescription = Constants.IMAGE_LOAD_FAILED_CONTENT_DESC
+                        )
+                    }
                 )
                 Spacer(modifier = Modifier.size(30.dp))
                 Text(

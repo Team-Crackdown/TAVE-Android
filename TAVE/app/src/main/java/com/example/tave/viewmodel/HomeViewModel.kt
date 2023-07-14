@@ -2,6 +2,7 @@ package com.example.tave.viewmodel
 
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -58,7 +59,12 @@ class HomeViewModel @Inject constructor(
     private val accessToken: String =
         TaveApplication.authPrefs.getTokenValue(Constants.ACCESS_TOKEN_TITLE, "")
     private val dateFormat = SimpleDateFormat(Constants.SCHEDULE_DATE_TIME_FORMAT, Locale.KOREAN)
-    private val todayDate: Date = Calendar.getInstance().time
+    private val todayDate: Long = Calendar.getInstance().apply {
+        set(Calendar.HOUR_OF_DAY, 0)
+        set(Calendar.MINUTE, 0)
+        set(Calendar.SECOND, 0)
+        set(Calendar.MILLISECOND, 0)
+    }.time.time
 
     init {
         getUserProfile()
@@ -109,6 +115,8 @@ class HomeViewModel @Inject constructor(
                 val scheduleDate: Date = dateFormat.parse(recentSchedule.date)
                 val remainDate: Int = calculateDDay(scheduleDate.time)
 
+                Log.d("로그", "$recentSchedule + $remainDate")
+
                 when {
                     remainDate > 0 -> {
                         _scheduleTitle.postValue(recentSchedule.title)
@@ -124,7 +132,7 @@ class HomeViewModel @Inject constructor(
     }
 
     private fun calculateDDay(scheduleDate: Long): Int =
-        (((scheduleDate - todayDate.time) / (60 * 60 * 24 * 1000))).toInt()
+        (((scheduleDate - todayDate) / (60 * 60 * 24 * 1000))).toInt()
 
     override fun onCleared() {
         super.onCleared()

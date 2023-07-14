@@ -17,7 +17,6 @@ import androidx.navigation.NavController
 import com.example.tave.NoticePage
 import com.example.tave.ProfilePage
 import com.example.tave.R
-import com.example.tave.common.Constants
 import com.example.tave.items.home.*
 import com.example.tave.ui.theme.CustomShape
 import com.example.tave.viewmodel.HomeViewModel
@@ -28,6 +27,10 @@ fun HomePage(
     navController: NavController,
     homeViewModel: HomeViewModel = hiltViewModel()
 ) {
+    homeViewModel.getPersonalScore()
+    homeViewModel.getTeamScore()
+    homeViewModel.getScheduleAll()
+
     val homeProfile = homeViewModel.userProfile.observeAsState()
     val personalScore = homeViewModel.personalScore.observeAsState()
     val teamScore = homeViewModel.teamScore.observeAsState()
@@ -90,8 +93,6 @@ fun HomeMenu(
 ) {
     val showDialog = remember { mutableStateOf(false) }
     if (showDialog.value) { CheckQrcode(onDismiss = { showDialog.value = false }) }
-    val schedule = scheduleTitle?:Constants.IS_SCHEDULE_EMPTY_TITLE
-    val dDay = scheduledDay?:Constants.IS_SCHEDULE_EMPTY_DAY
 
     Column {
         Row {
@@ -168,8 +169,8 @@ fun HomeMenu(
             textColor = MaterialTheme.colorScheme.onSecondaryContainer,
             shapes = CustomShape.extraLarge,
             description = stringResource(id = R.string.schedule),
-            textTitle = schedule,
-            textContent = "D-$dDay"
+            textTitle = "$scheduleTitle",
+            textContent = "D-$scheduledDay"
         )
     }
     Spacer(modifier = modifier.height(20.dp))

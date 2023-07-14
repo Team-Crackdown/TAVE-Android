@@ -62,9 +62,6 @@ class HomeViewModel @Inject constructor(
 
     init {
         getUserProfile()
-        getPersonalScore()
-        getTeamScore()
-        getScheduleAll()
         sseEventSource().request()
     }
 
@@ -82,7 +79,7 @@ class HomeViewModel @Inject constructor(
         getUserProfileUseCase(accessToken).collect { _userProfile.postValue(it) }
     }
 
-    private fun getPersonalScore(): Job = viewModelScope.launch(ioDispatcher) {
+    fun getPersonalScore(): Job = viewModelScope.launch(ioDispatcher) {
         val userUID: Int? = withContext(defaultDispatcher) {
             taveAPIService.getProfileInfo(accessToken).body()?.id
         }
@@ -92,7 +89,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getTeamScore(): Job = viewModelScope.launch(ioDispatcher) {
+    fun getTeamScore(): Job = viewModelScope.launch(ioDispatcher) {
         val teamID: Int? = withContext(defaultDispatcher) {
             taveAPIService.getProfileInfo(accessToken).body()?.teamId
         }
@@ -102,7 +99,7 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun getScheduleAll(): Job = viewModelScope.launch(ioDispatcher) {
+    fun getScheduleAll(): Job = viewModelScope.launch(ioDispatcher) {
         getScheduleAllUseCase(accessToken).collect { item ->
             if (item.isEmpty()) {
                 _scheduleTitle.postValue(Constants.IS_SCHEDULE_EMPTY_TITLE)

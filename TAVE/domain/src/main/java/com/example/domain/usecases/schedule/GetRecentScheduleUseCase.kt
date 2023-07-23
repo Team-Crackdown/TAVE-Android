@@ -32,4 +32,3 @@ class GetRecentScheduleUseCase @Inject constructor(
         return ((scheduleTime.time - todayDate)/(24*60*60/1000)) < 0
     }
 }
-

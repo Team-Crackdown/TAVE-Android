@@ -1,7 +1,8 @@
-# TAVE Android Application
+<div align="center">
+
 ![cover](https://github.com/Team-Crackdown/.github-private/assets/74421057/f903ba3a-b1c3-423e-a196-2f3f293111d5)
 
-### 🙌Contributors
+### 🙌 Contributors
 <table>
   <tbody>
     <tr>
@@ -37,7 +38,8 @@
   </tbody>
 </table>
 
-## 로그인/SMS/OTP/초기비번설정
+
+### 로그인/SMS/OTP/초기비번설정
 <table>
   <tr>
     <td><img src="/images/image.png" width="300" height="400" /></td>
@@ -47,7 +49,7 @@
   <tr>
 </table>
 
-## 출석/QR출석
+### 출석/QR출석
 <table>
   <tr>
     <td><img src="/images/image-4.png" width="200" height="400" /></td>
@@ -55,7 +57,7 @@
   <tr>
 </table>
 
-## 프로필
+### 프로필
 <table>
   <tr>
     <td><img src="/images/image-4.png" width="200" height="400" /></td>
@@ -63,7 +65,7 @@
   <tr>
 </table>
 
-## 공지사항
+### 공지사항
 <table>
   <tr>
     <td><img src="/images/image-4.png" width="200" height="400" /></td>
@@ -72,15 +74,15 @@
   <tr>
 </table>
 
-## :question::exclamation: 주요 Issues :question::exclamation:
+</div>
+
+## :question::exclamation: Project Issues :question::exclamation:
 :heavy_check_mark: [프로필 수정 페이지 기능 수정 및 삭제 고려](https://github.com/Team-Crackdown/TAVE-Android/issues/10)
 </br>:heavy_check_mark: [사용자 프로필의 디자인 구현 문제](https://github.com/Team-Crackdown/TAVE-Android/issues/3)
 </br>:heavy_check_mark: [Application 글꼴(FontFamily) 변경 ROBOTO -> Noto Sans KR 제안](https://github.com/Team-Crackdown/TAVE-Android/issues/5)
 </br>:heavy_check_mark: [NoticePage의 가독성 문제 및 디자인 개선 요청](https://github.com/Team-Crackdown/TAVE-Android/issues/7)
 </br>
 </br>
-
-
 
 ## :fire: 프로젝트 주요 관심사
 :heavy_check_mark: 백앤드와 긴밀한 협업을 통해 앱의 성능 개선을 하도록 노력하고 있습니다.
@@ -89,40 +91,6 @@
 </br>:heavy_check_mark: 꾸준한 코드 리팩토링을 진행중입니다.
 </br>:heavy_check_mark: 프로젝트가 오래 지속될 수 있도록 기술적 지속성을 고려하고 있습니다.
 </br>:heavy_check_mark: 협업에 용이하도록 GitHub ISSUE 등록을 잘 활용하려고 노력하고 있습니다. 
-
-## 의존성
-```
-  // AndroidX Lifecycle, LiveData, ViewModel
-  implementation "androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1"
-  implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
-
-  // Project Dependency
-  implementation project(path: ':data')
-  implementation project(path: ':domain')
-
-  // Android Material
-  implementation 'com.google.android.material:material:1.9.0'
-
-  // Jetpack Compose Navigation
-  implementation("androidx.navigation:navigation-compose:$nav_version")
-
-  // Dagger-Hilt DI(Dependency Injection) Tool - kapt
-  implementation "com.google.dagger:hilt-android:2.44.2"
-  kapt "com.google.dagger:hilt-android-compiler:2.44.2"
-  implementation 'androidx.hilt:hilt-navigation-compose:1.0.0'
-
-  // LandScapist-Glide
-  implementation "com.github.skydoves:landscapist-glide:2.2.2"
-
-  // Zxing
-  implementation 'com.google.zxing:core:3.3.0'
-
-  // SSE
-  implementation "com.squareup.okhttp3:okhttp-sse:4.11.0"
-
-  // Retrofit2
-  implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-```
 
 ## 참조
 ```

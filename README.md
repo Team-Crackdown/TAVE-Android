@@ -3,12 +3,15 @@
 ![cover](https://github.com/Team-Crackdown/.github-private/assets/74421057/f903ba3a-b1c3-423e-a196-2f3f293111d5)
 
 <img src="https://img.shields.io/badge/Android_sdk_version-31%2B-3DDC84?style=flat&logo=android&logoColor=white"/>
+<img src="https://img.shields.io/badge/Gradle_version-7.4.2-02303A?style=flat&logo=gradle&logoColor=white"/>
+<br>
 <img src="https://img.shields.io/badge/Kotlin_version-1.8.10-7F52FF?style=flat&logo=Kotlin&logoColor=white"/>
 <img src="https://img.shields.io/badge/Kotlin-Flow_API-7F52FF?style=flat&logo=Kotlin&logoColor=white"/>
-<img src="https://img.shields.io/badge/Annotation_Processor-Kotlitn__KAPT-7F52FF?style=flat"/>
+<img src="https://img.shields.io/badge/Annotation_Processor-Kotlitn_KAPT-7F52FF?style=flat"/>
 <br>
-<img src="https://img.shields.io/badge/Jetpack_Compose_version-1.4.3-4285F4?style=flat&logo=jetpackcompose&logoColor=white"/>
 <img src="https://img.shields.io/badge/Dagger--Hilt_version-2.4.22-3DDC84?style=flat"/>
+<img src="https://img.shields.io/badge/Jetpack_Compose_version-1.4.3-4285F4?style=flat&logo=jetpackcompose&logoColor=white"/>
+
 
 ### Project Contributors
 <table>

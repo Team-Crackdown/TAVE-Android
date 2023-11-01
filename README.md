@@ -10,7 +10,7 @@
 <img src="https://img.shields.io/badge/Jetpack_Compose_version-1.4.3-4285F4?style=flat&logo=jetpackcompose&logoColor=white"/>
 <img src="https://img.shields.io/badge/Dagger--Hilt_version-2.4.22-3DDC84?style=flat"/>
 
-### 🙌 Contributors
+### Project Contributors
 <table>
   <tbody>
     <tr>

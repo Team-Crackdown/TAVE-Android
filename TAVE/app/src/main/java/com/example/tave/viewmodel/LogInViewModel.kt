@@ -29,11 +29,6 @@ class LogInViewModel @Inject constructor(
     private val _logInState = MutableStateFlow<LogInUserState>(LogInUserState.Idle)
     val logInState: StateFlow<LogInUserState> = _logInState.asStateFlow()
 
-    val isExistToken: Boolean =
-        TaveApplication.authPrefs
-            .getTokenValue(Constants.ACCESS_TOKEN_TITLE, "")
-            .isNotEmpty()
-
     fun userLogInAccount(
         userEmail: String,
         userPassword: String

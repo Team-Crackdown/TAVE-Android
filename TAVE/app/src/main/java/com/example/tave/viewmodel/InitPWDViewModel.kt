@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class InitPasswordViewModel @Inject constructor(
+class InitPWDViewModel @Inject constructor(
     private val updateMemberPasswordUseCase: ModifyPasswordUseCase,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ): ViewModel() {
@@ -30,7 +30,7 @@ class InitPasswordViewModel @Inject constructor(
     private val accessToken: String =
         TaveApplication.authPrefs.getTokenValue(Constants.ACCESS_TOKEN_TITLE, "")
 
-    fun validatePassword(
+    fun validatePWD(
         password: String,
         confirmPassword: String
     ) {

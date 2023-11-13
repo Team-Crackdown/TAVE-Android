@@ -15,31 +15,29 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.tave.R
 import com.example.tave.common.util.state.LogInUserState.*
 import com.example.tave.items.login.LoginBtn
 import com.example.tave.items.login.LoginIntro
 import com.example.tave.ui.theme.Shape
-import com.example.tave.viewmodel.LogInViewModel
 import com.example.tave.HomePage
 import com.example.tave.SendSMSCodePage
+import com.example.tave.common.util.state.LogInUserState
 
 @Composable
 fun LoginPage(
-    modifier: Modifier,
     navController: NavController,
-    logInViewModel: LogInViewModel = hiltViewModel()
+    loginState: LogInUserState,
+    onLogIn: (String, String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var userEmail by remember { mutableStateOf("") }
     var userPassword by remember { mutableStateOf("") }
     val localContext: Context = LocalContext.current
-    val loginState by logInViewModel.logInState.collectAsState()
-
-    if (logInViewModel.isExistToken)
-        LaunchedEffect(Unit) { navController.navigate(route = HomePage.route) }
 
     Surface(modifier = modifier.fillMaxSize()) {
         Column(
@@ -84,7 +82,7 @@ fun LoginPage(
                 Spacer(modifier = modifier.height(50.dp))
 
                 when (loginState) {
-                    is Idle -> LoginBtn { logInViewModel.userLogInAccount(userEmail, userPassword) }
+                    is Idle -> LoginBtn(onClicked = { onLogIn(userEmail, userPassword) })
                     is IsLoading -> CircularProgressIndicator()
                     is IsSuccess -> LaunchedEffect(Unit) {
                         navController.navigate(HomePage.route)
@@ -100,10 +98,20 @@ fun LoginPage(
                                 Toast.LENGTH_SHORT
                             ).show()
                         }
-                        LoginBtn { logInViewModel.userLogInAccount(userEmail, userPassword) }
+                        LoginBtn(onClicked = { onLogIn(userEmail, userPassword) })
                     }
                 }
             }
         )
     }
+}
+
+@Preview
+@Composable
+fun Preview() {
+    LoginPage(
+        navController = rememberNavController(),
+        loginState = Idle,
+        onLogIn = { _, _ ->}
+    )
 }

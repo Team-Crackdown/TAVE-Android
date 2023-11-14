@@ -3,7 +3,7 @@ package com.example.tave
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -17,9 +17,13 @@ import com.example.tave.pages.NoticePage
 import com.example.tave.pages.OTPCodePage
 import com.example.tave.pages.ProfilePage
 import com.example.tave.pages.SendSMSCodePage
+import com.example.tave.viewmodel.HomeViewModel
 import com.example.tave.viewmodel.InitPWDViewModel
 import com.example.tave.viewmodel.InputOTPViewModel
 import com.example.tave.viewmodel.LogInViewModel
+import com.example.tave.viewmodel.NoticeDetailViewModel
+import com.example.tave.viewmodel.NoticeViewModel
+import com.example.tave.viewmodel.ProfileViewModel
 import com.example.tave.viewmodel.SendSMSViewModel
 
 @Composable
@@ -84,14 +88,38 @@ fun TaveNavHost(navController: NavHostController) {
             )
         }
         composable(route = HomePage.route) {
-            HomePage(modifier = Modifier, navController =  navController)
+            val homeViewModel = hiltViewModel<HomeViewModel>()
+            val userProfile by homeViewModel.userProfile.observeAsState()
+            val personalScore by homeViewModel.personalScore.observeAsState()
+            val teamScore by homeViewModel.teamScore.observeAsState()
+            val scheduleTitle by homeViewModel.scheduleTitle.observeAsState()
+            val scheduleRemainDay by homeViewModel.scheduleRemainDay.observeAsState()
+
+            HomePage(
+                navController =  navController,
+                userProfile = userProfile,
+                personalScore = personalScore,
+                teamScore = teamScore,
+                scheduleTitle = scheduleTitle,
+                scheduleRemainDay = scheduleRemainDay,
+                getPersonalScore = homeViewModel::getPersonalScore,
+                getTeamScore = homeViewModel::getTeamScore
+            )
         }
         composable(route = ProfilePage.route) {
-            ProfilePage(modifier = Modifier)
+            val profileViewModel = hiltViewModel<ProfileViewModel>()
+            val userProfile by profileViewModel.userProfile.observeAsState()
+
+            ProfilePage(userProfile = userProfile)
         }
         composable(route = NoticePage.route) {
+            val noticeViewModel = hiltViewModel<NoticeViewModel>()
+            val noticeMainCard by noticeViewModel.noticeMainData.observeAsState()
+            val noticeNewsList by noticeViewModel.noticeSubDate.observeAsState()
+
             NoticePage(
-                modifier = Modifier,
+                noticeMainCard = noticeMainCard,
+                noticeNewsList = noticeNewsList,
                 onMainItemClick = { noticeID -> navController.navigateToNoticeDetail(noticeID) },
                 onSubItemClick = { noticeID -> navController.navigateToNoticeDetail(noticeID) }
             )
@@ -101,7 +129,14 @@ fun TaveNavHost(navController: NavHostController) {
             arguments = NoticeDetailPage.arguments
         ) { navBackStackEntry ->
             val noticeID = navBackStackEntry.arguments?.getInt(NoticeDetailPage.noticeID)
-            NoticeDetailPage(modifier = Modifier, noticeID = noticeID)
+            val noticeDetailViewModel = hiltViewModel<NoticeDetailViewModel>()
+            val noticeDetailInfo by noticeDetailViewModel.noticeData.observeAsState()
+
+            NoticeDetailPage(
+                noticeID = noticeID,
+                noticeDetailInfo = noticeDetailInfo,
+                getNoticeDetail = noticeDetailViewModel::getNoticeDetail
+            )
         }
     }
 }

@@ -13,24 +13,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.tave.common.util.state.InitPasswordState.*
 import com.example.tave.items.initpassword.InitPasswordBtn
 import com.example.tave.items.initpassword.InitPasswordLogo
 import com.example.tave.ui.theme.Shape
-import com.example.tave.viewmodel.InitPasswordViewModel
 import com.example.tave.HomePage
 import com.example.tave.R
+import com.example.tave.common.util.state.InitPasswordState
 
 @Composable
 fun InitPasswordPage(
-    modifier: Modifier,
     navController: NavController,
-    initPWViewModel: InitPasswordViewModel = hiltViewModel()
+    isPWDChanged: InitPasswordState,
+    validatePWD: (String, String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val localContext: Context = LocalContext.current
-    val isPasswordChange by initPWViewModel.isPasswordChanged.collectAsState()
 
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -68,8 +67,8 @@ fun InitPasswordPage(
             )
             Spacer(modifier = modifier.height(70.dp))
 
-            when (isPasswordChange) {
-                is Idle -> InitPasswordBtn { initPWViewModel.validatePassword(password, confirmPassword) }
+            when (isPWDChanged) {
+                is Idle -> InitPasswordBtn { validatePWD(password, confirmPassword) }
                 is IsLoading -> CircularProgressIndicator()
                 is IsComplete -> LaunchedEffect(Unit) { navController.navigate(HomePage.route) }
                 is IsFailed -> {
@@ -80,7 +79,7 @@ fun InitPasswordPage(
                             Toast.LENGTH_SHORT
                         ).show()
                     }
-                    InitPasswordBtn { initPWViewModel.validatePassword(password, confirmPassword) }
+                    InitPasswordBtn { validatePWD(password, confirmPassword) }
                 }
             }
         }

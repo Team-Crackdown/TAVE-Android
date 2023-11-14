@@ -20,7 +20,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,26 +29,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.tave.InitPasswordPage
 import com.example.tave.R
+import com.example.tave.common.util.state.CheckOTPCodeState
 import com.example.tave.common.util.state.CheckOTPCodeState.*
 import com.example.tave.items.otp.OTPCodeInput
 import com.example.tave.items.otp.OtpLogo
 import com.example.tave.ui.theme.Shape
-import com.example.tave.viewmodel.InputOTPViewModel
 
 @Composable
 fun OTPCodePage(
-    modifier: Modifier,
     phoneNumber: String?,
     navController: NavController,
-    inputOTPViewModel: InputOTPViewModel = hiltViewModel()
+    isOTPChecked: CheckOTPCodeState,
+    checkOTPCode: (String, String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     val localContext: Context = LocalContext.current
-    val isOTPChecked by inputOTPViewModel.isOTPCodeChecked.collectAsState()
-
     var otpCode by remember { mutableStateOf("") }
 
     Surface(
@@ -92,9 +89,7 @@ fun OTPCodePage(
                                 is Idle -> {
                                     OTPCodeInput(
                                         modifier = modifier,
-                                        checkOTPCode = {
-                                            inputOTPViewModel.checkOTPCode("$phoneNumber", otpCode)
-                                        }
+                                        checkOTPCode = { checkOTPCode("$phoneNumber", otpCode) }
                                     )
                                 }
                                 is IsLoading -> CircularProgressIndicator()
@@ -111,9 +106,7 @@ fun OTPCodePage(
                                     }
                                     OTPCodeInput(
                                         modifier = modifier,
-                                        checkOTPCode = {
-                                            inputOTPViewModel.checkOTPCode("$phoneNumber", otpCode)
-                                        }
+                                        checkOTPCode = { checkOTPCode("$phoneNumber", otpCode) }
                                     )
                                 }
                             }

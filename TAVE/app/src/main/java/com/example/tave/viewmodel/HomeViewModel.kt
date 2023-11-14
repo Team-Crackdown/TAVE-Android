@@ -2,13 +2,13 @@ package com.example.tave.viewmodel
 
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.api.TaveAPIService
 import com.example.domain.entity.profile.UserProfileEntity
-import com.example.domain.entity.schedule.ScheduleEntity
 import com.example.domain.usecases.profile.GetUserProfileUseCase
 import com.example.domain.usecases.schedule.GetRecentScheduleUseCase
 import com.example.domain.usecases.score.GetPersonalScoreUseCase
@@ -30,14 +30,12 @@ import okhttp3.sse.EventSourceListener
 import java.util.Date
 import java.util.Locale
 import javax.inject.Inject
-
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val taveAPIService: TaveAPIService,
     private val getUserProfileUseCase: GetUserProfileUseCase,
     private val getPersonalScoreUseCase: GetPersonalScoreUseCase,
     private val getTeamScoreUseCase: GetTeamScoreUseCase,
-    private val getScheduleAllUseCase: GetRecentScheduleUseCase,
     private val sseEventListener: EventSource.Factory,
     private val sseEventSourceListener: EventSourceListener,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
@@ -58,15 +56,16 @@ class HomeViewModel @Inject constructor(
     private val accessToken: String =
         TaveApplication.authPrefs.getTokenValue(Constants.ACCESS_TOKEN_TITLE, "")
     private val dateFormat = SimpleDateFormat(Constants.SCHEDULE_DATE_TIME_FORMAT, Locale.KOREAN)
-    private val todayDate: Long = Calendar.getInstance().apply {
+    private val todayDate: Date = Calendar.getInstance().apply {
         set(Calendar.HOUR_OF_DAY, 0)
         set(Calendar.MINUTE, 0)
         set(Calendar.SECOND, 0)
         set(Calendar.MILLISECOND, 0)
-    }.time.time
+    }.time
 
     init {
         getUserProfile()
+        getScheduleAll()
         sseEventSource().request()
     }
 
@@ -104,13 +103,16 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getScheduleAll(): Job = viewModelScope.launch(ioDispatcher) {
-        getScheduleAllUseCase(accessToken).collect { item ->
-            if (item.isEmpty()) {
+    private fun getScheduleAll(): Job = viewModelScope.launch(ioDispatcher) {
+        val response = taveAPIService.getScheduleAll(accessToken)
+        if (response.isSuccessful) {
+            val responseBody = response.body()?: listOf()
+
+            if (responseBody.isEmpty()) {
                 _scheduleTitle.postValue(Constants.IS_SCHEDULE_EMPTY_TITLE)
                 _scheduleRemainDay.postValue(Constants.IS_SCHEDULE_EMPTY_DAY)
             } else {
-                val recentSchedule: ScheduleEntity = item.first()
+                val recentSchedule = responseBody.sortedBy { item -> dateFormat.parse(item.date).time }.first()
                 val scheduleDate: Date = dateFormat.parse(recentSchedule.date)
                 val remainDate: Int = calculateDDay(scheduleDate.time)
 
@@ -128,8 +130,12 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    private fun calculateDDay(scheduleDate: Long): Int =
-        (((scheduleDate - todayDate) / (60 * 60 * 24 * 1000))).toInt()
+    private fun calculateDDay(scheduleDate: Long): Int {
+        Log.d("로그", "${((scheduleDate - todayDate.time) / (60 * 60 * 24 * 1000))}")
+        val result = (scheduleDate - todayDate.time) / (60 * 60 * 24 * 1000)
+        return result.toInt()
+    }
+
 
     override fun onCleared() {
         super.onCleared()

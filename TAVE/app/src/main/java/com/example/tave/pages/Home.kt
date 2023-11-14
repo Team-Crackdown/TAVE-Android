@@ -3,7 +3,7 @@ package com.example.tave.pages
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -12,46 +12,49 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.domain.entity.profile.UserProfileEntity
 import com.example.tave.NoticePage
 import com.example.tave.ProfilePage
 import com.example.tave.R
 import com.example.tave.items.home.*
 import com.example.tave.ui.theme.CustomShape
-import com.example.tave.viewmodel.HomeViewModel
 
 @Composable
 fun HomePage(
-    modifier: Modifier,
     navController: NavController,
-    homeViewModel: HomeViewModel = hiltViewModel()
+    userProfile: UserProfileEntity?,
+    personalScore: Int?,
+    teamScore: Int?,
+    scheduleTitle: String?,
+    scheduleRemainDay: String?,
+    getPersonalScore: () -> Unit,
+    getTeamScore: () -> Unit,
+    modifier: Modifier = Modifier,
 ) {
-    homeViewModel.getPersonalScore()
-    homeViewModel.getTeamScore()
-    homeViewModel.getScheduleAll()
-
-    val homeProfile = homeViewModel.userProfile.observeAsState()
-    val personalScore = homeViewModel.personalScore.observeAsState()
-    val teamScore = homeViewModel.teamScore.observeAsState()
-    val scheduleTitle = homeViewModel.scheduleTitle.observeAsState()
-    val scheduledDay = homeViewModel.scheduleRemainDay.observeAsState()
+    LaunchedEffect(
+        key1 = Unit,
+        block = {
+            getPersonalScore()
+            getTeamScore()
+        }
+    )
 
     Column(
         modifier = modifier.padding(start = 24.dp, top = 24.dp, bottom = 24.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.Start
     ) {
-        TopTitle(modifier = modifier, name = homeViewModel.userProfile.value?.userName.toString())
+        TopTitle(modifier = modifier, name = userProfile?.userName.toString())
         Row {
             UserBadge(
-                text = "${homeProfile.value?.userRadix}기",
+                text = "${userProfile?.userRadix}기",
                 textColor = MaterialTheme.colorScheme.onPrimary,
                 backgroundColor = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = modifier.width(10.dp))
             UserBadge(
-                text = homeProfile.value?.userType.toString(),
+                text = userProfile?.userType.toString(),
                 textColor = MaterialTheme.colorScheme.onSecondary,
                 backgroundColor = MaterialTheme.colorScheme.secondary
             )
@@ -60,10 +63,10 @@ fun HomePage(
         HomeMenu(
             modifier = modifier,
             navController= navController,
-            personalScore = personalScore.value,
-            teamScore = teamScore.value,
-            scheduleTitle = scheduleTitle.value,
-            scheduledDay = scheduledDay.value
+            personalScore = personalScore,
+            teamScore = teamScore,
+            scheduleTitle = scheduleTitle,
+            scheduledDay = scheduleRemainDay
         )
     }
 }
